@@ -1,12 +1,13 @@
-# Changelog
- - ...
+# Web Vulnerability Assessment Tool
 
-# Authors
- - Angelo Teixeira
- - Bruno Sousa
- - Claudio Lemos
- - João Lemos
- - João Maduro
- - Miguel Carvalho
- - Rui Alves
- - Tiago Ribeiro
+## Team
+- Ângelo Teixeira - up201606516@fe.up.pt, **Surrogate Product Owner (SPO)**
+- Bruno Sousa - up201604145@fe.up.pt
+- Claudio Lemos - up201603542@fe.up.pt
+- João Lemos - up201000660@fe.up.pt
+- João Maduro - up201605219@fe.up.pt
+- Miguel Carvalho - up201605757@fe.up.pt
+- Rui Alves - rui.pedro.alves@fe.up.pt, **Team Leader (TL)**
+- Tiago Ribeiro - up201605619@fe.up.pt
+
+## Product Owners
