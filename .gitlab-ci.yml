@@ -1,0 +1,17 @@
+image: node:10
+
+before_script:
+  - node --version
+  - npm install
+
+test:
+  script:
+    - npm test
+
+audit:
+  script:
+    - npm audit
+    
+lint:
+  script:
+    - node_modules/eslint/bin/eslint.js .
