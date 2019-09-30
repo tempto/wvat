@@ -14,3 +14,6 @@
 - João Pedro Dias, jpmdias@fe.up.pt
 - Pedro Sousa, pedrodanielsousa1@gmail.com
 - Luís Catarino, luiscatarino@adamantsec.com
+
+## Hapiness Meter
+[Link to Spreadsheet](https://docs.google.com/spreadsheets/d/1f-j3I1IS-ggwGQmMnuANsPem4z-6J0BrLMBvI6Y8bHI/edit?ts=5d8a3d9d#gid=0)
