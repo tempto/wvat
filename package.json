@@ -1,0 +1,50 @@
+{
+  "name": "wvat",
+  "description": "Web Vulnerability Assessment Tool",
+  "version": "0.0.0",
+  "author": "LDSO-FEUP-T2G1-2019",
+  "bin": {
+    "wvat": "./bin/run"
+  },
+  "bugs": "https://github.com/feup-tbs/wvat/issues",
+  "dependencies": {
+    "@oclif/command": "^1.5.19",
+    "@oclif/config": "^1.13.3",
+    "@oclif/plugin-help": "^2.2.1"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.22.2",
+    "eslint": "^5.16.0",
+    "eslint-config-oclif": "^3.1.0",
+    "globby": "^10.0.1"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "/src"
+  ],
+  "homepage": "https://gitlab.com/feup-tbs/ldso1920/t2g1",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "oclif": {
+    "commands": "./src/commands",
+    "bin": "wvat",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "posttest": "eslint .",
+    "prepack": "oclif-dev manifest && oclif-dev readme",
+    "test": "echo NO TESTS YET",
+    "version": "oclif-dev readme && git add README.md"
+  }
+}
