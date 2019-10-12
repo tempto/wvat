@@ -10,6 +10,10 @@ class Config {
         };
     }
 
+    resetFlags() {
+        this.flags = {};
+    }
+
 }
 
 module.exports = new Config();
