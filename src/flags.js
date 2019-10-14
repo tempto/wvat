@@ -8,3 +8,13 @@ const Flags = Object.freeze({
 });
 
 module.exports = Flags;
+
+const {flags} = require('@oclif/command')
+
+const verbose = flags.boolean({
+  char: 'v',
+  description: 'Verbose Mode (outputs all messages to screen)',
+  default: false
+})
+
+module.exports.verbose = verbose
