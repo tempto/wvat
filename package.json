@@ -12,7 +12,8 @@
     "@oclif/command": "^1.5.19",
     "@oclif/config": "^1.13.3",
     "@oclif/plugin-help": "^2.2.1",
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "axios": "^0.19.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",
