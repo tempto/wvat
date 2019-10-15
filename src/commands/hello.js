@@ -10,7 +10,6 @@ class HelloCommand extends Command {
 
         // Set flags to Config, so that they can be accessed from other modules
         Config.addFlags(flags);
-        console.log("these are the config flags:", Config.flags);
     }
 }
 
