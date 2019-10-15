@@ -15,7 +15,7 @@ class HelloCommand extends Command {
 
     console.log("these are the config flags:", Config.flags)
 
-    Log.log.warn("This is a warning only showing in verbose mode!")
+    Log.warn("This is a warning only showing in verbose mode!")
   }
 }
 
