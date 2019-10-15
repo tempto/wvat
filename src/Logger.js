@@ -5,7 +5,7 @@ class Logger{
     this.log = log4js.getLogger()
 
     //Verbose flag logic (sets the lof level accordingly)
-    if(flags.verbose){
+    if(flags.VERBOSE){
       this.log.level=level;
     }else{
       this.log.level='error';

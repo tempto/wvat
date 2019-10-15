@@ -1,6 +1,6 @@
 const {Command, flags} = require('@oclif/command')
 //Import verbose flag from flags file
-const verbose = require('../flags.js').verbose
+const Flags = require('../flags.js')
 //Import common initialization command from file
 const initCommand = require('../initCommand');
 
@@ -24,8 +24,10 @@ HelloCommand.description = `Describe the command here
 Extra documentation goes here
 `
 
-HelloCommand.flags = {
-  name: flags.string({char: 'n', description: 'name to print'}),
-}
+//Load command with common flags
+HelloCommand.flags = Flags;
+
+//Add an unique flag to the command
+HelloCommand.flags.NAME=flags.string({char: 'n', description: 'Name to print'});
 
 module.exports = HelloCommand
