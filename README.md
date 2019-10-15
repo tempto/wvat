@@ -26,6 +26,7 @@ wvat
 Web Vulnerability Assessment Tool
 
 <!-- toc -->
+* [T2G1 - Web Vulnerability Assessment Tool](#t2g1---web-vulnerability-assessment-tool)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
@@ -65,7 +66,7 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/hello.js](https://github.com/feup-tbs/wvat/blob/v0.0.0/src/commands/hello.js)_
+_See code: [src/commands/hello.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/hello.js)_
 
 ## `wvat help [COMMAND]`
 
@@ -97,5 +98,5 @@ OPTIONS
   -t, --test2=test2  test flag 2
 ```
 
-_See code: [src/commands/test.js](https://github.com/feup-tbs/wvat/blob/v0.0.0/src/commands/test.js)_
+_See code: [src/commands/test.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/test.js)_
 <!-- commandsstop -->

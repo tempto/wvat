@@ -3,6 +3,7 @@
   "description": "Web Vulnerability Assessment Tool",
   "version": "0.0.0",
   "author": "LDSO-FEUP-T2G1-2019",
+  "repository": "https://gitlab.com/feup-tbs/ldso1920/t2g1",
   "bin": {
     "wvat": "./bin/run"
   },
@@ -41,7 +42,8 @@
     "bin": "wvat",
     "plugins": [
       "@oclif/plugin-help"
-    ]
+    ],
+    "repositoryPrefix": "https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/<%- commandPath %>"
   },
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",

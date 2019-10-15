@@ -2,10 +2,6 @@ image: node:10
 
 stages:
  - build
-<<<<<<< HEAD
-=======
- - lint
->>>>>>> Expanded CI jobs and added stages
  - test
  - deploy
 
@@ -15,7 +11,6 @@ before_script:
 
 audit:
   stage: build
-<<<<<<< HEAD
   only:
     - merge_requests
   script: npm audit
@@ -30,38 +25,18 @@ test:
   stage: test
   only:
     - merge_requests
-=======
-  script: npm audit
-    
-lint:
-  stage: lint
-  script: node_modules/eslint/bin/eslint.js .
-
-test:
-  stage: test
->>>>>>> Expanded CI jobs and added stages
   script: npm test
 
 deploy_staging:
   stage: deploy
-<<<<<<< HEAD
   only:
     refs:
       - develop
-=======
-  only: 
-    - develop
->>>>>>> Expanded CI jobs and added stages
   script: echo "I am staging"
 
 deploy_production:
   stage: deploy
-<<<<<<< HEAD
   only:
     refs: 
       - master
-=======
-  only: 
-    - master
->>>>>>> Expanded CI jobs and added stages
   script: echo "I am production"
