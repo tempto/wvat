@@ -8,7 +8,9 @@ const initCommand = (flags) => {
         handleTimeout(() => process.exit(1), flags.timeout);
     }
 
-    return Config;
+    const Log = require('./Logger')(flags);
+    return [Config, Log];
+
 };
 
 module.exports = initCommand;
