@@ -1,15 +1,15 @@
 class Config {
     constructor() {
-        this.flags = {}
+        this.flags = {};
     }
 
     addFlags(flags) {
         this.flags = {
             ...this.flags,
-            ...flags
-        }
+            ...flags,
+        };
     }
 
 }
 
-module.exports = new Config()
+module.exports = new Config();
