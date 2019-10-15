@@ -1,17 +1,42 @@
 image: node:10
 
+stages:
+ - build
+ - test
+ - deploy
+
 before_script:
   - node --version
   - npm install
 
-test:
-  script:
-    - npm test
-
 audit:
-  script:
-    - npm audit
+  stage: build
+  only:
+    - merge_requests
+  script: npm audit
     
 lint:
-  script:
-    - node_modules/eslint/bin/eslint.js .
+  stage: build
+  only:
+    - merge_requests
+  script: npm run lint
+
+test:
+  stage: test
+  only:
+    - merge_requests
+  script: npm test
+
+deploy_staging:
+  stage: deploy
+  only:
+    refs:
+      - develop
+  script: echo "I am staging"
+
+deploy_production:
+  stage: deploy
+  only:
+    refs: 
+      - master
+  script: echo "I am production"
