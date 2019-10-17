@@ -30,6 +30,7 @@
     "eslint-plugin-jest": "^22.19.0",
     "fast-check": "^1.18.0",
     "jest": "^24.9.0"
+    "log4js": "^5.2.2"
   },
   "engines": {
     "node": ">=8.0.0"
