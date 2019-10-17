@@ -4,7 +4,7 @@ class Logger{
   constructor(flags,level = 'all') {
     this.log = log4js.getLogger()
 
-    //Verbose flag logic (sets the lof level accordingly)
+    //Verbose flag logic (sets the log level accordingly)
     if(flags.VERBOSE){
       this.log.level=level;
     }else{
@@ -27,4 +27,9 @@ module.exports = (flags,level='all') => {
   }
 
   return instance;
+}
+
+module.exports.delete = () =>{
+  instance = null;
+  return;
 }
