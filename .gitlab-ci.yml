@@ -38,7 +38,7 @@ deploy_staging:
     - apt-get install -y nsis 
     - ./build.sh unix
     - ./build.sh windows
-    - ./upload_dropbox.sh $DROPBOX_ACCESS_TOKEN ./dist/ dev/dist/
+    - ./upload_dropbox.sh $DROPBOX_ACCESS_TOKEN ./dist/ dev/
 
 deploy_production:
   stage: deploy
@@ -51,4 +51,4 @@ deploy_production:
     - apt-get install -y nsis 
     - ./build.sh unix
     - ./build.sh windows
-    - ./upload_dropbox.sh $DROPBOX_ACCESS_TOKEN ./dist/ prod/dist/
+    - ./upload_dropbox.sh $DROPBOX_ACCESS_TOKEN ./dist/ prod/
