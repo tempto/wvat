@@ -5,3 +5,6 @@
 /tmp
 /yarn.lock
 node_modules
+
+# Test coverage results
+/test/coverage
