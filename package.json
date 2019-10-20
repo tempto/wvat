@@ -53,6 +53,7 @@
     "version": "oclif-dev readme && git add README.md",
     "lint": "eslint . --max-warnings 0",
     "lint-fix": "npm run lint -- --fix",
-    "test": "jest"
+    "test": "jest",
+    "test-coverage": "jest --coverage"
   }
 }
