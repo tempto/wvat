@@ -32,11 +32,23 @@ deploy_staging:
   only:
     refs:
       - develop
-  script: echo "I am staging"
+  script:
+    - apt-get update
+    - apt-get install -y p7zip-full
+    - apt-get install -y nsis 
+    - ./build.sh unix
+    - ./build.sh windows
+    - ./upload_dropbox $DROPBOX_ACCESS_TOKEN ./dist/ dev/dist/
 
 deploy_production:
   stage: deploy
   only:
     refs: 
       - master
-  script: echo "I am production"
+  script: 
+    - apt-get update
+    - apt-get install -y p7zip-full
+    - apt-get install -y nsis 
+    - ./build.sh unix
+    - ./build.sh windows
+    - ./upload_dropbox $DROPBOX_ACCESS_TOKEN ./dist/ prod/dist/
