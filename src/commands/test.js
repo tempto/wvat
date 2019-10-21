@@ -1,14 +1,13 @@
 const { Command, flags } = require("@oclif/command");
+const Config = require("../Config");
 
 class TestCommand extends Command {
     run() {
         const { flags } = this.parse(TestCommand);
 
-        this.log("Command test ran with arguments:");
-        for (const flag in flags) {
-            const flagValue = flags[flag];
-            this.log(flag, "with value:", flagValue);
-        }
+        this.log("Command test ran with flags:");
+        Config.addFlags(flags);
+        this.log(Config.flags);
     }
 }
 
