@@ -18,6 +18,26 @@
 ## Hapiness Meter
 [Link to Spreadsheet](https://docs.google.com/spreadsheets/d/1f-j3I1IS-ggwGQmMnuANsPem4z-6J0BrLMBvI6Y8bHI/edit?ts=5d8a3d9d#gid=0)
 
+## Staging and Production Bundles
+
+When built, the bundle is uploaded to [Dropbox](https://www.dropbox.com/home/LDSO%20T2G1) using the `upload_dropbox.sh` script (available in the project's root folder). This folder is shared amongst the project's developers and Product owners.
+
+The `staging` bundle is being built and auto-deployed to dropbox's `dev` folder when commits are merged to the `develop` branch.
+
+The `production` bundle is being built and auto-deployed to dropbox's `prod` folder when commits are merged to the `master` branch.
+
+The built bundle features executables for multiple operating systems (Windows and Unix-based) and architectures (x64 and x86).
+
+### Running the Tool from the bundle
+
+#### Windows
+
+To run the tool, simply run the executable file. Executing it will display help on how to run the different available features.
+
+#### Unix-based systems 
+
+The bundle features an executable file (`wvat`) under the `bin` folder. Executing it will display help on how to run the different available features.
+
 ## WVAT
 
 wvat
