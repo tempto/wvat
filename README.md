@@ -1,6 +1,7 @@
 # T2G1 - Web Vulnerability Assessment Tool
 
 ## Team
+
 - Ângelo Teixeira - up201606516@fe.up.pt, **Surrogate Product Owner (SPO)**
 - Bruno Sousa, up201604145@fe.up.pt
 - Claudio Lemos, up201603542@fe.up.pt
@@ -11,12 +12,52 @@
 - Tiago Ribeiro, up201605619@fe.up.pt
 
 ## Product Owners
+
 - João Pedro Dias, jpmdias@fe.up.pt
 - Pedro Sousa, pedrodanielsousa1@gmail.com
 - Luís Catarino, luiscatarino@adamantsec.com
 
-## Hapiness Meter
-[Link to Spreadsheet](https://docs.google.com/spreadsheets/d/1f-j3I1IS-ggwGQmMnuANsPem4z-6J0BrLMBvI6Y8bHI/edit?ts=5d8a3d9d#gid=0)
+## Happiness Meter
+
+The project's happiness meter is available in [this Spreadsheet](https://docs.google.com/spreadsheets/d/1f-j3I1IS-ggwGQmMnuANsPem4z-6J0BrLMBvI6Y8bHI/edit?ts=5d8a3d9d#gid=0).
+
+## Project setup and development
+
+### Installing dependencies
+
+In order to setup the project, install all the project's dependencies:
+
+```
+npm install
+```
+
+### Linting
+
+The project is developed using the `ECMAScript 2018` standards. To lint the developed code, run: 
+
+```
+npm run lint
+```
+
+To fix all the automatically fixable errors, run:
+
+```
+npm run lint-fix
+```
+
+### Testing
+
+For unit test development, the `jest` library is being used. To run all test suites, run:
+
+```
+npm test
+```
+
+In order to perform coverage analysis, building a detailed report, run:
+
+```
+npm run test-coverage
+```
 
 ## Staging and Production Bundles
 
