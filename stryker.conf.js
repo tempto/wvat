@@ -4,7 +4,11 @@ module.exports = function(config) {
         testRunner: "jest",
         mutator: "javascript",
         reporters: ["clear-text", "progress"],
-        mutate: ["src/**/*.js"],
+        mutate: [
+            "src/**/*.js",
+            "!src/index.js",  // index file is responsible for oclif setup and should be ignored
+            "!src/commands/**/*.js",  // commands are oclif responsability, external modules should not be being tested
+        ],
         jest: {
             projectType: "custom",
             config: require("./jest.config"),
