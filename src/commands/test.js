@@ -21,4 +21,7 @@ TestCommand.flags = {
     test2: flags.string({ char: "t", description: "test flag 2" }),
 };
 
+TestCommand.flags.test1 = flags.string({ char: "n", description: "test flag 1" });
+TestCommand.flags.test2 = flags.string({ char: "r", description: "test flag 2" });
+
 module.exports = TestCommand;

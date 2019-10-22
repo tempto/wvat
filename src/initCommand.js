@@ -1,14 +1,14 @@
-//Import Config singleton object
 const Config = require('./Config')
 
-//Executed in all commands to load configurations and logger
-const initCommand = (flags,level='all') => {
-    //Set flags to Config, so that they can be accessed from other modules
+const initCommand = (flags,command,level='all') => {
     Config.addFlags(flags);
 
-    //Sets log level of logger based on the verbose setting
-    const Log = require('./Logger')(flags,level).getLog();
+    
+    const timeoutHandler = require('./TimeoutHandler')(flags,command);
+
     return [Config, Log];
 }
 
 module.exports =  initCommand;
+
+    const Log = (new Logger(flags, level)).getLog();
