@@ -1,6 +1,8 @@
 const fs = require("fs");
 const path = require("path");
+const fc = require("fast-check");
 const { getCVEListPageUrl, parseRawCVE, scrapePage } = require("../../src/CVEListFetcher");
+const { isValidCVE, isValidURL } = require("../../src/utils");
 
 describe("CVE List Fetcher tests", () => {
     describe("CVE List page url", () => {
@@ -20,6 +22,17 @@ describe("CVE List Fetcher tests", () => {
 
         it("should fail when the search query is empty", () => {
             expect(() => getCVEListPageUrl("")).toThrowError(new Error("Missing search query"));
+        });
+
+        it("should generate valid urls from valid CVEs", () => {
+            fc.assert(
+                fc.property(
+                    fc.integer(1000, 9999), fc.integer(1000, 9999999), (cve_left_part, cve_right_part) => {
+                        const cve = `${cve_left_part}-${cve_right_part}`;
+                        return isValidCVE(cve) && isValidURL(getCVEListPageUrl(cve));
+                    },
+                ),
+            );
         });
     });
 
