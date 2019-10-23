@@ -98,7 +98,7 @@ $ npm install -g wvat
 $ wvat COMMAND
 running command...
 $ wvat (-v|--version|version)
-wvat/0.0.0 linux-x64 node-v10.16.3
+wvat/1.0.0 linux-x64 node-v10.16.3
 $ wvat --help [COMMAND]
 USAGE
   $ wvat COMMAND
@@ -107,27 +107,38 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`wvat hello`](#wvat-hello)
+* [`wvat cves TECHNOLOGY`](#wvat-cves-technology)
+* [`wvat exploits CVE`](#wvat-exploits-cve)
 * [`wvat help [COMMAND]`](#wvat-help-command)
 * [`wvat test`](#wvat-test)
 
-## `wvat hello`
+## `wvat cves TECHNOLOGY`
 
-Describe the command here
+Searches CVEs for a given technology
 
 ```
 USAGE
-  $ wvat hello
+  $ wvat cves TECHNOLOGY
 
-OPTIONS
-  -n, --name=name  name to print
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
+ARGUMENTS
+  TECHNOLOGY  technology to search CVEs
 ```
 
-_See code: [src/commands/hello.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/hello.js)_
+_See code: [src/commands/cves.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/cves.js)_
+
+## `wvat exploits CVE`
+
+Searches known exploits for a given CVE
+
+```
+USAGE
+  $ wvat exploits CVE
+
+ARGUMENTS
+  CVE  CVE to search know exploits
+```
+
+_See code: [src/commands/exploits.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/exploits.js)_
 
 ## `wvat help [COMMAND]`
 
