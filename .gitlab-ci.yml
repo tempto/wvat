@@ -28,6 +28,11 @@ test:
   script: 
     - npm run test-coverage
     - npm run test-mutation
+  artifacts:
+    paths:
+    - reports/coverage
+    - reports/mutation
+    expire_in: 1 week
 
 deploy_staging:
   stage: deploy
@@ -54,3 +59,4 @@ deploy_production:
     - ./build.sh unix
     - ./build.sh windows
     - ./upload_dropbox.sh $DROPBOX_ACCESS_TOKEN ./dist/ prod/
+    
