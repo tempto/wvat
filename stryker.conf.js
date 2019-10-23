@@ -3,7 +3,7 @@ module.exports = function(config) {
         packageManager: "npm",
         testRunner: "jest",
         mutator: "javascript",
-        reporters: ["clear-text", "progress"],
+        reporters: ["clear-text", "progress", "html"],
         mutate: [
             "src/**/*.js",
             "!src/index.js",  // index file is responsible for oclif setup and should be ignored
