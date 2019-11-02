@@ -1,4 +1,5 @@
 const Crawler = require("js-crawler");
+const storage = require("node-persist");
 
 const getDomainName = (url) => {
     const urlPattern = /^(?:https?:\/\/)?(?:w{3}\.)?([a-z\d-]+)\.(?:[a-z]{2,10})(?:[/\w-]*)*/;
@@ -17,11 +18,11 @@ const getCrawler = (domain, depth) => (new Crawler().configure({
     ),
 }));
 
-const crawl = (crawler, domain) => {
+const crawl = (crawler, domain_name) => {
     const domain_list = [];
     return new Promise((resolve) => {
         crawler.crawl({
-            url: domain,
+            url: domain_name,
             success: (page) => {
                 const url = removeQueryParams(page.url);
                 if (!domain_list.includes(url)) {
@@ -33,6 +34,7 @@ const crawl = (crawler, domain) => {
             },
             finished: () => {
                 domain_list.sort();
+                storage.setItem(domain_name, domain_list);
                 resolve(domain_list);
             },
         });
@@ -40,14 +42,21 @@ const crawl = (crawler, domain) => {
 
 };
 
-const getDomainList = async (domain_name, depth_level) => {
+const getDomainList = async (domain_name, depth_level = 2) => {
     if (!domain_name) throw new Error("Missing Domain Name");
     if (!depth_level) throw new Error("Missing Depth Level");
-    if (Number.isNAN(depth_level)) throw new Error("Depth Level must be a number");
+    if (!Number.isInteger(depth_level)) throw new Error("Depth Level must be a number");
 
-    const crawler = getCrawler(domain_name, depth_level);
-    const domain_list = await crawl(crawler, domain_name);
-    return domain_list;
+    await storage.init();
+    const cached_list = await storage.getItem(domain_name);
+
+    if (!cached_list) {
+        const crawler = getCrawler(domain_name, depth_level);
+        const domain_list = await crawl(crawler, domain_name);
+        return domain_list;
+    }
+
+    return cached_list;
 };
 
 module.exports = {
