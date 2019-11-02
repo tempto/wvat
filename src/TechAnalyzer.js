@@ -1,6 +1,5 @@
 const Wappalyzer = require("wappalyzer");
-
-const isValidURL = (url) => /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/.test(url);
+const { isValidURL } = require("../src/utils");
 
 const analyseWebPage = async (url) => {
     const wapp = new Wappalyzer(url);
@@ -19,15 +18,13 @@ const getWebpageTechnologies = async (url) => {
     if (!url) throw new Error("Missing Webpage url");
     if (!isValidURL(url)) throw new Error("Invalid url");
 
-    let fixedURL = url;
+    const fixed_url = url + (url.endsWith("/") ? "" : "/");
 
-    if (!url.endsWith("/"))
-        fixedURL += "/";
-
-    const tech = await analyseWebPage(fixedURL);
-    return parseAnalysisResults(fixedURL, tech);
+    const tech = await analyseWebPage(fixed_url);
+    return parseAnalysisResults(fixed_url, tech);
 };
 
 module.exports = {
     getWebpageTechnologies,
+    parseAnalysisResults,
 };
