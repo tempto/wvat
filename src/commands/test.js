@@ -1,5 +1,6 @@
 const { Command, flags } = require("@oclif/command");
 const Config = require("../Config");
+const Errors = require("../errors");
 
 class TestCommand extends Command {
     run() {
@@ -8,6 +9,8 @@ class TestCommand extends Command {
         this.log("Command test ran with flags:");
         Config.addFlags(flags);
         this.log(Config.flags);
+
+        this.error(Errors.TEST.description, { exit: Errors.TEST.code });
     }
 }
 
