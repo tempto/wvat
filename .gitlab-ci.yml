@@ -62,6 +62,7 @@ deploy_production:
 
 code_quality:
   stage: test
+  allow_failure: true
   only:
     - merge_requests
   script: 
