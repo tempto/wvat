@@ -59,4 +59,15 @@ deploy_production:
     - ./build.sh unix
     - ./build.sh windows
     - ./upload_dropbox.sh $DROPBOX_ACCESS_TOKEN ./dist/ prod/
-    
+
+code_quality:
+  stage: test
+  only:
+    - merge_requests
+  script: 
+    - mkdir -p reports
+    - npm run code-quality
+  artifacts:
+    paths:
+    - reports/code_quality.xml
+    expire_in: 1 week
