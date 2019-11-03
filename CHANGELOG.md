@@ -57,3 +57,38 @@ The *Exploits* searching can be used with the `exploits <cve>` command:
 - [Configure JS linting](#65)
 - [Configure tool 'build' script for building the tool deliverable bundle](#69)
 - [Setup mutation testing with stryker](#81)
+
+## November 2019 Week 2 (version 2.0)
+
+Downloads: [Windows](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/win) | [Unix-based Systems](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/wvat-v2.0.0)
+
+Welcome to the November 2019 Week 2 release of *WVAT - Web Vulnerability Assessment Tool*. This patch's key highlights include:
+
+- CLI user experience enhancements
+- Analyse technologies present in a given Web page
+- CLI error codes description improvement
+- Improved tool's overal testing techniques
+- Added Sentry for error logging and monitoring
+
+### Key Features
+
+#### Analyse page technologies
+
+The *Technologies Analysis* can be used with the `analyze <endpoint>` command:
+
+![WVAT analyze Command](https://user-images.githubusercontent.com/25830462/68221531-765c5d80-ffe1-11e9-8a92-d0ca32bb640f.jpg)
+
+#### Application Error Codes
+
+The full *Application Error Codes* explanation can be obtained with the `error-codes` command:
+
+![WVAT error-codes Command](https://user-images.githubusercontent.com/25830462/68222045-4cf00180-ffe2-11e9-8f65-6c1bade4fcd9.jpg)
+
+### Closed Issues
+
+#### Feature-related Issues
+
+- ...
+
+#### Technical Issues
+- ...
