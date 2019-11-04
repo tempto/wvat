@@ -13,6 +13,11 @@ const Flags = Object.freeze({
         description: "Verbose Mode (outputs all messages to screen)",
         default: false,
     }),
+    depth: flags.string({
+        char: "d",
+        description: "crawling depth",
+        default: 2,
+    }),
 });
 
 module.exports = Flags;
