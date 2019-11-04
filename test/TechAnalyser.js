@@ -1,7 +1,7 @@
-const { getWebpageTechnologies, parseAnalysisResults } = require("../src/TechAnalyser");
+const { getWebpageTechnologies, parseAnalysisResults, noVersionCount } = require("../src/TechAnalyser");
 
 describe("Tech Analyser tests", () => {
-    describe("Validate arguments", () => {
+    describe("Validate getWebpageTechnologies arguments", () => {
         it("should fail when the url is missing", () => {
             expect.assertions(1);
             getWebpageTechnologies().catch((e) => {
@@ -46,6 +46,58 @@ describe("Tech Analyser tests", () => {
             };
 
             expect(parseAnalysisResults("https://www.gitlab.com", tech)).toEqual(tech.applications);
+        });
+    });
+    describe("Correctly count technologies without version", () => {
+        it("should fail when technologies are missing", () => {
+            expect(noVersionCount).toThrow("Missing technologies");
+        });
+        it("should correctly count no-version technologies", () => {
+            const tech = [
+                { name: "Bootstrap",
+                    confidence: "100",
+                    version: "3.3.5",
+                    icon: "Bootstrap.png",
+                    website: "https://getbootstrap.com",
+                    categories: [] },
+                { name: "Google Analytics",
+                    confidence: "100",
+                    version: null,
+                    icon: "Google Analytics.svg",
+                    website: "http://google.com/analytics",
+                    categories: [] },
+                { name: "Marketo",
+                    confidence: "100",
+                    version: null,
+                    icon: "Marketo.png",
+                    website: "https://www.marketo.com",
+                    categories: [] },
+                { name: "Mermaid",
+                    confidence: "100",
+                    version: null,
+                    icon: "default.svg",
+                    website: "https://mermaidjs.github.io/",
+                    categories: [] },
+                { name: "TweenMax",
+                    confidence: "100",
+                    version: "1.20.3",
+                    icon: "TweenMax.png",
+                    website: "http://greensock.com/tweenmax",
+                    categories: [] },
+                { name: "Varnish",
+                    confidence: "100",
+                    version: null,
+                    icon: "Varnish.svg",
+                    website: "http://www.varnish-cache.org",
+                    categories: [] },
+                { name: "jQuery",
+                    confidence: "100",
+                    version: "2.2.1",
+                    icon: "jQuery.svg",
+                    website: "https://jquery.com",
+                    categories: [] },
+            ];
+            expect(noVersionCount(tech)).toEqual(4);
         });
     });
 });
