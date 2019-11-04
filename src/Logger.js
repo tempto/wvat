@@ -1,35 +1,22 @@
-const log4js = require('log4js');
+const log4js = require("log4js");
 
-class Logger{
-  constructor(flags,level = 'all') {
-    this.log = log4js.getLogger()
+class Logger {
+    constructor(flags, logger_level = "all") {
+        if (Logger.instance) {
+            return Logger.instance;
+        }
 
-    //Verbose flag logic (sets the log level accordingly)
-    if(flags.VERBOSE){
-      this.log.level=level;
-    }else{
-      this.log.level='error';
+        this.log = log4js.getLogger();
+        this.log.level = flags.verbose ? logger_level : "error";
+
+        Logger.instance = this;
     }
-  }
 
-  getLog(){
-    return this.log;
-  }
+    getLog() {
+        return Logger.instance.log;
+    }
 }
 
+Logger.instance = null;
 
-let instance;
-
-//Creates an instance of the singleton with the constructor parameters if it still doesn't exist
-module.exports = (flags,level='all') => {
-  if(!instance){
-    instance=new Logger(flags,level);
-  }
-
-  return instance;
-}
-
-module.exports.delete = () =>{
-  instance = null;
-  return;
-}
+module.exports = Logger;

@@ -6,9 +6,9 @@ const Flags = Object.freeze({
         description: "Maximum application execution time (in seconds)",
     }),
     verbose: flags.boolean({
-        char: 'v',
-        description: 'Verbose Mode (outputs all messages to screen)',
-        default: false
+        char: "v",
+        description: "Verbose Mode (outputs all messages to screen)",
+        default: false,
     }),
 });
 
