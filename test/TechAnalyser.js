@@ -1,6 +1,6 @@
-const { getWebpageTechnologies, parseAnalysisResults } = require("../src/TechAnalyzer");
+const { getWebpageTechnologies, parseAnalysisResults } = require("../src/TechAnalyser");
 
-describe("Tech Analyzer tests", () => {
+describe("Tech Analyser tests", () => {
     describe("Validate arguments", () => {
         it("should fail when the url is missing", () => {
             expect.assertions(1);

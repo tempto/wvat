@@ -1,5 +1,5 @@
 const Wappalyzer = require("wappalyzer");
-const { isValidURL } = require("../src/utils");
+const { isValidURL } = require("./utils");
 
 /**
  * Analyses webpage technologies using Wappalyzer
