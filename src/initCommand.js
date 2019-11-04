@@ -1,14 +1,14 @@
-const Config = require('./Config')
+const Config = require("./Config");
+const handleTimeout = require("./handleTimeout");
 
-const initCommand = (flags,command,level='all') => {
+const initCommand = (flags) => {
     Config.addFlags(flags);
 
-    
-    const timeoutHandler = require('./TimeoutHandler')(flags,command);
+    if (flags.timeout) {
+        handleTimeout(() => process.exit(1), flags.timeout);
+    }
 
-    return [Config, Log];
-}
+    return Config;
+};
 
-module.exports =  initCommand;
-
-    const Log = (new Logger(flags, level)).getLog();
+module.exports = initCommand;

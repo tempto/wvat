@@ -1,11 +1,10 @@
-const {flags} = require('@oclif/command')
+const { flags } = require("@oclif/command");
 
-const Flags = {
-  VERBOSE: flags.boolean({
-    char: 'v',
-    description: 'Verbose Mode (outputs all messages to screen)',
-    default: false
-  })
-}
+const Flags = Object.freeze({
+    timeout: flags.string({
+        char: "t",
+        description: "Maximum application execution time (in seconds)",
+    }),
+});
 
-module.exports = Flags
+module.exports = Flags;

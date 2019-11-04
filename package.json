@@ -29,8 +29,8 @@
     "eslint-config-oclif": "^3.1.0",
     "eslint-plugin-jest": "^22.19.0",
     "fast-check": "^1.18.0",
-    "jest": "^24.9.0"
-    "log4js": "^5.2.2"
+    "jest": "^24.9.0",
+    "log4js": "^5.3.0"
   },
   "engines": {
     "node": ">=8.0.0"
