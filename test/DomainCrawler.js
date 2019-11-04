@@ -8,16 +8,16 @@ describe("Domain Crawler testes", () => {
                 expect(e).toEqual(new Error("Missing Domain Name"));
             });
         });
-        it("should fail when the depth level is missing", () => {
-            expect.assertions(1);
-            getDomainList().catch((e) => {
-                expect(e).toEqual(new Error("Missing Depth Level"));
-            });
-        });
         it("should fail when the depth level is not a positive integer number", () => {
             expect.assertions(1);
             getDomainList().catch((e) => {
                 expect(e).toEqual(new Error("Depth Level must be a number"));
+            });
+        });
+        it("should fail when the depth level is missing", () => {
+            expect.assertions(1);
+            getDomainList().catch((e) => {
+                expect(e).toEqual(new Error("Depth Level must be a positive number"));
             });
         });
     });

@@ -23,6 +23,7 @@ const isValidURL = (url_candidate) => URL_REGEX.test(url_candidate);
 const isValidCVE = (cve_candidate) => CVE_REGEX.test(cve_candidate);
 
 module.exports = {
+    URL_REGEX,
     isValidCVE,
     isValidURL,
 };

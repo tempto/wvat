@@ -1,10 +1,16 @@
 const Crawler = require("js-crawler");
 const storage = require("node-persist");
+const { URL_REGEX } = require("../src/utils");
 
-const getDomainName = (url) => {
-    const url_pattern = /^(?:https?:\/\/)?(?:w{3}\.)?([a-z\d-]+)\.(?:[a-z]{2,10})(?:[/\w-]*)*/;
-    return url.match(url_pattern)[1];
-};
+const initStorage = () => (
+    storage.init({
+        dir: ".domainscache",
+    })
+);
+
+const getDomainName = (url) => (
+    url.match(URL_REGEX)[1]
+);
 
 const removeQueryParams = (url) => (
     url.split("?")[0]
@@ -34,7 +40,6 @@ const crawl = (crawler, domain_name) => {
             },
             finished: () => {
                 domain_list.sort();
-                storage.setItem(domain_name, domain_list);
                 resolve(domain_list);
             },
         });
@@ -44,15 +49,16 @@ const crawl = (crawler, domain_name) => {
 
 const getDomainList = async (domain_name, depth_level = 2) => {
     if (!domain_name) throw new Error("Missing Domain Name");
-    if (!depth_level) throw new Error("Missing Depth Level");
     if (isNaN(depth_level)) throw new Error("Depth Level must be a number");
+    if (depth_level <= 0) throw new Error("Depth Level must be a positive number");
 
-    await storage.init();
+    await initStorage();
     const cached_list = await storage.getItem(domain_name);
 
     if (!cached_list) {
         const crawler = getCrawler(domain_name, depth_level);
         const domain_list = await crawl(crawler, domain_name);
+        storage.setItem(domain_name, domain_list);
         return domain_list;
     }
 
