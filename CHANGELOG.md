@@ -11,26 +11,6 @@ Welcome to the October 2019 Week 4 release of *WVAT - Web Vulnerability Assessme
 - Find *CVE*s (Common Vulnerabilities and Exposures) for a given technology
 - Find known *Exploits* for a given *CVE*
 
-### Key Features
-
-#### Help Section
-
-The help section can be consulted using the `help` command:
-
-![WVAT help Command](https://user-images.githubusercontent.com/25830462/67376426-016a3c00-f57c-11e9-87e7-c2cdf403c1a6.jpg)
-
-#### Searching *CVE*s for a Technology
-
-The *CVE* searching can be used with the `cves <technology>` command:
-
-![WVAT cves Command](https://user-images.githubusercontent.com/25830462/67376419-ffa07880-f57b-11e9-8b41-5de531808e27.jpg)
-
-#### Searching *Exploits* for a *CVE*
-
-The *Exploits* searching can be used with the `exploits <cve>` command:
-
-![WVAT exploits Command](https://user-images.githubusercontent.com/25830462/67376417-ff07e200-f57b-11e9-83e8-e93ad708a305.jpg)
-
 ### Closed Issues
 
 #### Feature-related Issues
@@ -71,20 +51,6 @@ Welcome to the November 2019 Week 2 release of *WVAT - Web Vulnerability Assessm
 - Improved tool's overal testing techniques
 - Added Sentry for error logging and monitoring
 
-### Key Features
-
-#### Analyse page technologies
-
-The *Technologies Analysis* can be used with the `analyze <endpoint>` command:
-
-![WVAT analyze Command](https://user-images.githubusercontent.com/25830462/68221531-765c5d80-ffe1-11e9-8a92-d0ca32bb640f.jpg)
-
-#### Application Error Codes
-
-The full *Application Error Codes* explanation can be obtained with the `error-codes` command:
-
-![WVAT error-codes Command](https://user-images.githubusercontent.com/25830462/68222045-4cf00180-ffe2-11e9-8f65-6c1bade4fcd9.jpg)
-
 ### Closed Issues
 
 #### Feature-related Issues
@@ -111,3 +77,31 @@ The full *Application Error Codes* explanation can be obtained with the `error-c
 - [Setup property-based tests with fast-check](#82)
 - [Setup Sentry](#93)
 - [Setup Code Quality analysis](#92)
+
+### Commit History
+
+- [Updated existing commands to inherit from the new decorator base command](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/02112f94)
+- [Added sentry exception handling](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/b5cfcc4b)
+- [Added sentry setup](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/ca71158b)
+- [Updated code_quality job to allow failure](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/ac2ba061)
+- [Added code quality automatic analysis to CI pipeline](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/abee6aad)
+- [Added javascript code quality analysis using jshint](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/01306c3e)
+- [Formatted files according to eslint rules ](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/d36001bb)
+- [Added logger and initCommand unit tests](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/9278c6f4)
+- [Added ability to delete logger singleton](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/07992cf7)
+- [Changed flags name pattern and array](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/8568f3ec)
+- [Moved verbose flag logic to Logger class](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/cda80050)
+- [Created logger singleton and common settings file](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/5e5b1dfe)
+- [Added file for flags and log4js dependency](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/6fd347f6)
+- [Measured Timeout in seconds](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/4c6b7e77)
+- [Tried to test function timeout without success](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/f7cd2680)
+- [Created TimeoutHandler and added TIMEOUT flag](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/7192ace6)
+- [Added file for flags and log4js dependency](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/1243dcd1)
+- [Added 'error-codes' command to list the possible error codes](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/5e3d97cc)
+- [Added cli-ux module to print tables in the CLI](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/bf16b6f7)
+- [Added analyze commamd](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/4a51143d)
+- [Added Tech Analyzer test](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/e3effcff)
+- [Added webpage technology analysis](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/be208882)
+- [Added errors centralized file](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/145697fd)
+- [Updated test suites with chai BDD syntax](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/2da5e5e0)
+- [Added Chai module for BDD testing](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/a9fde9ab)
