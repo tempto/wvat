@@ -52,13 +52,15 @@ const getDomainList = async (domain_name, depth_level = 2) => {
     if (isNaN(depth_level)) throw new Error("Depth Level must be a number");
     if (depth_level <= 0) throw new Error("Depth Level must be a positive number");
 
+    const domain_key = `${domain_name}-${depth_level}`;
+
     await initStorage();
-    const cached_list = await storage.getItem(domain_name);
+    const cached_list = await storage.getItem(domain_key);
 
     if (!cached_list) {
         const crawler = getCrawler(domain_name, depth_level);
         const domain_list = await crawl(crawler, domain_name);
-        storage.setItem(domain_name, domain_list);
+        storage.setItem(domain_key, domain_list);
         return domain_list;
     }
 
