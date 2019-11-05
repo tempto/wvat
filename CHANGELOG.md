@@ -39,9 +39,9 @@ Welcome to the October 2019 Week 4 release of *WVAT - Web Vulnerability Assessme
 - [Configure tool 'build' script for building the tool deliverable bundle](#69)
 - [Setup mutation testing with stryker](#81)
 
-## November 2019 Week 2 (version 2.0)
+## November 2019 Week 2 (version 1.1)
 
-Downloads: [Windows](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/win) | [Unix-based Systems](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/wvat-v2.0.0)
+Downloads: [Windows](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/win) | [Unix-based Systems](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/wvat-v1.1.0)
 
 Welcome to the November 2019 Week 2 release of *WVAT - Web Vulnerability Assessment Tool*. This patch's key highlights include:
 
