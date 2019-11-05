@@ -1,4 +1,4 @@
-const { Command } = require("@oclif/command");
+const Command = require("../BaseCommand");
 const { cli } = require("cli-ux");
 const Errors = require("../errors");
 

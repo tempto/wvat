@@ -1,6 +1,7 @@
-const { Command, flags } = require("@oclif/command");
 const Flags = require("../flags");
 const Errors = require("../errors");
+const Command = require("../BaseCommand");
+const { flags } = require("@oclif/command");
 
 class TestCommand extends Command {
     run() {

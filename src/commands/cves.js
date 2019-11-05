@@ -1,4 +1,4 @@
-const { Command } = require("@oclif/command");
+const Command = require("../BaseCommand");
 const { getCVEList } = require("../CVEListFetcher");
 
 class CVECommand extends Command {

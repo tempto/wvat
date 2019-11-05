@@ -1,4 +1,4 @@
-const { Command } = require("@oclif/command");
+const Command = require("../BaseCommand");
 const { getWebpageTechnologies } = require("../TechAnalyzer");
 
 class AnalyzeCommand extends Command {
