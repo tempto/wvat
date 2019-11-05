@@ -50,6 +50,7 @@ The *Exploits* searching can be used with the `exploits <cve>` command:
 - [Verify current Tool Version](#10)
 
 #### Technical Issues
+
 - [Research Wappalyzer and alternatives in order to list existing techs in a web page](#48)
 - [Configure CI Lint Job](#66)
 - [Configure CI Audit Job](#67)
@@ -88,7 +89,25 @@ The full *Application Error Codes* explanation can be obtained with the `error-c
 
 #### Feature-related Issues
 
-- ...
+- [Technologies used in a Page](#22)
+    - [Extract technologies and versions from a Webpage](#49)
+    - [Implement Tech-listing Unit Tests](#50)
+- [Application exit codes system](#11)
+    - [Define application return/error codes system](#44)
+- [Application error codes listing command](#12)
+    - [Create a command to show errors info (error codes meaning)](#71)
+    - [Setup oclif/cli-ux to beautify cli output](#72)
+- [Application timeout](#5)
+    - [Setup timeout handler when respective flag is checked](#40)
+    - [Implement CLI timeout Unit Tests](#41)
+- [Verbose mode](#6)
+    - [Setup logger for verbose setting flag](#42)
+    - [Implement Verbose setting Unit Tests](#43)
 
 #### Technical Issues
-- ...
+
+- [Add test Coverage and Mutation to CI](#91)
+- [Bumping of Versions/timestamp on deliverables](#90)
+- [Setup property-based tests with fast-check](#82)
+- [Setup Sentry](#93)
+- [Setup Code Quality analysis](#92)
