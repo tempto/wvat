@@ -34,32 +34,6 @@ test:
     - reports/mutation
     expire_in: 1 week
 
-deploy_staging:
-  stage: deploy
-  only:
-    refs:
-      - develop
-  script:
-    - apt-get update
-    - apt-get install -y p7zip-full
-    - apt-get install -y nsis 
-    - ./build.sh unix
-    - ./build.sh windows
-    - ./upload_dropbox.sh $DROPBOX_ACCESS_TOKEN ./dist/ dev/
-
-deploy_production:
-  stage: deploy
-  only:
-    refs: 
-      - master
-  script: 
-    - apt-get update
-    - apt-get install -y p7zip-full
-    - apt-get install -y nsis 
-    - ./build.sh unix
-    - ./build.sh windows
-    - ./upload_dropbox.sh $DROPBOX_ACCESS_TOKEN ./dist/ prod/
-
 code_quality:
   stage: test
   allow_failure: true
@@ -72,3 +46,25 @@ code_quality:
     paths:
     - reports/code_quality.xml
     expire_in: 1 week
+
+deploy_staging:
+  stage: deploy
+  image: $CI_REGISTRY/feup-tbs/ldso1920/t2g1:latest
+  only:
+    refs:
+      - develop
+  script: 
+    - ./build.sh unix
+    - ./build.sh windows
+    - ./upload_dropbox.sh $DROPBOX_ACCESS_TOKEN ./dist/ dev/
+
+deploy_production:
+  stage: deploy
+  image: $CI_REGISTRY/feup-tbs/ldso1920/t2g1:latest 
+  only:
+    refs: 
+      - master
+  script:
+    - ./build.sh unix
+    - ./build.sh windows
+    - ./upload_dropbox.sh $DROPBOX_ACCESS_TOKEN ./dist/ prod/
