@@ -47,6 +47,19 @@ code_quality:
     - reports/code_quality.xml
     expire_in: 1 week
 
+security:
+  stage: test
+  allow_failure: true
+  only:
+    - merge_requests
+  script: 
+    - mkdir -p reports
+    - npm run security-scan
+  artifacts:
+    paths:
+    - reports/retire_security_report.json
+    expire_in: 1 week
+
 deploy_staging:
   stage: deploy
   image: $CI_REGISTRY/feup-tbs/ldso1920/t2g1:latest
