@@ -31,8 +31,9 @@
     "eslint-plugin-jest": "^22.19.0",
     "fast-check": "^1.18.0",
     "jest": "^24.9.0",
+    "jshint": "^2.10.2",
     "log4js": "^5.3.0",
-    "jshint": "^2.10.2"
+    "retire": "^2.0.3"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -71,6 +72,7 @@
     "test": "jest",
     "test-coverage": "jest --coverage",
     "test-mutation": "stryker run",
-    "code-quality": "jshint src --reporter=checkstyle > reports/code_quality.xml"
+    "code-quality": "jshint src --reporter=checkstyle > reports/code_quality.xml",
+    "security-scan": "retire --js --outputpath reports/retire_security_report.json --outputformat json"
   }
 }
