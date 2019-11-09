@@ -2,6 +2,12 @@ const Config = require("./Config");
 const handleTimeout = require("./handleTimeout");
 const Logger = require("./Logger");
 
+/**
+ * Generic command initializations
+ * @param {Array} flags Set of flags passed to the tool
+ * @param {string} logger_level Level to configure Logger
+ * @returns {Array} The app's Config instance and the initialized Logger
+ */
 const initCommand = (flags, logger_level = "all") => {
     Config.addFlags(flags);
 
