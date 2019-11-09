@@ -1,3 +1,6 @@
+/**
+ * Errors constant object used to describe all of the app's error codes
+ */
 const errors = Object.freeze({
     "TEST": {
         code: 1,

@@ -1,5 +1,8 @@
 const { flags } = require("@oclif/command");
 
+/**
+ * Flags constant object used to describe all of the app's configuration flags
+ */
 const Flags = Object.freeze({
     timeout: flags.string({
         char: "t",
