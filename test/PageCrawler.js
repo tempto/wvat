@@ -1,23 +1,17 @@
-const { getDomainList } = require("../src/DomainCrawler");
+const { getPagesList } = require("../src/PageCrawler");
 
-describe("Domain Crawler testes", () => {
+describe("Domain Crawler tests", () => {
     describe("Validate arguments", () => {
         it("should fail when the domain name is missing", () => {
             expect.assertions(1);
-            getDomainList().catch((e) => {
+            getPagesList().catch((e) => {
                 expect(e).toEqual(new Error("Missing Domain Name"));
             });
         });
         it("should fail when the depth level is not a positive integer number", () => {
             expect.assertions(1);
-            getDomainList().catch((e) => {
+            getPagesList("domain", -1).catch((e) => {
                 expect(e).toEqual(new Error("Depth Level must be a number"));
-            });
-        });
-        it("should fail when the depth level is missing", () => {
-            expect.assertions(1);
-            getDomainList().catch((e) => {
-                expect(e).toEqual(new Error("Depth Level must be a positive number"));
             });
         });
     });

@@ -17,7 +17,7 @@ describe("Logger tests", () => {
                 const flags = { verbose: false };
 
                 const Log = new Logger(flags).getLog();
-                expect(Log.level.levelStr).toEqual("ERROR");
+                expect(Log.level.levelStr).toEqual("WARN");
             });
         });
         describe("Reads the custom verbose log level parameter", () => {
@@ -26,7 +26,7 @@ describe("Logger tests", () => {
                 const level = "warn";
 
                 const Log = new Logger(flags, level).getLog();
-                expect(Log.level.levelStr).toEqual("ERROR");
+                expect(Log.level.levelStr).toEqual("WARN");
             });
             it("should set custom log level for verbose mode on", () => {
                 const flags = { verbose: true };

@@ -15,7 +15,7 @@ class Logger {
         }
 
         this.log = log4js.getLogger();
-        this.log.level = flags.verbose ? logger_level : "error";
+        this.log.level = flags.verbose ? logger_level : "warn";
 
         Logger.instance = this;
     }

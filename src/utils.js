@@ -7,6 +7,7 @@ const URL_REGEX = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'(
  * Regex to test CVEs in the format CVE-XXXX-YYYY...
  */
 const CVE_REGEX = /^(CVE-)?\d{4}-\d{4,}$/;
+const HTTPS_REGEX = /^http(s)?/;
 
 /**
  * Verifies if a given url candidate is valid
@@ -24,6 +25,7 @@ const isValidCVE = (cve_candidate) => CVE_REGEX.test(cve_candidate);
 
 module.exports = {
     URL_REGEX,
+    HTTPS_REGEX,
     isValidCVE,
     isValidURL,
 };

@@ -1,18 +1,20 @@
 const Flags = require("../flags");
-const { Command } = require("@oclif/command");
-const { getDomainList } = require("../DomainCrawler");
+const BaseCommand = require("../BaseCommand");
+const Errors = require("../errors");
 
-class CrawlerCommand extends Command {
+class CrawlerCommand extends BaseCommand {
     async run() {
         const { args, flags } = this.parse(CrawlerCommand);
         const [, Log] = require("../initCommand")(flags);
         const domain = args.domain;
-        const depth = flags.depth;
-        const noCache = flags.noCache;
-
-        const domain_list = await getDomainList(domain, depth, noCache);
-
-        Log.info(domain_list);
+        const { depth, noCache } = flags;
+        const { getPagesList } = require("../PageCrawler");
+        const domain_list = await getPagesList(domain, depth, noCache);
+        if (domain_list.length) Log.info(domain_list);
+        else {
+            Log.error(Errors.NO_SUBDOMAINS_FOUND.description);
+            process.exit(Errors.NO_SUBDOMAINS_FOUND.code);
+        }
     }
 }
 

@@ -1,18 +1,15 @@
 const Crawler = require("js-crawler");
 const storage = require("node-persist");
-const { URL_REGEX } = require("./utils");
+const { URL_REGEX, HTTPS_REGEX } = require("./utils");
 const Logger = require("./Logger");
+const Config = require("./Config");
 
-const Log = new Logger().getLog();
+const Log = new Logger(Config.flags).getLog();
 
 const initStorage = () => (
     storage.init({
         dir: ".domainscache",
     })
-);
-
-const prepareDomain = (url) => (
-    `https://${url.replace(/(^\w+:|^)\/\//, "")}`
 );
 
 const getDomainName = (url) => (
@@ -38,7 +35,7 @@ const crawl = (crawler, domain_name) => {
             url: domain_name,
             success: (page) => {
                 const url = removeQueryParams(page.url);
-                Log.error(url);
+                Log.info(url);
                 if (!domain_list.includes(url)) {
                     domain_list.push(url);
                 }
@@ -55,12 +52,15 @@ const crawl = (crawler, domain_name) => {
 
 };
 
-const getDomainList = async (url, depth_level = 2, nocache) => {
-    if (!url) throw new Error("Missing Domain Name");
-    if (isNaN(depth_level)) throw new Error("Depth Level must be a number");
+const getPagesList = async (domain_name, depth_level = 2, nocache = false) => {
+    if (!domain_name) throw new Error("Missing Domain Name");
     if (depth_level <= 0) throw new Error("Depth Level must be a positive number");
 
-    const domain_name = prepareDomain(url);
+    if (!HTTPS_REGEX.test(domain_name)) {
+        Log.warn("Domains must have http(s)");
+        return [];
+    }
+
     const domain_key = `${domain_name}-${depth_level}`;
 
     await initStorage();
@@ -77,5 +77,5 @@ const getDomainList = async (url, depth_level = 2, nocache) => {
 };
 
 module.exports = {
-    getDomainList,
+    getPagesList,
 };

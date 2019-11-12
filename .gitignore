@@ -11,4 +11,3 @@ node_modules
 
 # Node persist
 .domainscache/
-tools/

@@ -19,7 +19,6 @@ const Flags = Object.freeze({
         default: 2,
     }),
     noCache: flags.boolean({
-        char: "nc",
         description: "crawl with no cache",
         default: false,
     }),
