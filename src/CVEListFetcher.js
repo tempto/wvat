@@ -1,5 +1,8 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
+const fs = require("fs");
+
+const CVE_LIST_CVE_URL = "https://cve.mitre.org/data/downloads/allitems.csv";
 
 /**
  * Gets the hyperlink of the CVEs list page for a given search query
@@ -66,10 +69,35 @@ const getCVEList = async (search_query) => {
     return scrapePage(res.data);
 };
 
+const downloadCVEList = () => (
+    axios.get(CVE_LIST_CVE_URL)
+);
+
+const parseCVEsFile = (csvdata) => {
+    const entries = csvdata.split("\n");
+
+    const version = entries[0].match(/\d+/)[0];
+    const date = entries[1].match(/\d+/)[0];
+
+    for (const i in entries) {
+        if (entries[i].substr(0, 3) === "CVE") {
+            return {
+                date,
+                version,
+                entries: entries.slice(i),
+            };
+        }
+    }
+
+    throw new Error("Bad file format");
+};
+
 module.exports = {
     getCVEListPageUrl,
     fetchCVEListPage,
     getCVEList,
     scrapePage,
     parseRawCVE,
+    downloadCVEList,
+    parseCVEsFile,
 };
