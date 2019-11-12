@@ -12,12 +12,13 @@
     "@oclif/command": "^1.5.19",
     "@oclif/config": "^1.13.3",
     "@oclif/plugin-help": "^2.2.1",
-    "wappalyzer": "^5.8.4",
-    "cli-ux": "^5.3.2",
     "@sentry/node": "^5.7.1",
     "axios": "^0.19.0",
     "cheerio": "^1.0.0-rc.3",
-    "node-persist": "^3.0.5"
+    "cli-ux": "^5.3.2",
+    "js-crawler": "^0.3.21",
+    "node-persist": "^3.0.5",
+    "wappalyzer": "^5.8.4"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",

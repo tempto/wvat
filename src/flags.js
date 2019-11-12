@@ -18,6 +18,11 @@ const Flags = Object.freeze({
         description: "crawling depth",
         default: 2,
     }),
+    noCache: flags.boolean({
+        char: "nc",
+        description: "crawl with no cache",
+        default: false,
+    }),
 });
 
 module.exports = Flags;

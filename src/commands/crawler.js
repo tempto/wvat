@@ -1,16 +1,18 @@
-const { Command } = require("@oclif/command");
 const Flags = require("../flags");
+const { Command } = require("@oclif/command");
 const { getDomainList } = require("../DomainCrawler");
 
 class CrawlerCommand extends Command {
     async run() {
         const { args, flags } = this.parse(CrawlerCommand);
+        const [, Log] = require("../initCommand")(flags);
         const domain = args.domain;
         const depth = flags.depth;
+        const noCache = flags.noCache;
 
-        const domain_list = await getDomainList(domain, depth);
+        const domain_list = await getDomainList(domain, depth, noCache);
 
-        this.log(domain_list);
+        Log.info(domain_list);
     }
 }
 
@@ -26,7 +28,10 @@ CrawlerCommand.args = [
 ];
 
 CrawlerCommand.flags = {
+    timeout: Flags.timeout,
+    verbose: Flags.verbose,
     depth: Flags.depth,
+    noCache: Flags.noCache,
 };
 
 module.exports = CrawlerCommand;

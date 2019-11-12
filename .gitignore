@@ -10,4 +10,5 @@ node_modules
 /reports
 
 # Node persist
-.domainscache/*
+.domainscache/
+tools/
