@@ -1,6 +1,7 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 const fs = require("fs");
+const egrep = require("@apexearth/egrep");
 
 const CVE_LIST_CVE_URL = "https://cve.mitre.org/data/downloads/allitems.csv";
 
@@ -102,6 +103,21 @@ const storeCVEsFile = (entries, date, version) => {
     });
 };
 
+/**
+ *
+ * @param {*} search_pattern
+ */
+const searchCVEList = (search_pattern, callback) => {
+    egrep({
+        pattern: search_pattern,
+        files: [
+            "cves.txt",
+        ],
+        recursive: false,
+        ignoreCase: true,
+    }, callback);
+};
+
 module.exports = {
     getCVEListPageUrl,
     fetchCVEListPage,
@@ -111,4 +127,5 @@ module.exports = {
     downloadCVEList,
     parseCVEsFile,
     storeCVEsFile,
+    searchCVEList,
 };
