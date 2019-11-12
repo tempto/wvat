@@ -4,6 +4,7 @@ const fs = require("fs");
 const egrep = require("@apexearth/egrep");
 
 const CVE_LIST_CVE_URL = "https://cve.mitre.org/data/downloads/allitems.csv";
+const LOCAL_CVE_FILE_NAME = "cves.txt";
 
 /**
  * Gets the hyperlink of the CVEs list page for a given search query
@@ -98,7 +99,7 @@ const storeCVEsFile = (entries, date, version) => {
     const version_string = `version: ${version}\n`;
     const data = date_string + version_string + entries.join("\n");
 
-    fs.writeFile("cves.txt", data, (err) => {
+    fs.writeFile(LOCAL_CVE_FILE_NAME, data, (err) => {
         if (err) throw new Error("File storing failed");
     });
 };
@@ -107,16 +108,14 @@ const storeCVEsFile = (entries, date, version) => {
  *
  * @param {*} search_pattern
  */
-const searchCVEList = (search_pattern, callback) => {
-    egrep({
-        pattern: search_pattern,
-        files: [
-            "cves.txt",
-        ],
-        recursive: false,
-        ignoreCase: true,
-    }, callback);
-};
+const searchCVEsInLocalFile = (search_pattern, callback) => egrep({
+    pattern: search_pattern,
+    files: [
+        LOCAL_CVE_FILE_NAME,
+    ],
+    recursive: false,
+    ignoreCase: true,
+}, callback);
 
 module.exports = {
     getCVEListPageUrl,
@@ -127,5 +126,5 @@ module.exports = {
     downloadCVEList,
     parseCVEsFile,
     storeCVEsFile,
-    searchCVEList,
+    searchCVEsInLocalFile,
 };
