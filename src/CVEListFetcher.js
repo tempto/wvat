@@ -92,6 +92,16 @@ const parseCVEsFile = (csvdata) => {
     throw new Error("Bad file format");
 };
 
+const storeCVEsFile = (entries, date, version) => {
+    const date_string = `date: ${date}\n`;
+    const version_string = `version: ${version}\n`;
+    const data = date_string + version_string + entries.join("\n");
+
+    fs.writeFile("cves.txt", data, (err) => {
+        if (err) throw new Error("File storing failed");
+    });
+};
+
 module.exports = {
     getCVEListPageUrl,
     fetchCVEListPage,
@@ -100,4 +110,5 @@ module.exports = {
     parseRawCVE,
     downloadCVEList,
     parseCVEsFile,
+    storeCVEsFile,
 };
