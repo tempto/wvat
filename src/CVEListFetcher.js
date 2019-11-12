@@ -71,10 +71,20 @@ const getCVEList = async (search_query) => {
     return scrapePage(res.data);
 };
 
+/**
+ * Downloads a CVE list file
+ * @returns {Promise} Axios get promise
+ */
 const downloadCVEList = () => (
     axios.get(CVE_LIST_CVE_URL)
 );
 
+/**
+ * Parses a downloaded CVE list file
+ * @param {string} csvdata Downloaded CVE list file data
+ * @throws {Error} Bad file format error, if parsing fails
+ * @returns {Object} Json object featuring the parsed data, CVE list date and CVE list version
+ */
 const parseCVEsFile = (csvdata) => {
     const entries = csvdata.split("\n");
 
@@ -94,6 +104,12 @@ const parseCVEsFile = (csvdata) => {
     throw new Error("Bad file format");
 };
 
+/**
+ * Stores a CVEs list in a local file
+ * @param {Array} entries CVE entries array
+ * @param {string} date CVE list date
+ * @param {string} version CVE list version
+ */
 const storeCVEsFile = (entries, date, version) => {
     const date_string = `date: ${date}\n`;
     const version_string = `version: ${version}\n`;
@@ -105,8 +121,9 @@ const storeCVEsFile = (entries, date, version) => {
 };
 
 /**
- *
- * @param {*} search_pattern
+ * Searches for CVE entries in the CVEs local file
+ * @param {string} search_pattern Pattern to search for CVEs
+ * @param {Function} callback Called after searching is done
  */
 const searchCVEsInLocalFile = (search_pattern, callback) => egrep({
     pattern: search_pattern,
