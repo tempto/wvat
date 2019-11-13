@@ -17,6 +17,7 @@ const analyseWebPage = async (url) => {
  * Parses webpage url technologies analysis results
  * @param {string} url Webpage url
  * @param {Array} tech Technology array from analyseWebPage array following this format
+ * @throws {Error} Could not access webpage
  * @returns {Array} Array with found technologies
  */
 const parseAnalysisResults = (url, tech) => {
