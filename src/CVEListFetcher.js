@@ -2,6 +2,8 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const fs = require("fs");
 const egrep = require("@apexearth/egrep");
+const parse = require("csv-parse/lib/sync");
+const { parseDateFromCVEEntry } = require("./utils");
 
 const CVE_LIST_CVE_URL = "https://cve.mitre.org/data/downloads/allitems.csv";
 const LOCAL_CVE_FILE_NAME = "cves.txt";
@@ -75,7 +77,7 @@ const getCVEList = async (search_query) => {
  * Downloads a CVE list file
  * @returns {Promise} Axios get promise
  */
-const downloadCVEList = () => (
+const downloadCVEsFile = () => (
     axios.get(CVE_LIST_CVE_URL)
 );
 
@@ -115,7 +117,7 @@ const storeCVEsFile = (entries, date, version) => {
     const version_string = `version: ${version}\n`;
     const data = date_string + version_string + entries.join("\n");
 
-    fs.writeFile(LOCAL_CVE_FILE_NAME, data, (err) => {
+    fs.writeFileSync(LOCAL_CVE_FILE_NAME, data, (err) => {
         if (err) throw new Error("File storing failed");
     });
 };
@@ -125,7 +127,7 @@ const storeCVEsFile = (entries, date, version) => {
  * @param {string} search_pattern Pattern to search for CVEs
  * @param {Function} callback Called after searching is done
  */
-const searchCVEsInLocalFile = (search_pattern, callback) => egrep({
+const searchCVEsInLocalCache = (search_pattern, callback) => egrep({
     pattern: search_pattern,
     files: [
         LOCAL_CVE_FILE_NAME,
@@ -134,14 +136,30 @@ const searchCVEsInLocalFile = (search_pattern, callback) => egrep({
     ignoreCase: true,
 }, callback);
 
+/**
+ * Parses CVE entries from the local cache
+ * @param {Array} entries Local cache entries
+ * @returns {Array} Parsed local cache entries
+ */
+const parseLocalCacheCVEEntries = (entries) => entries.map((entry) => {
+    const parsed_entry = parse(entry)[0];
+    return {
+        id: parsed_entry[0],
+        status: parsed_entry[1],
+        description: parsed_entry[2],
+        date: parseDateFromCVEEntry(parsed_entry),
+    };
+});
+
 module.exports = {
     getCVEListPageUrl,
     fetchCVEListPage,
     getCVEList,
     scrapePage,
     parseRawCVE,
-    downloadCVEList,
+    downloadCVEsFile,
     parseCVEsFile,
     storeCVEsFile,
-    searchCVEsInLocalFile,
+    searchCVEsInLocalCache,
+    parseLocalCacheCVEEntries,
 };

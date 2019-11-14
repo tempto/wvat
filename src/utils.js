@@ -32,10 +32,27 @@ const buildRegexFromSearchQuery = (search_query) => {
     return new RegExp(tokens.join(WORD_SEPARATOR));
 };
 
+/**
+ * Parses a date from a Local cache CVE entry
+ * @param {Array} cve_entry CVE entry from Local cache
+ * @returns {String} Date string, undefined if invalid format
+ */
+const parseDateFromCVEEntry = (cve_entry) => {
+    const date = cve_entry[4];
+    const date_start_index = date.indexOf("(");
+
+    if (date_start_index === -1) {
+        return undefined;
+    } else {
+        return `${date.substr(date_start_index + 7, 2)}-${date.substr(date_start_index + 5, 2)}-${date.substr(date_start_index + 1, 4)}`;
+    }
+};
+
 module.exports = {
     URL_REGEX,
     HTTPS_REGEX,
     isValidCVE,
     isValidURL,
     buildRegexFromSearchQuery,
+    parseDateFromCVEEntry,
 };
