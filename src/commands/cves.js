@@ -1,5 +1,5 @@
 const Command = require("../BaseCommand");
-const { getCVEList } = require("../CVEListFetcher");
+const { getCVEList } = require("../CVEs");
 
 class CVECommand extends Command {
     async run() {

@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const fc = require("fast-check");
-const { getCVEListPageUrl, parseRawCVE, scrapePage } = require("../../src/CVEListFetcher");
+const { getCVEListPageUrl, parseRawCVE, scrapePage } = require("../../src/CVEs");
 const { isValidCVE, isValidURL } = require("../../src/utils");
 const chai = require("chai"),
     expect = chai.expect,
