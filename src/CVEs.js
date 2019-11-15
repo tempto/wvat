@@ -3,10 +3,10 @@ const cheerio = require("cheerio");
 const fs = require("fs");
 const egrep = require("@apexearth/egrep");
 const parse = require("csv-parse/lib/sync");
-const { parseDateFromCVEEntry } = require("./utils");
+const { parseDateFromCVEEntry, buildRegexFromSearchQuery } = require("./utils");
 
 const CVE_LIST_CVE_URL = "https://cve.mitre.org/data/downloads/allitems.csv";
-const LOCAL_CVE_FILE_NAME = "cves.txt";
+const LOCAL_CVE_FILE_NAME = ".cvescache";
 
 /**
  * Gets the hyperlink of the CVEs list page for a given search query
@@ -124,11 +124,11 @@ const storeCVEsFile = (entries, date, version) => {
 
 /**
  * Searches for CVE entries in the CVEs local file
- * @param {string} search_pattern Pattern to search for CVEs
+ * @param {string} search_query Query to search for CVEs
  * @param {Function} callback Called after searching is done
  */
-const searchCVEsInLocalCache = (search_pattern, callback) => egrep({
-    pattern: search_pattern,
+const searchCVEsInLocalCache = (search_query, callback) => egrep({
+    pattern: buildRegexFromSearchQuery(search_query),
     files: [
         LOCAL_CVE_FILE_NAME,
     ],
@@ -142,7 +142,7 @@ const searchCVEsInLocalCache = (search_pattern, callback) => egrep({
  * @returns {Array} Parsed local cache entries
  */
 const parseLocalCacheCVEEntries = (entries) => entries.map((entry) => {
-    const parsed_entry = parse(entry)[0];
+    const parsed_entry = parse(entry.line)[0];
     return {
         id: parsed_entry[0],
         status: parsed_entry[1],
@@ -150,6 +150,26 @@ const parseLocalCacheCVEEntries = (entries) => entries.map((entry) => {
         date: parseDateFromCVEEntry(parsed_entry),
     };
 });
+
+/**
+ * Updates local CVE cache, donwloading, parsing and storing the file
+ */
+const updateLocalCVECache = async () => {
+    const { status, data } = await downloadCVEsFile();
+    const { date, version, entries } = parseCVEsFile(data);
+
+    if (status !== 200) {
+        throw new Error("Bad response");
+    }
+
+    storeCVEsFile(entries, date, version);
+};
+
+/**
+ * Verifies if CVE local cache exists
+ * @returns {boolean} true if exists, false otherwise
+ */
+const localCVECacheExists = () => fs.existsSync(LOCAL_CVE_FILE_NAME);
 
 module.exports = {
     getCVEListPageUrl,
@@ -162,4 +182,6 @@ module.exports = {
     storeCVEsFile,
     searchCVEsInLocalCache,
     parseLocalCacheCVEEntries,
+    updateLocalCVECache,
+    localCVECacheExists,
 };

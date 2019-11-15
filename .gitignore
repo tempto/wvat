@@ -11,4 +11,4 @@ node_modules
 
 # Cache files
 .domainscache/
-cves.txt
+.cvescache

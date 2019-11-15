@@ -19,7 +19,18 @@ const Flags = Object.freeze({
         default: 2,
     }),
     noCache: flags.boolean({
+        char: "ncrc",
         description: "crawl with no cache",
+        default: false,
+    }),
+    "no-cve-cache": flags.boolean({
+        char: "ncc",
+        description: "Search without using local CVE cache",
+        default: false,
+    }),
+    "update-cve-cache": flags.boolean({
+        char: "ucc",
+        description: "Force update the local CVE cache",
         default: false,
     }),
 });

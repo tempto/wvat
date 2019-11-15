@@ -14,6 +14,18 @@ const errors = Object.freeze({
         code: 3,
         description: "The crawler found no subdomains",
     },
+    CVE_SCRAPING: {
+        code: 10,
+        description: "CVE Scrapping failure",
+    },
+    CVE_LOCAL_CACHE: {
+        code: 11,
+        description: "CVE Local Cache accessing error",
+    },
+    CVE_LOCAL_CACHE_UPDATE: {
+        code: 12,
+        description: "CVE Local Cache update error",
+    },
 });
 
 module.exports = errors;
