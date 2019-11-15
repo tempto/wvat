@@ -1,6 +1,7 @@
-const { isValidCVE, isValidURL } = require("../src/utils");
+const { isValidCVE, isValidURL, parseDateFromCVEEntry, buildRegexFromSearchQuery } = require("../src/utils");
 
 const chai = require("chai"),
+    expect = chai.expect,
     should = chai.should(); // eslint-disable-line
 
 describe("CVE validor util tests", () => {
@@ -37,5 +38,55 @@ describe("URL validor util tests", () => {
         isValidURL("http://invalid.com/perl.cgi?key= | http://web-site.com/cgi-bin/perl.cgi?key1=value1&key2").should.be.false;
         isValidURL("http://example://example.com").should.be.false;
         isValidURL("httpsftp://example.com").should.be.false;
+    });
+});
+
+describe("Parser for CVE local cache entries", () => {
+    it("should correctly parse well-built cve cache entries", () => {
+        const CACHE_CVE_ENTRY = [
+            "CVE-2017-16028",
+            "Candidate",
+            "Description...",
+            "...",
+            "Assigned (20171029)",
+            "...",
+            "...",
+        ];
+
+        const date = parseDateFromCVEEntry(CACHE_CVE_ENTRY);
+        expect(date).to.equal("29-10-2017");
+    });
+
+    it("should correctly parse poorly-built cve cache entries", () => {
+        const BAD_CACHE_CVE_ENTRY = [
+            "CVE-2017-16028",
+            "Candidate",
+            "Description...",
+            "...",
+            "Bad field",
+            "...",
+            "...",
+        ];
+
+        const date = parseDateFromCVEEntry(BAD_CACHE_CVE_ENTRY);
+        expect(date).to.be.undefined;
+    });
+});
+
+describe("Regex builder from search queries", () => {
+    it("should build regex expressions that accept all word separators for input search queries", () => {
+        expect(buildRegexFromSearchQuery(" ")).to.deep.equal(/[:_.-\s]+/);
+        expect(buildRegexFromSearchQuery("react")).to.deep.equal(/react/);
+
+        expect(buildRegexFromSearchQuery("react native")).to.deep.equal(/react[:_.-\s]+native/);
+        expect(buildRegexFromSearchQuery("react-native")).to.deep.equal(/react[:_.-\s]+native/);
+        expect(buildRegexFromSearchQuery("react_native")).to.deep.equal(/react[:_.-\s]+native/);
+        expect(buildRegexFromSearchQuery("react.native")).to.deep.equal(/react[:_.-\s]+native/);
+        expect(buildRegexFromSearchQuery("react:native")).to.deep.equal(/react[:_.-\s]+native/);
+        expect(buildRegexFromSearchQuery("react\tnative")).to.deep.equal(/react[:_.-\s]+native/);
+        expect(buildRegexFromSearchQuery("react     native")).to.deep.equal(/react[:_.-\s]+native/);
+
+        expect(buildRegexFromSearchQuery("node express js")).to.deep.equal(/node[:_.-\s]+express[:_.-\s]+js/);
+        expect(buildRegexFromSearchQuery("node express.js")).to.deep.equal(/node[:_.-\s]+express[:_.-\s]+js/);
     });
 });

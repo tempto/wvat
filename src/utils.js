@@ -27,6 +27,11 @@ const isValidURL = (url_candidate) => URL_REGEX.test(url_candidate);
  */
 const isValidCVE = (cve_candidate) => CVE_REGEX.test(cve_candidate);
 
+/**
+ *
+ * @param {String} search_query Search query string
+ * @returns {RegExp} Regex to match various word separators
+ */
 const buildRegexFromSearchQuery = (search_query) => {
     const tokens = search_query.split(PARSE_SEARCH_QUERY_REGEX);
     return new RegExp(tokens.join(WORD_SEPARATOR));
