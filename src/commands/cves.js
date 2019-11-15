@@ -25,7 +25,7 @@ class CVECommand extends Command {
             const cve_cache_exists = localCVECacheExists();
 
             if (flags["update-cve-cache"] || !cve_cache_exists) {
-                this.log("Donwloading CVEs database ...");
+                this.log("Downloading CVEs database ...");
 
                 try {
                     await updateLocalCVECache();

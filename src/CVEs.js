@@ -152,7 +152,7 @@ const parseLocalCacheCVEEntries = (entries) => entries.map((entry) => {
 });
 
 /**
- * Updates local CVE cache, donwloading, parsing and storing the file
+ * Updates local CVE cache, downloading, parsing and storing the file
  */
 const updateLocalCVECache = async () => {
     const { status, data } = await downloadCVEsFile();
