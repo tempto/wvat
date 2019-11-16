@@ -7,9 +7,9 @@ class CrawlerCommand extends BaseCommand {
         const { args, flags } = this.parse(CrawlerCommand);
         const [, Log] = require("../initCommand")(flags);
         const domain = args.domain;
-        const { depth, noCache } = flags;
+        const { depth, noCrawlingCache } = flags;
         const { getPagesList } = require("../PageCrawler");
-        const domain_list = await getPagesList(domain, depth, noCache);
+        const domain_list = await getPagesList(domain, depth, noCrawlingCache);
         if (domain_list.length) Log.info(domain_list);
         else {
             Log.error(Errors.NO_SUBDOMAINS_FOUND.description);
@@ -33,7 +33,7 @@ CrawlerCommand.flags = {
     timeout: Flags.timeout,
     verbose: Flags.verbose,
     depth: Flags.depth,
-    noCache: Flags.noCache,
+    noCrawlingCache: Flags.noCrawlingCache,
 };
 
 module.exports = CrawlerCommand;

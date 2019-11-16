@@ -52,7 +52,7 @@ const crawl = (crawler, domain_name) => {
 
 };
 
-const getPagesList = async (domain_name, depth_level = 2, nocache = false) => {
+const getPagesList = async (domain_name, depth_level = 2, no_cache = false) => {
     if (!domain_name) throw new Error("Missing Domain Name");
     if (depth_level <= 0) throw new Error("Depth Level must be a positive number");
 
@@ -66,7 +66,7 @@ const getPagesList = async (domain_name, depth_level = 2, nocache = false) => {
     await initStorage();
     const cached_list = await storage.getItem(domain_key);
 
-    if (!cached_list || nocache) {
+    if (!cached_list || no_cache) {
         const crawler = getCrawler(domain_name, depth_level);
         const domain_list = await crawl(crawler, domain_name);
         storage.setItem(domain_key, domain_list);

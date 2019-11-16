@@ -12,7 +12,7 @@ class CVECommand extends Command {
 
         const technology = args.technology;
 
-        if (flags["no-cve-cache"]) {
+        if (flags.noCveCache) {
             const cve_list = await getCVEList(technology);
 
             if (!cve_list) {
@@ -24,7 +24,7 @@ class CVECommand extends Command {
         } else {
             const cve_cache_exists = localCVECacheExists();
 
-            if (flags["update-cve-cache"] || !cve_cache_exists) {
+            if (flags.updateCveCache || !cve_cache_exists) {
                 this.log("Downloading CVEs database ...");
 
                 try {
@@ -67,8 +67,8 @@ CVECommand.flags = {
 };
 
 CVECommand.examples  = [
-    "cves \"React Native\" --no-cve-cache",
-    "cves \"Windows Server\" --update-cve-cache",
+    "cves \"React Native\" --noCveCache",
+    "cves \"Windows Server\" --updateCveCache",
 ];
 
 module.exports = CVECommand;
