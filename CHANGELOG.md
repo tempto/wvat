@@ -1,45 +1,32 @@
 # Changelog
 
-## October 2019 Week 4 (version 1.0)
+## Release 3 - November 2019 Week 4 (version 1.2)
 
-Downloads: [Windows](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/win) | [Unix-based Systems](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/wvat-v1.0.0)
+Downloads: [Windows](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/win) | [Unix-based Systems](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/wvat-v1.2.0)
 
-Welcome to the October 2019 Week 4 release of *WVAT - Web Vulnerability Assessment Tool*. This patch's key highlights include:
+Welcome to the November 2019 Week 4 release of *WVAT - Web Vulnerability Assessment Tool*. This patch's key highlights include:
 
-- User-friendly CLI application setup to access other features;
-- Thorough help section of tool's usage and specific commands usage;
-- Find *CVE*s (Common Vulnerabilities and Exposures) for a given technology
-- Find known *Exploits* for a given *CVE*
+- CLI user experience enhancements
+- Crawling web pages of a Domain
+- Caching web pages crawling results to enhance future analysis
+- Enhanced CVE searching results and reduce waiting time by introducing CVE Caching
+- Improved exploits results for CVEs, by adding more exploit databases alternatives
 
 ### Closed Issues
 
 #### Feature-related Issues
 
-- [Application List of Settings](#3)
-    - [Setup NodeJS CLI framework](#37)
-    - [Setup Configuration state accessible to all the modules](#38)
-    - [Implement CLI settings Unit Tests](#39)
-- [Finding CVEs for a given Technology](#24)
-    - [Get CVEs from CVEs website endpoint and parse CVEs list from HTML](#51)
-    - [Implement CVE list parsing Unit Tests](#52)
-- [Obtaining exploits link for a given CVE](#28)
-    - [Build link to exploits list (from Exploit-db) with CVE query](#58)
-    - [Implement link to exploits list Unit Tests](#59)
-- [Help Section acces](#4)
-    - [Show the help section when running `wvat help`](#70)
-- [Verify current Tool Version](#10)
+- 
 
 #### Technical Issues
 
-- [Research Wappalyzer and alternatives in order to list existing techs in a web page](#48)
-- [Configure CI Lint Job](#66)
-- [Configure CI Audit Job](#67)
-- [Configure CI Test Job](#68)
-- [Configure JS linting](#65)
-- [Configure tool 'build' script for building the tool deliverable bundle](#69)
-- [Setup mutation testing with stryker](#81)
+- 
 
-## November 2019 Week 2 (version 1.1)
+### Commit History
+
+- 
+
+## Release 2 - November 2019 Week 2 (version 1.1)
 
 Downloads: [Windows](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/win) | [Unix-based Systems](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/wvat-v1.1.0)
 
@@ -105,3 +92,42 @@ Welcome to the November 2019 Week 2 release of *WVAT - Web Vulnerability Assessm
 - [Added errors centralized file](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/145697fd)
 - [Updated test suites with chai BDD syntax](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/2da5e5e0)
 - [Added Chai module for BDD testing](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/a9fde9ab)
+
+## Release 1 - October 2019 Week 4 (version 1.0)
+
+Downloads: [Windows](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/win) | [Unix-based Systems](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/wvat-v1.0.0)
+
+Welcome to the October 2019 Week 4 release of *WVAT - Web Vulnerability Assessment Tool*. This patch's key highlights include:
+
+- User-friendly CLI application setup to access other features;
+- Thorough help section of tool's usage and specific commands usage;
+- Find *CVE*s (Common Vulnerabilities and Exposures) for a given technology
+- Find known *Exploits* for a given *CVE*
+
+### Closed Issues
+
+#### Feature-related Issues
+
+- [Application List of Settings](#3)
+    - [Setup NodeJS CLI framework](#37)
+    - [Setup Configuration state accessible to all the modules](#38)
+    - [Implement CLI settings Unit Tests](#39)
+- [Finding CVEs for a given Technology](#24)
+    - [Get CVEs from CVEs website endpoint and parse CVEs list from HTML](#51)
+    - [Implement CVE list parsing Unit Tests](#52)
+- [Obtaining exploits link for a given CVE](#28)
+    - [Build link to exploits list (from Exploit-db) with CVE query](#58)
+    - [Implement link to exploits list Unit Tests](#59)
+- [Help Section acces](#4)
+    - [Show the help section when running `wvat help`](#70)
+- [Verify current Tool Version](#10)
+
+#### Technical Issues
+
+- [Research Wappalyzer and alternatives in order to list existing techs in a web page](#48)
+- [Configure CI Lint Job](#66)
+- [Configure CI Audit Job](#67)
+- [Configure CI Test Job](#68)
+- [Configure JS linting](#65)
+- [Configure tool 'build' script for building the tool deliverable bundle](#69)
+- [Setup mutation testing with stryker](#81)
