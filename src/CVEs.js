@@ -4,6 +4,7 @@ const fs = require("fs");
 const egrep = require("@apexearth/egrep");
 const parse = require("csv-parse/lib/sync");
 const { parseDateFromCVEEntry, buildRegexFromSearchQuery } = require("./utils");
+const { getExploitDatabasesUrls } = require("./Exploits");
 
 const CVE_LIST_CVE_URL = "https://cve.mitre.org/data/downloads/allitems.csv";
 const LOCAL_CVE_FILE_NAME = ".cvescache";
@@ -148,6 +149,7 @@ const parseLocalCacheCVEEntries = (entries) => entries.map((entry) => {
         status: parsed_entry[1],
         description: parsed_entry[2],
         date: parseDateFromCVEEntry(parsed_entry),
+        exploits: getExploitDatabasesUrls(parsed_entry[0].substring(4)),
     };
 });
 

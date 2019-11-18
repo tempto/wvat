@@ -93,28 +93,22 @@ describe("Local Cache CVE entry parsing", () => {
             },
         ];
 
-        const parsed_data = parseLocalCacheCVEEntries(raw_data);
+        const [entry1, entry2, entry3] = parseLocalCacheCVEEntries(raw_data);
 
-        expect(parsed_data[0]).to.deep.equal({
-            id: "CVE-1000-0001",
-            status: "Candidate",
-            description: "Description 1",
-            date: "10-01-2015",
-        });
+        expect(entry1.id).to.equal("CVE-1000-0001");
+        expect(entry1.status).to.equal("Candidate");
+        expect(entry1.description).to.equal("Description 1");
+        expect(entry1.date).to.equal("10-01-2015");
 
-        expect(parsed_data[1]).to.deep.equal({
-            id: "CVE-1000-0002",
-            status: "Candidate",
-            description: "Description 2",
-            date: "20-02-2016",
-        });
+        expect(entry2.id).to.equal("CVE-1000-0002");
+        expect(entry2.status).to.equal("Candidate");
+        expect(entry2.description).to.equal("Description 2");
+        expect(entry2.date).to.equal("20-02-2016");
 
-        expect(parsed_data[2]).to.deep.equal({
-            id: "CVE-1000-0003",
-            status: "Candidate",
-            description: "Description 3",
-            date: "30-03-2017",
-        });
+        expect(entry3.id).to.equal("CVE-1000-0003");
+        expect(entry3.status).to.equal("Candidate");
+        expect(entry3.description).to.equal("Description 3");
+        expect(entry3.date).to.equal("30-03-2017");
     });
 });
 
