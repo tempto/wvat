@@ -1,4 +1,6 @@
-const { isValidCVE, isValidURL, parseDateFromCVEEntry, buildRegexFromSearchQuery } = require("../src/utils");
+const {
+    isValidCVE, isValidURL, parseDateFromCVEEntry, buildRegexFromSearchQuery, isNumOnlyCVE, isCompleteCVE,
+} = require("../src/utils");
 
 const chai = require("chai"),
     expect = chai.expect,
@@ -16,6 +18,34 @@ describe("CVE validor util tests", () => {
         isValidCVE("CVE-22015-1234").should.be.false;
         isValidCVE("22015-1234").should.be.false;
         isValidCVE("-2015-1234").should.be.false;
+    });
+
+    it("should validate correct number-only-format CVES", () => {
+        isNumOnlyCVE("2019-1234").should.be.true;
+        isNumOnlyCVE("2019-12345").should.be.true;
+        isNumOnlyCVE("2019-123456").should.be.true;
+        isNumOnlyCVE("2019-1234567").should.be.true;
+    });
+
+    it("should not validate incorrect number-only-format CVES", () => {
+        isNumOnlyCVE("CVE-2019-1234").should.be.false;
+        isNumOnlyCVE("CVE-2019-12345").should.be.false;
+        isNumOnlyCVE("CVE-2019-123456").should.be.false;
+        isNumOnlyCVE("CVE-2019-1234567").should.be.false;
+    });
+
+    it("should validate correct full-format CVES", () => {
+        isCompleteCVE("CVE-2019-1234").should.be.true;
+        isCompleteCVE("CVE-2019-12345").should.be.true;
+        isCompleteCVE("CVE-2019-123456").should.be.true;
+        isCompleteCVE("CVE-2019-1234567").should.be.true;
+    });
+
+    it("should not validate incorrect full-format CVES", () => {
+        isCompleteCVE("2019-1234").should.be.false;
+        isCompleteCVE("2019-12345").should.be.false;
+        isCompleteCVE("2019-123456").should.be.false;
+        isCompleteCVE("2019-1234567").should.be.false;
     });
 });
 

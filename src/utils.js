@@ -8,6 +8,9 @@ const URL_REGEX = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'(
  */
 const CVE_REGEX = /^(CVE-)?\d{4}-\d{4,}$/;
 
+const COMPLETE_CVE_REGEX = /^CVE-\d{4}-\d{4,}$/;
+const NUM_ONLY_CVE_REGEX = /^\d{4}-\d{4,}$/;
+
 const HTTPS_REGEX = /^http(s)?/;
 
 const PARSE_SEARCH_QUERY_REGEX = /[:_.-\s]+/;
@@ -19,6 +22,10 @@ const WORD_SEPARATOR = "[:_.-\\s]+";
  * @returns {boolean} true if the url is valid, false otherwise
  */
 const isValidURL = (url_candidate) => URL_REGEX.test(url_candidate);
+
+const isCompleteCVE = (cve_candidate) => COMPLETE_CVE_REGEX.test(cve_candidate);
+
+const isNumOnlyCVE = (cve_candidate) => NUM_ONLY_CVE_REGEX.test(cve_candidate);
 
 /**
  * Verifies if a given CVE candidate is valid
@@ -57,6 +64,8 @@ module.exports = {
     URL_REGEX,
     HTTPS_REGEX,
     isValidCVE,
+    isCompleteCVE,
+    isNumOnlyCVE,
     isValidURL,
     buildRegexFromSearchQuery,
     parseDateFromCVEEntry,
