@@ -9,8 +9,8 @@ class CrawlerCommand extends Command {
 
         const domain = args.domain;
         const { depth, noCrawlingCache } = flags;
-        const { getPagesList } = require("../SubdomainCrawler");
-        const { getSubdomainsList } = require("../PageCrawler");
+        const { getSubdomainsList } = require("../SubdomainCrawler");
+        const { getPagesList } = require("../PageCrawler");
         getSubdomainsList();
         const domain_list = await getPagesList(domain, depth, noCrawlingCache);
 

@@ -5,11 +5,11 @@ const Config = require("./Config");
 const Log = new Logger(Config.flags).getLog();
 
 const checkGoExists = () => {
-    commandExists("ls", (err) => {
-        if (err) {
-            Log.error(err);
-        }
-    });
+    commandExists("go")
+        .catch(() => {
+            Log.error("This tool requires Go, but wasn't found on this machine!");
+            process.exit(0);
+        });
 };
 
 const getSubdomainsList = () => {
