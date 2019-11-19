@@ -5,6 +5,8 @@
 /tmp
 /yarn.lock
 node_modules
+.DS_Store
+security_analysis_report*.json
 
 # Test reports
 /reports
