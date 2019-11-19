@@ -1,6 +1,6 @@
 const Crawler = require("js-crawler");
 const storage = require("node-persist");
-const { URL_REGEX, HTTPS_REGEX } = require("./utils");
+const { HTTPS_REGEX, isUrlFromDomain, isHttpStatusCode } = require("./utils");
 const Logger = require("./Logger");
 const Config = require("./Config");
 
@@ -12,10 +12,6 @@ const initStorage = () => (
     })
 );
 
-const getDomainName = (url) => (
-    url.match(URL_REGEX)[1]
-);
-
 const removeQueryParams = (url) => (
     url.split("?")[0]
 );
@@ -23,9 +19,8 @@ const removeQueryParams = (url) => (
 const getCrawler = (domain, depth) => (new Crawler().configure({
     ignoreRelative: false,
     depth: depth,
-    shouldCrawlLinksFrom: (url) => (
-        url.indexOf(getDomainName(domain)) > 0
-    ),
+    shouldCrawlLinksFrom: (url) => isUrlFromDomain(url, domain),
+    shouldCrawl: (url) => isUrlFromDomain(url, domain),
 }));
 
 const crawl = (crawler, domain_name) => {
@@ -35,7 +30,7 @@ const crawl = (crawler, domain_name) => {
             url: domain_name,
             success: (page) => {
                 const url = removeQueryParams(page.url);
-                Log.info(url);
+                Log.trace(url);
                 if (!domain_list.includes(url)) {
                     domain_list.push(url);
                 }
@@ -45,7 +40,7 @@ const crawl = (crawler, domain_name) => {
             },
             finished: () => {
                 domain_list.sort();
-                resolve(domain_list);
+                resolve(removeBadEndpoints(domain_list));
             },
         });
     });
@@ -71,10 +66,25 @@ const getPagesList = async (domain_name, depth_level = 2, no_cache = false) => {
         const domain_list = await crawl(crawler, domain_name);
         storage.setItem(domain_key, domain_list);
         return domain_list;
+    } else {
+        Log.trace("Cached version found. Using Cached version.");
     }
 
     return cached_list;
 };
+
+/**
+ * Verifies if an endpoint is acceptable
+ * @param {string} endpoint Endpoint candidate to test
+ * @returns {boolean} true if acceptable, false otherwise
+ */
+const isGoodEndpoint = (endpoint) => (
+    !isHttpStatusCode(endpoint)
+);
+
+const removeBadEndpoints = (endpoints) => (
+    endpoints.filter(isGoodEndpoint)
+);
 
 module.exports = {
     getPagesList,

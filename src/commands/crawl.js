@@ -10,8 +10,10 @@ class CrawlerCommand extends BaseCommand {
         const { depth, noCrawlingCache } = flags;
         const { getPagesList } = require("../PageCrawler");
         const domain_list = await getPagesList(domain, depth, noCrawlingCache);
-        if (domain_list.length) Log.info(domain_list);
-        else {
+
+        if (domain_list.length) {
+            Log.info(JSON.stringify(domain_list, null, 2));
+        } else {
             Log.error(Errors.NO_SUBDOMAINS_FOUND.description);
             process.exit(Errors.NO_SUBDOMAINS_FOUND.code);
         }

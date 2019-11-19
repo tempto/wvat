@@ -12,9 +12,12 @@ const COMPLETE_CVE_REGEX = /^CVE-\d{4}-\d{4,}$/;
 const NUM_ONLY_CVE_REGEX = /^\d{4}-\d{4,}$/;
 
 const HTTPS_REGEX = /^http(s)?/;
+const DOMAIN_REGEX = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\\/\n?]+)/i;
 
 const PARSE_SEARCH_QUERY_REGEX = /[:_.-\s]+/;
 const WORD_SEPARATOR = "[:_.-\\s]+";
+
+const HTTP_STATUS_CODE_REGEX = /^\d{3}$/;
 
 /**
  * Verifies if a given url candidate is valid
@@ -60,6 +63,29 @@ const parseDateFromCVEEntry = (cve_entry) => {
     }
 };
 
+/**
+ * Extracts the domain from a given url
+ * @param {string} url Url to extract domain
+ * @returns {string} extracted domain from url
+ */
+const extractDomainFromUrl = (url) => (
+    url.match(DOMAIN_REGEX)[1]
+);
+
+/**
+ * Verifies if a given url belongs to a specific domain
+ * @param {string} url url candidate
+ * @param {string} domain target domain
+ * @returns {boolean} true if url is from domain, false otherwise
+ */
+const isUrlFromDomain = (url, domain) => (
+    url.indexOf(extractDomainFromUrl(domain)) >= 0
+);
+
+const isHttpStatusCode = (candidate) => (
+    HTTP_STATUS_CODE_REGEX.test(candidate)
+);
+
 module.exports = {
     URL_REGEX,
     HTTPS_REGEX,
@@ -69,4 +95,7 @@ module.exports = {
     isValidURL,
     buildRegexFromSearchQuery,
     parseDateFromCVEEntry,
+    extractDomainFromUrl,
+    isUrlFromDomain,
+    isHttpStatusCode,
 };
