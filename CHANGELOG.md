@@ -2,7 +2,7 @@
 
 ## Release 3 - November 2019 Week 4 (version 1.2)
 
-Downloads: [Windows](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/win) | [Unix-based Systems](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/wvat-v1.2.0)
+Downloads: [Windows](https://www.dropbox.com/sh/z7cwhf3y0v3cwjl/AADHcpxdUunlB0hM_f1u9sVxa/dist/win?dl=0&subfolder_nav_tracking=1) | [Unix-based Systems](https://www.dropbox.com/sh/z7cwhf3y0v3cwjl/AAACbWlNnoyyJ848SFA6F79Xa/dist?dl=0&subfolder_nav_tracking=1)
 
 Welcome to the November 2019 Week 4 release of *WVAT - Web Vulnerability Assessment Tool*. This patch's key highlights include:
 
@@ -113,7 +113,7 @@ Welcome to the November 2019 Week 4 release of *WVAT - Web Vulnerability Assessm
 
 ## Release 2 - November 2019 Week 2 (version 1.1)
 
-Downloads: [Windows](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/win) | [Unix-based Systems](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/wvat-v1.1.0)
+Downloads: [Windows](https://www.dropbox.com/sh/z7cwhf3y0v3cwjl/AADHcpxdUunlB0hM_f1u9sVxa/dist/win?dl=0&subfolder_nav_tracking=1) | [Unix-based Systems](https://www.dropbox.com/sh/z7cwhf3y0v3cwjl/AACfMq8gbIbMzufO4Jo1AfZ9a/dist/wvat-v1.1.0?dl=0&subfolder_nav_tracking=1)
 
 Welcome to the November 2019 Week 2 release of *WVAT - Web Vulnerability Assessment Tool*. This patch's key highlights include:
 
@@ -180,7 +180,7 @@ Welcome to the November 2019 Week 2 release of *WVAT - Web Vulnerability Assessm
 
 ## Release 1 - October 2019 Week 4 (version 1.0)
 
-Downloads: [Windows](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/win) | [Unix-based Systems](https://www.dropbox.com/home/LDSO%20T2G1/prod/dist/wvat-v1.0.0)
+Downloads: [Windows](https://www.dropbox.com/sh/z7cwhf3y0v3cwjl/AADHcpxdUunlB0hM_f1u9sVxa/dist/win?dl=0&subfolder_nav_tracking=1) | [Unix-based Systems](https://www.dropbox.com/sh/z7cwhf3y0v3cwjl/AABVmS2VRE_PhM7p67Ixs6zba/dist/wvat-v1.0.0?dl=0&subfolder_nav_tracking=1)
 
 Welcome to the October 2019 Week 4 release of *WVAT - Web Vulnerability Assessment Tool*. This patch's key highlights include:
 
