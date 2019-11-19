@@ -35,6 +35,13 @@ Welcome to the November 2019 Week 4 release of *WVAT - Web Vulnerability Assessm
 
 #### Technical Issues
 
+- [Research Wappalyzer and alternatives in order to list existing techs in a web page](#48)
+- [Configure CI Lint Job](#66)
+- [Configure CI Audit Job](#67)
+- [Configure CI Test Job](#68)
+- [Configure JS linting](#65)
+- [Configure tool 'build' script for building the tool deliverable bundle](#69)
+- [Setup mutation testing with stryker](#81)
 - [Improve security checks in CI pipeline](#101)
 - [Create Potential Security Vulnerabilities document in the Wiki](#102)
 - [Create custom docker image to install pipeline dependencies](#103)
@@ -44,6 +51,7 @@ Welcome to the November 2019 Week 4 release of *WVAT - Web Vulnerability Assessm
 - [Add 'Velocity Analysis and Burndown Chart' page for Sprint 3](#98)
 - [Add 'Burndown chart and End of project estimate' page for Sprint 3](#99)
 - [Add 'Product Owner Meeting' page for Sprint 3](#100)
+- [Research way to populate an HTML template with JS variables](#87)
 
 ### Commit History
 

@@ -98,7 +98,7 @@ $ npm install -g wvat
 $ wvat COMMAND
 running command...
 $ wvat (-v|--version|version)
-wvat/1.1.0 linux-x64 node-v10.16.3
+wvat/1.2.0 linux-x64 node-v10.16.3
 $ wvat --help [COMMAND]
 USAGE
   $ wvat COMMAND
@@ -107,26 +107,33 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`wvat analyze URL`](#wvat-analyze-url)
+* [`wvat crawl DOMAIN`](#wvat-crawl-domain)
 * [`wvat cves TECHNOLOGY`](#wvat-cves-technology)
 * [`wvat error-codes`](#wvat-error-codes)
 * [`wvat exploits CVE`](#wvat-exploits-cve)
 * [`wvat help [COMMAND]`](#wvat-help-command)
+* [`wvat inspect URL`](#wvat-inspect-url)
 * [`wvat test`](#wvat-test)
 
-## `wvat analyze URL`
+## `wvat crawl DOMAIN`
 
-Analyzes a given webpage and displays its technologies
+Searches for all subdomains for a given domain
 
 ```
 USAGE
-  $ wvat analyze URL
+  $ wvat crawl DOMAIN
 
 ARGUMENTS
-  URL  Webpage URL
+  DOMAIN  domain to search subdomains
+
+OPTIONS
+  -d, --depth=depth      [default: 2] crawling depth
+  -n, --noCrawlingCache  crawl with no cache
+  -t, --timeout=timeout  Maximum application execution time (in seconds)
+  -v, --verbose          Verbose Mode (outputs all messages to screen)
 ```
 
-_See code: [src/commands/analyze.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/analyze.js)_
+_See code: [src/commands/crawl.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/crawl.js)_
 
 ## `wvat cves TECHNOLOGY`
 
@@ -138,6 +145,18 @@ USAGE
 
 ARGUMENTS
   TECHNOLOGY  technology to search CVEs
+
+OPTIONS
+  -d, --depth=depth      [default: 2] crawling depth
+  -j, --noCveCache       Search without using local CVE cache
+  -n, --noCrawlingCache  crawl with no cache
+  -t, --timeout=timeout  Maximum application execution time (in seconds)
+  -u, --updateCveCache   Force update the local CVE cache
+  -v, --verbose          Verbose Mode (outputs all messages to screen)
+
+EXAMPLES
+  cves "React Native" --noCveCache
+  cves "Windows Server" --updateCveCache
 ```
 
 _See code: [src/commands/cves.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/cves.js)_
@@ -183,6 +202,24 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1/src/commands/help.ts)_
+
+## `wvat inspect URL`
+
+Analyses a given webpage and displays its technologies
+
+```
+USAGE
+  $ wvat inspect URL
+
+ARGUMENTS
+  URL  Webpage URL
+
+OPTIONS
+  -t, --timeout=timeout  Maximum application execution time (in seconds)
+  -v, --verbose          Verbose Mode (outputs all messages to screen)
+```
+
+_See code: [src/commands/inspect.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/inspect.js)_
 
 ## `wvat test`
 
