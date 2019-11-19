@@ -8,14 +8,14 @@ const Logger = require("./Logger");
  * @param {string} logger_level Level to configure Logger
  * @returns {Array} The app's Config instance and the initialized Logger
  */
-const initCommand = (flags, logger_level = "all") => {
+const initCommand = (flags) => {
     Config.addFlags(flags);
 
     if (flags.timeout) {
         handleTimeout(() => process.exit(1), flags.timeout);
     }
 
-    const Log = (new Logger(flags, logger_level)).getLog();
+    const Log = (new Logger(flags)).getLog();
     return [Config, Log];
 
 };

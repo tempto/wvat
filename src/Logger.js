@@ -9,13 +9,13 @@ class Logger {
      * @param {Array} flags Set of flags passed to the tool
      * @param {string} logger_level Level to configure Logger
      */
-    constructor(flags, logger_level = "all") {
+    constructor(flags) {
         if (Logger.instance) {
             return Logger.instance;
         }
 
         this.log = log4js.getLogger();
-        this.log.level = flags.verbose ? logger_level : "warn";
+        this.log.level = flags.verbose ? "all" : "info";
 
         Logger.instance = this;
     }
