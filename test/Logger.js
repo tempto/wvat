@@ -1,33 +1,26 @@
 const Logger = require("../src/Logger.js");
-
-beforeEach(() => {
-    Logger.instance = null;
-});
+const chai = require("chai"),
+    // expect = chai.expect,
+    should = chai.should(); // eslint-disable-line
 
 describe("Logger tests", () => {
-    describe("Creates the Logger singleton", () => {
-        describe("Reads the flag setting", () => {
-            it("should set adequate log level for verbose mode on", () => {
-                const flags = { verbose: true };
-
-                const Log = new Logger(flags).getLog();
-                expect(Log.level.levelStr).toEqual("ALL");
-            });
-            it("should set adequate log level for verbose mode off", () => {
-                const flags = { verbose: false };
-
-                const Log = new Logger(flags).getLog();
-                expect(Log.level.levelStr).toEqual("INFO");
-            });
-        });
+    it("Should default to standard mode", () => {
+        Logger.isStandardMode().should.be.true;
+        Logger.isVerboseMode().should.be.false;
+        Logger.getLoggerMode().should.equal("standard");
     });
-    describe("getLog", () => {
-        it("should return the logger created with log4js", () => {
-            const flags = { verbose: false };
 
-            const LoggerObj = new Logger(flags);
-            const Log = LoggerObj.getLog();
-            expect(Log).toBe(LoggerObj.log);
-        });
+    it("Should change to verbose mode", () => {
+        Logger.setVerboseMode();
+        Logger.getLoggerMode().should.equal("verbose");
+        Logger.isStandardMode().should.be.false;
+        Logger.isVerboseMode().should.be.true;
+    });
+
+    it("Should change to standard mode", () => {
+        Logger.setStandardMode();
+        Logger.getLoggerMode().should.equal("standard");
+        Logger.isStandardMode().should.be.true;
+        Logger.isVerboseMode().should.be.false;
     });
 });
