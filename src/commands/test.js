@@ -1,20 +1,17 @@
 const Flags = require("../flags");
-const Errors = require("../errors");
 const Command = require("../BaseCommand");
 const { flags } = require("@oclif/command");
+const Logger = require("../Logger");
 
 class TestCommand extends Command {
     run() {
         const { flags } = this.parse(TestCommand);
+        this.setup(flags);
 
-        const [Config, Log] = require("../initCommand")(flags);
+        this.log(`Current logger mode: ${Logger.getLoggerMode()}`);
 
-        this.log("Command test ran with flags:");
-        this.log(Config.flags);
-
-        Log.warn("Verbose mode activated!");
-
-        this.error(Errors.TEST.description, { exit: Errors.TEST.code });
+        Logger.print("Non-verbose Message!");
+        Logger.print("Verbose Message!", true);
     }
 }
 

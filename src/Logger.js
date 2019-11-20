@@ -1,34 +1,89 @@
 const log4js = require("log4js");
 
+const VERBOSE_MODE_LOGGER_LEVEL = "ALL";
+const STANDARD_MODE_LOGGER_LEVEL = "INFO";
+
+const VERBOSE_MODE_IDENTIFIER = "verbose";
+const STANDARD_MODE_IDENTIFIER = "standard";
+
 /**
  * log4js wrapper Singleton
  */
 class Logger {
     /**
      * Logger constructor
-     * @param {Array} flags Set of flags passed to the tool
-     * @param {string} logger_level Level to configure Logger
      */
-    constructor(flags) {
-        if (Logger.instance) {
-            return Logger.instance;
-        }
-
-        this.log = log4js.getLogger();
-        this.log.level = flags.verbose ? "all" : "info";
-
-        Logger.instance = this;
+    constructor() {
+        this.logger = log4js.getLogger();
+        this.logger.level = STANDARD_MODE_LOGGER_LEVEL;
     }
 
     /**
-     * Gets the log4js logger instance
-     * @returns {Logger} log4js logger instance
+     * Sets the logger to verbose mode
      */
-    getLog() {
-        return Logger.instance.log;
+    setVerboseMode() {
+        this.logger.level = VERBOSE_MODE_LOGGER_LEVEL;
+    }
+
+    /**
+     * Sets the logger to standard mode
+     */
+    setStandardMode() {
+        this.logger.level = STANDARD_MODE_LOGGER_LEVEL;
+    }
+
+    /**
+     * Gets the current logger mode
+     * @returns {String} The current logger mode
+     */
+    getLoggerMode() {
+        return this.logger.level.levelStr === VERBOSE_MODE_LOGGER_LEVEL ? VERBOSE_MODE_IDENTIFIER : STANDARD_MODE_IDENTIFIER;
+    }
+
+    /**
+     * Checks if the logger is in verbose mode
+     * @returns {boolean} true if logger is in verbose mode, false otherwise
+     */
+    isVerboseMode() {
+        return this.logger.level.levelStr === VERBOSE_MODE_LOGGER_LEVEL;
+    }
+
+    /**
+     * Checks if the logger is in verbose mode
+     * @returns {boolean} true if logger is in verbose mode, false otherwise
+     */
+    isStandardMode() {
+        return this.logger.level.levelStr === STANDARD_MODE_LOGGER_LEVEL;
+    }
+
+    /**
+     * Prints a line in the screen
+     * @param {Object} data Data to print
+     * @param {boolean} verbose_only Defines if the print should only be done in verbose mode (defaults to false)
+     */
+    print(data, verbose_only = false) {
+        if (verbose_only) {
+            this.logger.trace(data);
+        } else {
+            this.logger.info(data);
+        }
+    }
+
+    /**
+     * Prints an error in the screen
+     * @param {Object} data Error data to print
+     */
+    error(data) {
+        this.logger.error(data);
+    }
+
+    /**
+     * Prints a warning message in the screen
+     * @param {Object} data Data to print
+     */
+    warning(data) {
+        this.logger.warn(data);
     }
 }
 
-Logger.instance = null;
-
-module.exports = Logger;
+module.exports = new Logger();

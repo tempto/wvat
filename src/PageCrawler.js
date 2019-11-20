@@ -2,9 +2,6 @@ const Crawler = require("js-crawler");
 const storage = require("node-persist");
 const { HTTPS_REGEX, isUrlFromDomain, isHttpStatusCode } = require("./utils");
 const Logger = require("./Logger");
-const Config = require("./Config");
-
-const Log = new Logger(Config.flags).getLog();
 
 const initStorage = () => (
     storage.init({
@@ -30,7 +27,7 @@ const crawl = (crawler, domain_name) => {
             url: domain_name,
             success: (page) => {
                 const url = removeQueryParams(page.url);
-                Log.trace(url);
+                Logger.print(url, true);
                 if (!domain_list.includes(url)) {
                     domain_list.push(url);
                 }
@@ -52,7 +49,7 @@ const getPagesList = async (domain_name, depth_level = 2, no_cache = false) => {
     if (depth_level <= 0) throw new Error("Depth Level must be a positive number");
 
     if (!HTTPS_REGEX.test(domain_name)) {
-        Log.warn("Domains must have http(s)");
+        Logger.warning("Domains must have http(s)");
         return [];
     }
 
@@ -67,7 +64,7 @@ const getPagesList = async (domain_name, depth_level = 2, no_cache = false) => {
         storage.setItem(domain_key, domain_list);
         return domain_list;
     } else {
-        Log.trace("Cached version found. Using Cached version.");
+        Logger.print("Cached version found. Using Cached version.", true);
     }
 
     return cached_list;

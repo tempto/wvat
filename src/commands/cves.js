@@ -1,5 +1,6 @@
 const Command = require("../BaseCommand");
 const Flags = require("../flags");
+const Logger = require("../Logger");
 const Errors = require("../errors");
 const {
     getCVEList, updateLocalCVECache, searchCVEsInLocalCache, parseLocalCacheCVEEntries, localCVECacheExists,
@@ -8,7 +9,7 @@ const {
 class CVECommand extends Command {
     async run() {
         const { args, flags } = this.parse(CVECommand);
-        const [, Logger] = require("../initCommand")(flags);
+        this.setup(flags);
 
         const technology = args.technology;
 
@@ -16,34 +17,34 @@ class CVECommand extends Command {
             const cve_list = await getCVEList(technology);
 
             if (!cve_list) {
-                Logger.info(Errors.CVE_SCRAPING.description);
+                Logger.print(Errors.CVE_SCRAPING.description);
                 process.exit(Errors.CVE_SCRAPING.code);
             }
 
-            this.log(JSON.stringify(cve_list, null, 2));
+            Logger.print(JSON.stringify(cve_list, null, 2));
         } else {
             const cve_cache_exists = localCVECacheExists();
 
             if (flags.updateCveCache || !cve_cache_exists) {
-                this.log("Downloading CVEs database ...");
+                Logger.print("Downloading CVEs database ...");
 
                 try {
                     await updateLocalCVECache();
                 } catch (e) {
-                    Logger.info(Errors.CVE_LOCAL_CACHE_UPDATE.description);
+                    Logger.print(Errors.CVE_LOCAL_CACHE_UPDATE.description);
                     process.exit(Errors.CVE_LOCAL_CACHE_UPDATE.code);
                 }
             }
 
-            this.log("Searching ...");
+            Logger.print("Searching in local cache...", true);
 
             searchCVEsInLocalCache(technology, (err, results) => {
                 if (err) {
-                    Logger.info(Errors.CVE_LOCAL_CACHE.description);
+                    Logger.print(Errors.CVE_LOCAL_CACHE.description);
                     process.exit(Errors.CVE_LOCAL_CACHE.code);
                 }
 
-                this.log(
+                Logger.print(
                     JSON.stringify(parseLocalCacheCVEEntries(results), null, 2),
                 );
             });

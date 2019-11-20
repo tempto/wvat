@@ -1,20 +1,22 @@
 const Flags = require("../flags");
+const Logger = require("../Logger");
 const BaseCommand = require("../BaseCommand");
 const Errors = require("../errors");
 
 class CrawlerCommand extends BaseCommand {
     async run() {
         const { args, flags } = this.parse(CrawlerCommand);
-        const [, Log] = require("../initCommand")(flags);
+        this.setup(flags);
+
         const domain = args.domain;
         const { depth, noCrawlingCache } = flags;
         const { getPagesList } = require("../PageCrawler");
         const domain_list = await getPagesList(domain, depth, noCrawlingCache);
 
         if (domain_list.length) {
-            Log.info(JSON.stringify(domain_list, null, 2));
+            Logger.print(JSON.stringify(domain_list, null, 2));
         } else {
-            Log.error(Errors.NO_SUBDOMAINS_FOUND.description);
+            Logger.error(Errors.NO_SUBDOMAINS_FOUND.description);
             process.exit(Errors.NO_SUBDOMAINS_FOUND.code);
         }
     }
