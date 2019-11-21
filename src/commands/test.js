@@ -2,12 +2,15 @@ const Flags = require("../flags");
 const Command = require("../BaseCommand");
 const { flags } = require("@oclif/command");
 const Logger = require("../Logger");
+const Config = require("../Config");
 
 class TestCommand extends Command {
     run() {
         this.parse(TestCommand);
 
-        this.log(`Current logger mode: ${Logger.getLoggerMode()}`);
+        Logger.print(`Current logger mode: ${Logger.getLoggerMode()}\n`);
+
+        Logger.print(`Configuration object:\n${JSON.stringify(Config, null, 2)}\n`);
 
         Logger.print("Non-verbose Message!");
         Logger.print("Verbose Message!", true);

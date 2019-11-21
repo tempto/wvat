@@ -14,3 +14,6 @@ security_analysis_report*.json
 # Cache files
 .domainscache/
 .cvescache
+
+# Config
+wvat-config.json

@@ -26,6 +26,14 @@ const errors = Object.freeze({
         code: 12,
         description: "CVE Local Cache update error",
     },
+    TOOL_CONFIG_WRITING_FAILED: {
+        code: 20,
+        description: "Failed to write tool config JSON file",
+    },
+    TOOL_CONFIG_READING_FAILED: {
+        code: 21,
+        description: "Failed to read tool config JSON file",
+    },
 });
 
 module.exports = errors;

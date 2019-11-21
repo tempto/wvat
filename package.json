@@ -57,7 +57,8 @@
     "commands": "./src/commands",
     "hooks": {
       "init": [
-        "./src/hooks/setupSentry"
+        "./src/hooks/setupSentry",
+        "./src/hooks/setupToolConfig"
       ]
     },
     "bin": "wvat",
