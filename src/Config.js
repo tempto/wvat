@@ -7,6 +7,7 @@ class Config {
      */
     constructor() {
         this.flags = {};
+        this.tool_config = {};
     }
 
     /**
@@ -21,10 +22,25 @@ class Config {
     }
 
     /**
+     * Sets the tool configuration object
+     * @param {Object} tool_config Configuration read from the tool's configuration JSON file
+     */
+    setToolConfiguration(tool_config) {
+        this.tool_config = tool_config;
+    }
+
+    /**
      * Resets the flags
      */
     resetFlags() {
         this.flags = {};
+    }
+
+    /**
+     * Resets the tool configiguration
+     */
+    resetToolConfiguration() {
+        this.tool_config = {};
     }
 }
 
