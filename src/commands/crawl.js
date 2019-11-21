@@ -6,7 +6,6 @@ const Errors = require("../errors");
 class CrawlerCommand extends BaseCommand {
     async run() {
         const { args, flags } = this.parse(CrawlerCommand);
-        this.setup(flags);
 
         const domain = args.domain;
         const { depth, noCrawlingCache } = flags;

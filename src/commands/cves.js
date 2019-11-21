@@ -9,7 +9,6 @@ const {
 class CVECommand extends Command {
     async run() {
         const { args, flags } = this.parse(CVECommand);
-        this.setup(flags);
 
         const technology = args.technology;
 

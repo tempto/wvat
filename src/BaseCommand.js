@@ -11,12 +11,16 @@ class BaseCommand extends Command {
      * Base command setup, performed by all oclif commands
      * @param {Object} flags Flags passed to the tool
      */
-    setup(flags) {
+    parse(command) {
+        const { args, flags } = super.parse(command);
+
         Config.addFlags(flags);
 
         if (flags.verbose) {
             Logger.setVerboseMode();
         }
+
+        return { args, flags };
     }
 
     /**

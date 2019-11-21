@@ -5,8 +5,7 @@ const Logger = require("../Logger");
 
 class TestCommand extends Command {
     run() {
-        const { flags } = this.parse(TestCommand);
-        this.setup(flags);
+        this.parse(TestCommand);
 
         this.log(`Current logger mode: ${Logger.getLoggerMode()}`);
 

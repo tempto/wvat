@@ -5,8 +5,7 @@ const { getWebpageTechnologies, noVersionCount } = require("../TechAnalyser");
 
 class InspectCommand extends Command {
     async run() {
-        const { args, flags } = this.parse(InspectCommand);
-        this.setup(flags);
+        const { args } = this.parse(InspectCommand);
 
         try {
             const tech = await getWebpageTechnologies(args.url);
