@@ -1,6 +1,6 @@
 const Crawler = require("js-crawler");
 const storage = require("node-persist");
-const { HTTPS_REGEX, isUrlFromDomain, isHttpStatusCode } = require("./utils");
+const { HTTPS_REGEX, isUrlFromDomain } = require("./utils");
 const Logger = require("./Logger");
 
 const initStorage = () => (
@@ -33,11 +33,12 @@ const crawl = (crawler, domain_name) => {
                 }
             },
             failure: (page) => {
-                domain_list.push(page.status);
+                // console.log(page);
+                Logger.error(`Failed to crawl page ${domain_name}.[HTTP STATUS CODE: ${page.status}]`);
             },
             finished: () => {
                 domain_list.sort();
-                resolve(removeBadEndpoints(domain_list));
+                resolve(domain_list);
             },
         });
     });
@@ -69,19 +70,6 @@ const getPagesList = async (domain_name, depth_level = 2, no_cache = false) => {
 
     return cached_list;
 };
-
-/**
- * Verifies if an endpoint is acceptable
- * @param {string} endpoint Endpoint candidate to test
- * @returns {boolean} true if acceptable, false otherwise
- */
-const isGoodEndpoint = (endpoint) => (
-    !isHttpStatusCode(endpoint)
-);
-
-const removeBadEndpoints = (endpoints) => (
-    endpoints.filter(isGoodEndpoint)
-);
 
 module.exports = {
     getPagesList,

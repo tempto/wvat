@@ -19,12 +19,12 @@
     "cli-ux": "^5.3.2",
     "csv-parse": "^4.7.0",
     "domain-ping": "^0.1.10",
+    "dotenv-flow": "^3.1.0",
     "iplocation": "^6.1.0",
     "js-crawler": "^0.3.21",
     "mustache": "^3.1.0",
     "node-persist": "^3.0.5",
     "node-xwhois": "^2.0.9",
-    "dotenv-flow": "^3.1.0",
     "wappalyzer": "^5.8.4"
   },
   "devDependencies": {

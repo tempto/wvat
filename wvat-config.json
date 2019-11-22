@@ -1,4 +1,4 @@
 {
   "allow_data_reporting": true,
-  "amass_path": "bin/amass"
+  "amass_path": null
 }

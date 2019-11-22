@@ -1,21 +1,13 @@
-const commandExists = require("command-exists");
 const fs = require("fs");
-const exec = require("child_process").exec;
+const { exec } = require("child_process");
 
-const isValidURL = require("./utils").isValidURL;
+const { isValidURL, extractDomainFromUrl } = require("./utils");
 const Logger = require("./Logger");
 const Config = require("./Config");
 
-const Log = new Logger(Config.flags).getLog();
-
-const checkGo = () => {
-    commandExists("go")
-        .catch(() => {
-            throw new Error("Golang not found. It is required for this tool to work");
-        });
-};
-
 const DEFAULT_TIMEOUT_MINS = 1;
+
+const stripDomain = (domain) => extractDomainFromUrl(domain);
 
 /**
  * @typedef {Object} OptionsObject
@@ -29,38 +21,41 @@ const getSubdomainsList = (domain, options) => new Promise((resolve, reject) => 
         reject(new Error("Invalid domain format, please use a valid URL."));
     }
 
-    let cmd = `./amass enum -d ${domain} -o amass-output -json amass-output.json `;
+    if (!fs.existsSync(`${Config.tool_config.amass_path}`)) {
+        reject(new Error("Amass not found"));
+    }
 
-    let timeout;
-    if (!options || !options.timeout) timeout = DEFAULT_TIMEOUT_MINS;
-    else timeout = options.timeout;
+    let cmd = `${Config.tool_config.amass_path} enum -d ${stripDomain(domain)} -o ./amass-output `;
+
+    const timeout = (!options || !options.timeout) ? DEFAULT_TIMEOUT_MINS : options.timeout;
 
     cmd += `-timeout ${timeout} `;
+
+    Logger.print(`Calling Amass to fetch ${domain} with timeout = ${timeout}m`);
     const amass = exec(cmd);
 
     amass.stdout.on("data", (data) => {
-        Log.info(`AMASS: ${data}`);
-    });
-    amass.stderr.on("data", (data) => {
-        Log.error(`AMASS: ${data}`);
+        Logger.print(`AMASS_LOG: ${data}`, true);
     });
 
-    amass.on("close", () => {
-        const fileDataTxt = fs.readFileSync("../bin/amass-output", "utf-8");
-        // Using splice because the last element is an empty string
-        const subdomains = fileDataTxt.split("\n").slice(0, -1);
+    amass.on("close", (exit_code) => {
+        if (exit_code !== 0) {
+            reject(new Error("There was a problem trying to fetch subdomains"));
+        } else {
+            const fileDataTxt = fs.readFileSync("./amass-output", "utf-8");
+            // Using slice because the last element is an empty string
+            const subdomains = fileDataTxt.split("\n").slice(0, -1);
 
-        Log.info(`Found the following subdomains for domain ${domain}:`);
-        Log.info(subdomains);
+            Logger.print(`Found the following subdomains for domain ${domain}:`, true);
+            Logger.print(subdomains, true);
 
-        resolve(subdomains);
-
-        // console.log("Extra-info");
-        // const fileData = fs.readFileSync("amass-output.json", "utf-8");
-        // console.log(fileData.split("\n").slice(0, -1).map(JSON.parse));
+            resolve(subdomains);
+        }
     });
+
 });
 
 module.exports = {
     getSubdomainsList,
+    stripDomain,
 };
