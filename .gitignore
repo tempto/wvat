@@ -7,6 +7,7 @@
 node_modules
 .DS_Store
 security_analysis_report*.json
+security_analysis_report*.html
 
 # Test reports
 /reports
