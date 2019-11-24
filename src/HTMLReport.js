@@ -210,7 +210,6 @@ const template =
  */
 const buildHTMLReport = (report_data) => {
     if (!report_data) throw new Error("Missing report data");
-
     return Mustache.render(template, updateDetailsStructure(report_data));
 };
 
