@@ -94,10 +94,6 @@ const report_data = {
 describe("HTML Report tests", () => {
     describe("Create and save the HTML report given the fetched data", () => {
 
-        it("should build when the report data is missing", () => {
-            expect(buildHTMLReport(report_data)).toEqual(1);
-        });
-
         it("should fail when the report data is missing", () => {
             expect(() => buildHTMLReport()).toThrowError(new Error("Missing report data"));
         });
