@@ -1,56 +1,41 @@
-const { getWebpageTechnologies, parseAnalysisResults, noVersionCount } = require("../src/TechAnalyser");
+const TechAnalyser = require("../src/TechAnalyser");
+const Wappalyser = require("../src/tech-analysers/Wappalyser");
 
 describe("Tech Analyser tests", () => {
-    describe("Validate getWebpageTechnologies arguments", () => {
-        it("should fail when the url is missing", () => {
-            expect.assertions(1);
-            getWebpageTechnologies().catch((e) => {
-                expect(e).toEqual(new Error("Missing Webpage url"));
-            });
-        });
-        it("should fail when the given url is not valid", () => {
-            expect.assertions(1);
-            getWebpageTechnologies("hppts://www.gitlab.com/").catch((e) => {
-                expect(e).toEqual(new Error("Invalid url"));
-            });
+    describe("Abstract class", () => {
+        it("should fail when calling abstract methods", () => {
+            expect(() => TechAnalyser.analyseWebPage.toThrow("Not implemented!"));
+            expect(() => TechAnalyser.parseAnalysisResults.toThrow("Not implemented!"));
+            expect(() => TechAnalyser.getWebpageTechnologies.toThrow("Not implemented!"));
         });
     });
-    describe("Parse results", () => {
-        it("should fail when the webpage response is not 200", () => {
-            const tech = {
-                urls: {
-                    "https://www.gitlab.com": {
-                        status: 404,
-                    },
-                },
-            };
-
-            expect(() => parseAnalysisResults("https://www.gitlab.com", tech)).toThrow("Could not access webpage");
+    describe("Derived classes", () => {
+        it("should fail when a derived class does not implement a method", () => {
+            class BadAnalyser extends TechAnalyser {};
+            expect(() => BadAnalyser.analyseWebPage.toThrow("Not implemented!"));
+            expect(() => BadAnalyser.parseAnalysisResults.toThrow("Not implemented!"));
+            expect(() => BadAnalyser.getWebpageTechnologies.toThrow("Not implemented!"));
         });
-        it("should properly parse the technologies", () => {
-            const tech = {
-                urls: {
-                    "https://www.gitlab.com": {
-                        status: 200,
-                    },
-                },
-                applications: [
-                    { name: "Varnish",
-                        confidence: "100",
-                        version: null,
-                        icon: "Varnish.svg",
-                        website: "http://www.varnish-cacher.org",
-                        categories: [],
-                    },
-                ],
+        it("should properly use derived class implemented methods", () => {
+            class XPTOAnalyser extends TechAnalyser {
+                static analyseWebPage() {
+                    return "analyseWebPage";
+                }
+                static parseAnalysisResults() {
+                    return "parseAnalysisResults";
+                }
+                static getWebpageTechnologies() {
+                    return "getWebpageTechnologies";
+                }
             };
-
-            expect(parseAnalysisResults("https://www.gitlab.com", tech)).toEqual(tech.applications);
+            expect(XPTOAnalyser.analyseWebPage()).toEqual("analyseWebPage");
+            expect(XPTOAnalyser.parseAnalysisResults()).toEqual("parseAnalysisResults");
+            expect(XPTOAnalyser.getWebpageTechnologies()).toEqual("getWebpageTechnologies");
         });
     });
     describe("Correctly count technologies without version", () => {
         it("should fail when technologies are missing", () => {
-            expect(noVersionCount).toThrow("Missing technologies");
+            expect(TechAnalyser.noVersionCount).toThrow("Missing technologies");
         });
         it("should correctly count no-version technologies", () => {
             const tech = [
@@ -97,7 +82,36 @@ describe("Tech Analyser tests", () => {
                     website: "https://jquery.com",
                     categories: [] },
             ];
-            expect(noVersionCount(tech)).toEqual(4);
+            expect(TechAnalyser.noVersionCount(tech)).toEqual(4);
+        });
+    });
+    describe("Call Tech Finders", () => {
+        it("should fail when the url is missing", () => {
+            expect.assertions(1);
+            TechAnalyser.findWebPageTechnologies().catch((e) => {
+                expect(e).toEqual(new Error("Missing Webpage url"));
+            });
+        });
+        it("should fail when the given url is not valid", () => {
+            expect.assertions(1);
+            TechAnalyser.findWebPageTechnologies("hppts://www.gitlab.com/").catch((e) => {
+                expect(e).toEqual(new Error("Invalid url"));
+            });
+        });
+        it("should correctly call tech-analysers", () => {
+            jest.mock("../src/tech-analysers/Wappalyser", () => class WappMock {
+                static getWebpageTechnologies() { 
+                    return [{
+                    name: "WVAT",
+                    version : 1.0
+                    }];
+                }
+            });
+
+            expect(TechAnalyser.findWebPageTechnologies("https://www.gitlab.com/")).resolves.toEqual([[{
+                name: "WVAT",
+                version : 1.0
+            }]]);
         });
     });
 });

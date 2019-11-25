@@ -1,3 +1,5 @@
+const { isValidURL } = require("./utils");
+
 class TechAnalyser {
     /**
      * Stub method to be implemented in derived classes -> Analyses webpage technologies using Wappalyzer
@@ -40,6 +42,9 @@ class TechAnalyser {
      * @returns {Array} Webpage technologies
      */
     static async findWebPageTechnologies(url) {
+        if (!url) throw new Error("Missing Webpage url");
+        if (!isValidURL(url)) throw new Error("Invalid url");
+
         const tech_finders = [require("./tech-analysers/Wappalyser")];
         const tech = [];
 
