@@ -86,6 +86,13 @@ const isHttpStatusCode = (candidate) => (
     HTTP_STATUS_CODE_REGEX.test(candidate)
 );
 
+/**
+ * Adds '/' in the end of the url if it does not end with it
+ * @param {string} url url
+ * @returns {string} url that ends with '/'
+ */
+const addURLEndSlash = (url) => url + (url.endsWith("/") ? "" : "/");
+
 module.exports = {
     URL_REGEX,
     HTTPS_REGEX,
@@ -98,4 +105,5 @@ module.exports = {
     extractDomainFromUrl,
     isUrlFromDomain,
     isHttpStatusCode,
+    addURLEndSlash,
 };

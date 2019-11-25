@@ -1,5 +1,5 @@
 const {
-    isValidCVE, isValidURL, parseDateFromCVEEntry, buildRegexFromSearchQuery, isNumOnlyCVE, isCompleteCVE,
+    isValidCVE, isValidURL, parseDateFromCVEEntry, buildRegexFromSearchQuery, isNumOnlyCVE, isCompleteCVE, addURLEndSlash,
 } = require("../src/utils");
 
 const chai = require("chai"),
@@ -68,6 +68,11 @@ describe("URL validor util tests", () => {
         isValidURL("http://invalid.com/perl.cgi?key= | http://web-site.com/cgi-bin/perl.cgi?key1=value1&key2").should.be.false;
         isValidURL("http://example://example.com").should.be.false;
         isValidURL("httpsftp://example.com").should.be.false;
+    });
+
+    it("should correctly add a '/' to the end of a URL if needed", () => {
+        expect(addURLEndSlash("https://www.gitlab.com")).to.deep.equal("https://www.gitlab.com/");
+        expect(addURLEndSlash("https://www.gitlab.com/")).to.deep.equal("https://www.gitlab.com/");
     });
 });
 

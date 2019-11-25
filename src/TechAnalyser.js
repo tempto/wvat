@@ -1,76 +1,40 @@
-const Wappalyzer = require("wappalyzer");
-const { isValidURL } = require("./utils");
-
 class TechAnalyser {
-    constructor() {
-        this.analyseWebPage = () => {
-            throw new Error("Not implemented!");
-        };
-        this.parseAnalysisResults = () => {
-            throw new Error("Not implemented!");
-        };
-        this.getWebpageTechnologies = () => {
-            throw new Error("Not implemented!");
-        };
+    /**
+     * Stub method to be implemented in derived classes -> Analyses webpage technologies using Wappalyzer
+     * @throws {Error} Not implemented
+     */
+    analyseWebPage() {
+        throw new Error("Not implemented!");
+    }
+
+    /**
+     * Stub method to be implemented in derived classes -> Parses webpage url technologies analysis results
+     * @throws {Error} Not implemnted
+     */
+    parseAnalysisResults() {
+        throw new Error("Not implemented!");
+    }
+
+    /**
+     * Stub method to be implemented in derived classes -> Obtains webpage technologies
+     * @throws {Error} Not implemnted
+     */
+    getWebpageTechnologies() {
+        throw new Error("Not implemented!");
+    }
+
+    /**
+     * Counts technologies with no version
+     * @param {Array} tech Array with technologies
+     * @throws {Error} Missing technologies
+     * @returns {Number} Technologies with no version count
+     */
+    static noVersionCount(tech) {
+        if (!tech) throw new Error("Missing technologies");
+        return tech.reduce((count, currElem) => count + (currElem.version === null ? 1 : 0), 0);
     }
 }
 
-/**
- * Analyses webpage technologies using Wappalyzer
- * @param {string} url Webpage url
- * @returns {Array} Wappalyzer analysis results
- */
-const analyseWebPage = async (url) => {
-    const wapp = new Wappalyzer(url);
-    const res = await wapp.analyze();
-
-    return res;
-};
-
-/**
- * Parses webpage url technologies analysis results
- * @param {string} url Webpage url
- * @param {Array} tech Technology array from analyseWebPage array following this format
- * @throws {Error} Could not access webpage
- * @returns {Array} Array with found technologies
- */
-const parseAnalysisResults = (url, tech) => {
-    if (tech.urls[url].status !== 200) throw new Error("Could not access webpage");
-
-    return tech.applications;
-};
-
-/**
- * Obtains webpage technologies
- * @param {string} url Webpage url
- * @throws {Error} Missing webpage url
- * @throws {Error} Invalid url
- * @returns {Array} Webpage technologies
- */
-const getWebpageTechnologies = async (url) => {
-    if (!url) throw new Error("Missing Webpage url");
-    if (!isValidURL(url)) throw new Error("Invalid url");
-
-    const fixed_url = url + (url.endsWith("/") ? "" : "/");
-
-    const tech = await analyseWebPage(fixed_url);
-    return parseAnalysisResults(fixed_url, tech);
-};
-
-/**
- * Counts technologies with no version
- * @param {Array} tech Array with technologies
- * @throws {Error} Missing technologies
- * @returns {Number} Technologies with no version count
- */
-const noVersionCount = (tech) => {
-    if (!tech) throw new Error("Missing technologies");
-    return tech.reduce((count, currElem) => count + (currElem.version === null ? 1 : 0), 0);
-};
-
 module.exports = {
     TechAnalyser,
-    getWebpageTechnologies,
-    parseAnalysisResults,
-    noVersionCount,
 };
