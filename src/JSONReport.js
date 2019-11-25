@@ -1,7 +1,5 @@
 const fs = require("fs");
 const Logger = require("./Logger");
-const Config = require("./Config");
-const Log = new Logger(Config.flags).getLog();
 
 /**
  * Builds the final report, parsing all the received data into a JSON object
@@ -50,8 +48,8 @@ const exportJSONReport = (report_data) => {
     const data = JSON.stringify(report_data, null, 2);
     fs.writeFile(`security_analysis_report_${report_data.date}.json`, data, (err) => {
         if (err) {
-            Log.error(err);
-            Log.error(`Error saving file: security_analysis_report_${report_data.date}.json`);
+            Logger.error(err);
+            Logger.error(`Error saving file: security_analysis_report_${report_data.date}.json`);
         }
     });
 };
