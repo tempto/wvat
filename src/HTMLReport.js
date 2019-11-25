@@ -1,8 +1,6 @@
 const fs = require("fs");
 const Mustache = require("mustache");
 const Logger = require("./Logger");
-const Config = require("./Config");
-const Log = new Logger(Config.flags).getLog();
 
 const template =
 `<!DOCTYPE html>
@@ -226,8 +224,8 @@ const exportHTMLReport = (html_data, date) => {
 
     fs.writeFile(`security_analysis_report_${date}.html`, html_data, (err) => {
         if (err) {
-            Log.error(err);
-            Log.error(`Error saving file: security_analysis_report_${date}.html`);
+            Logger.error(err);
+            Logger.error(`Error saving file: security_analysis_report_${date}.html`);
         }
     });
 };
