@@ -1,16 +1,16 @@
 const Flags = require("../flags");
 const Logger = require("../Logger");
 const Command = require("../BaseCommand");
-const { getWebpageTechnologies, noVersionCount } = require("../TechAnalyser");
+const TechAnalyser = require("../TechAnalyser");
 
 class InspectCommand extends Command {
     async run() {
         const { args } = this.parse(InspectCommand);
 
         try {
-            const tech = await getWebpageTechnologies(args.url);
-            Logger.print(tech);
-            Logger.print(`Technologies without version: ${noVersionCount(tech)}/${tech.length}`);
+            const tech = await TechAnalyser.findWebPageTechnologies(args.url);
+            Logger.print(JSON.stringify(tech, null, 2));
+            Logger.print(`Technologies without version: ${TechAnalyser.noVersionCount(tech)}/${tech.length}`);
             process.exit(0);
         } catch (err) {
             Logger.error(err.message);

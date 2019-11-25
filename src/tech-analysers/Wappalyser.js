@@ -8,7 +8,7 @@ class Wappalyser extends TechAnalyser {
      * @param {string} url Webpage url
      * @returns {Array} Wappalyzer analysis results
      */
-    async analyseWebPage(url) {
+    static async analyseWebPage(url) {
         const wapp = new Wappalyzer(url);
         const res = await wapp.analyze();
 
@@ -22,7 +22,7 @@ class Wappalyser extends TechAnalyser {
      * @throws {Error} Could not access webpage
      * @returns {Array} Array with found technologies
      */
-    parseAnalysisResults(url, tech) {
+    static parseAnalysisResults(url, tech) {
         if (tech.urls[url].status !== 200) throw new Error("Could not access webpage");
 
         return tech.applications;
@@ -35,7 +35,7 @@ class Wappalyser extends TechAnalyser {
      * @throws {Error} Invalid url
      * @returns {Array} Webpage technologies
      */
-    async getWebpageTechnologies(url) {
+    static async getWebpageTechnologies(url) {
         if (!url) throw new Error("Missing Webpage url");
         if (!isValidURL(url)) throw new Error("Invalid url");
 
@@ -46,6 +46,4 @@ class Wappalyser extends TechAnalyser {
     }
 }
 
-module.exports = {
-    Wappalyser,
-};
+module.exports = Wappalyser;
