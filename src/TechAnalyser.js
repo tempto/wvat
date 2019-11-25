@@ -46,9 +46,11 @@ class TechAnalyser {
         if (!isValidURL(url)) throw new Error("Invalid url");
 
         const tech_finders = [require("./tech-analysers/Wappalyser")];
-        const tech = [];
+        let tech = [];
 
-        await Promise.all(tech_finders.map(async (tech_finder) => tech.push(await tech_finder.getWebpageTechnologies(url))));
+        await Promise.all(tech_finders.map(async (tech_finder) => {
+            tech = tech.concat(await tech_finder.getWebpageTechnologies(url));
+        }));
 
         return tech;
     }

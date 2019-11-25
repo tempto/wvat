@@ -25,7 +25,10 @@ class Wappalyser extends TechAnalyser {
     static parseAnalysisResults(url, tech) {
         if (tech.urls[url].status !== 200) throw new Error("Could not access webpage");
 
-        return tech.applications;
+        return tech.applications.map(({ name, version }) => ({
+            name,
+            version,
+        }));
     }
 
     /**

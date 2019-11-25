@@ -1,5 +1,4 @@
 const TechAnalyser = require("../src/TechAnalyser");
-const Wappalyser = require("../src/tech-analysers/Wappalyser");
 
 describe("Tech Analyser tests", () => {
     describe("Abstract class", () => {
@@ -11,7 +10,7 @@ describe("Tech Analyser tests", () => {
     });
     describe("Derived classes", () => {
         it("should fail when a derived class does not implement a method", () => {
-            class BadAnalyser extends TechAnalyser {};
+            class BadAnalyser extends TechAnalyser {}
             expect(() => BadAnalyser.analyseWebPage.toThrow("Not implemented!"));
             expect(() => BadAnalyser.parseAnalysisResults.toThrow("Not implemented!"));
             expect(() => BadAnalyser.getWebpageTechnologies.toThrow("Not implemented!"));
@@ -27,7 +26,7 @@ describe("Tech Analyser tests", () => {
                 static getWebpageTechnologies() {
                     return "getWebpageTechnologies";
                 }
-            };
+            }
             expect(XPTOAnalyser.analyseWebPage()).toEqual("analyseWebPage");
             expect(XPTOAnalyser.parseAnalysisResults()).toEqual("parseAnalysisResults");
             expect(XPTOAnalyser.getWebpageTechnologies()).toEqual("getWebpageTechnologies");
@@ -100,18 +99,18 @@ describe("Tech Analyser tests", () => {
         });
         it("should correctly call tech-analysers", () => {
             jest.mock("../src/tech-analysers/Wappalyser", () => class WappMock {
-                static getWebpageTechnologies() { 
+                static getWebpageTechnologies() {
                     return [{
-                    name: "WVAT",
-                    version : 1.0
+                        name: "WVAT",
+                        version: 1.0,
                     }];
                 }
             });
 
-            expect(TechAnalyser.findWebPageTechnologies("https://www.gitlab.com/")).resolves.toEqual([[{
+            expect(TechAnalyser.findWebPageTechnologies("https://www.gitlab.com/")).resolves.toEqual([{
                 name: "WVAT",
-                version : 1.0
-            }]]);
+                version: 1.0,
+            }]);
         });
     });
 });

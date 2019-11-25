@@ -45,7 +45,10 @@ describe("Wappalyser tests", () => {
                 ],
             };
 
-            expect(Wappalyser.parseAnalysisResults("https://www.gitlab.com", tech)).toEqual(tech.applications);
+            expect(Wappalyser.parseAnalysisResults("https://www.gitlab.com", tech)).toEqual([{
+                name: "Varnish",
+                version: null,
+            }]);
         });
     });
 });
