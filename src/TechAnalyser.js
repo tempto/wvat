@@ -1,6 +1,20 @@
 const Wappalyzer = require("wappalyzer");
 const { isValidURL } = require("./utils");
 
+class TechAnalyser {
+    constructor() {
+        this.analyseWebPage = () => {
+            throw new Error("Not implemented!");
+        };
+        this.parseAnalysisResults = () => {
+            throw new Error("Not implemented!");
+        };
+        this.getWebpageTechnologies = () => {
+            throw new Error("Not implemented!");
+        };
+    }
+}
+
 /**
  * Analyses webpage technologies using Wappalyzer
  * @param {string} url Webpage url
@@ -55,6 +69,7 @@ const noVersionCount = (tech) => {
 };
 
 module.exports = {
+    TechAnalyser,
     getWebpageTechnologies,
     parseAnalysisResults,
     noVersionCount,
