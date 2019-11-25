@@ -98,7 +98,7 @@ $ npm install -g wvat
 $ wvat COMMAND
 running command...
 $ wvat (-v|--version|version)
-wvat/1.2.0 linux-x64 node-v10.16.3
+wvat/1.2.0 linux-x64 node-v10.16.0
 $ wvat --help [COMMAND]
 USAGE
   $ wvat COMMAND
