@@ -29,9 +29,11 @@ class BaseCommand extends Command {
      * @throws {Error} Captured error
      */
     catch(err) {
-        const sentry_issue_id = Sentry.captureException(err);
         Logger.error(err);
-        Logger.error(`Sentry Issue ID: ${sentry_issue_id}`);
+        if (Config.tool_config.allow_data_reporting) {
+            const sentry_issue_id = Sentry.captureException(err);
+            Logger.error(`Sentry Issue ID: ${sentry_issue_id}`);
+        }
     }
 }
 
