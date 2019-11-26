@@ -1,9 +1,9 @@
 const Flags = require("../flags");
 const Logger = require("../Logger");
-const BaseCommand = require("../BaseCommand");
+const Command = require("../BaseCommand");
 const Errors = require("../errors");
 
-class CrawlerCommand extends BaseCommand {
+class CrawlerCommand extends Command {
     async run() {
         const { args, flags } = this.parse(CrawlerCommand);
 
