@@ -13,16 +13,42 @@ downloadAmass() {
         rm tmp/amass.zip
 }
 
-bundlex64() {
-    wvat_tar=wvat-v"$wvat_version"-linux-x64.tar.gz
-    spruce_type=linux_amd64
+bundleAux() {
+    wvat_tar=wvat-v"$wvat_version"-"$wvat_arch".tar.gz
     downloadAmass
-    amass_folder=amass_"$amass_version"_linux_amd64
-    cp tmp/"$amass_folder"/amass tmp/linux-x64/wvat/bin
+    amass_folder=amass_"$amass_version"_"$spruce_type"
+    cp tmp/"$amass_folder"/amass tmp/"$wvat_arch"/wvat/bin
     rm -r tmp/"$amass_folder"/
-    tar -zcvf tmp/"$wvat_tar" -C tmp/linux-x64/ wvat
+    tar -zcvf tmp/"$wvat_tar" -C tmp/"$wvat_arch"/ wvat
     cp tmp/"$wvat_tar" dist/wvat-v"$wvat_version"/
     rm tmp/"$wvat_tar"
 }
 
+bundlex64() {
+    wvat_arch=linux-x64
+    spruce_type=linux_amd64
+    bundleAux
+}
+
+bundleArm() {
+    wvat_arch=linux-arm
+    spruce_type=linux_arm
+    bundleAux
+}
+
+bundleWinx64() {
+    wvat_arch=win32-x64
+    spruce_type=windows_amd64
+    bundleAux
+}
+
+bundleDarwinx64() {
+    wvat_arch=darwin-x64
+    spruce_type=macos_amd64
+    bundleAux
+}
+
 bundlex64
+bundleArm
+bundleWinx64
+bundleDarwinx64
