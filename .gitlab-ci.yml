@@ -93,6 +93,8 @@ security:
 
 deploy_staging:
   stage: deploy
+  before_script:
+    - npm install
   image: $CI_REGISTRY/feup-tbs/ldso1920/t2g1:latest
   only:
     refs:
@@ -101,11 +103,12 @@ deploy_staging:
     - ./build.sh unix
     - ./build.sh windows
     - ./upload_dropbox.sh $DROPBOX_ACCESS_TOKEN ./dist/ dev/
-  dependencies: 
-    - build
+  dependencies: []
 
 deploy_production:
   stage: deploy
+  before_script:
+    - npm install
   image: $CI_REGISTRY/feup-tbs/ldso1920/t2g1:latest 
   only:
     refs: 
@@ -114,5 +117,4 @@ deploy_production:
     - ./build.sh unix
     - ./build.sh windows
     - ./upload_dropbox.sh $DROPBOX_ACCESS_TOKEN ./dist/ prod/
-  dependencies: 
-    - build
+  dependencies: []
