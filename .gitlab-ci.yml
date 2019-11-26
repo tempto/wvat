@@ -101,7 +101,8 @@ deploy_staging:
     - ./build.sh unix
     - ./build.sh windows
     - ./upload_dropbox.sh $DROPBOX_ACCESS_TOKEN ./dist/ dev/
-  dependencies: []
+  dependencies: 
+    - build
 
 deploy_production:
   stage: deploy
@@ -113,4 +114,5 @@ deploy_production:
     - ./build.sh unix
     - ./build.sh windows
     - ./upload_dropbox.sh $DROPBOX_ACCESS_TOKEN ./dist/ prod/
-  dependencies: []
+  dependencies: 
+    - build
