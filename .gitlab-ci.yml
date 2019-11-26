@@ -35,16 +35,27 @@ lint:
   dependencies:
     - build
 
-test:
+coverage:
   stage: test
   only:
     - merge_requests
   script: 
     - npm run test-coverage
-    - npm run test-mutation
   artifacts:
     paths:
     - reports/coverage
+    expire_in: 1 week
+  dependencies:
+    - build
+
+mutation:
+  stage: test
+  only:
+    - merge_requests
+  script: 
+    - npm run test-mutation
+  artifacts:
+    paths:
     - reports/mutation
     expire_in: 1 week
   dependencies:
