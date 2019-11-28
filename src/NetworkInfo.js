@@ -2,6 +2,7 @@ const WhoIs = require("node-xwhois");
 const DomainPing = require("domain-ping");
 const Logger = require("./Logger");
 const Errors = require("./errors");
+const IpLocation = require("iplocation").default;
 
 const NAMESPACE_MAP = Object.freeze({
     ipv4: "A",
@@ -36,6 +37,11 @@ const getNetworkInfo = async (domain) => {
             }
         } else {
             Logger.print("Command 'whois' was successful", true);
+        }
+
+        if (network_data.ipv4) {
+            network_data.location = await IpLocation(network_data.ipv4);
+            delete network_data.location.ip;
         }
 
         return network_data;
