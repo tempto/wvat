@@ -1,4 +1,5 @@
 const WhoIs = require("node-xwhois");
+const DomainPing = require("domain-ping");
 const Logger = require("./Logger");
 const Errors = require("./errors");
 
@@ -22,7 +23,20 @@ const getNetworkInfo = async (domain) => {
             delete network_data[NAMESPACE_MAP.ipv6];
         }
 
-        Logger.print("Command 'whois' was successful", true);
+        if (!network_data || !network_data.ipv4) {
+            Logger.print("The 'whois' command failed to find domain network information", true);
+            Logger.print("The 'whois' command failed to find domain network information", true);
+            const network_data = {};
+            const domain_ping_info = await DomainPing(domain);
+            if (!domain_ping_info.error && domain_ping_info.success) {
+                Logger.print("Command 'ping' was successful", true);
+                network_data.ipv4 = domain_ping_info.ip;
+            } else {
+                Logger.print("The 'ping' command failed to find domain network information", true);
+            }
+        } else {
+            Logger.print("Command 'whois' was successful", true);
+        }
 
         return network_data;
     } catch (e) {
