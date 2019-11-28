@@ -17,9 +17,11 @@
     "axios": "^0.19.0",
     "cheerio": "^1.0.0-rc.3",
     "cli-ux": "^5.3.2",
+    "csv-parse": "^4.7.0",
+    "domain-ping": "^0.1.10",
     "js-crawler": "^0.3.21",
     "node-persist": "^3.0.5",
-    "csv-parse": "^4.7.0",
+    "node-xwhois": "^2.0.9",
     "wappalyzer": "^5.8.4"
   },
   "devDependencies": {

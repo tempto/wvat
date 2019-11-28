@@ -2,9 +2,9 @@
  * Errors constant object used to describe all of the app's error codes
  */
 const errors = Object.freeze({
-    TEST: {
+    NETWORK: {
         code: 1,
-        description: "This is just a test error",
+        description: "Network error",
     },
     FLAGS: {
         code: 2,
