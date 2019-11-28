@@ -7,6 +7,7 @@ const TOOL_CONFIG_FILE_NAME = "wvat-config.json";
  */
 const DEFAULT_TOOL_CONFIG_FILE_SCHEMA = {
     allow_data_reporting: false,
+    amass_path: "bin/amass",
 };
 
 /**

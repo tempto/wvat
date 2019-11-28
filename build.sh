@@ -24,3 +24,5 @@ else
     echo_err "Invalid call, only windows or unix build modes accepted."
     exit 2
 fi
+
+source ./bundle.sh
