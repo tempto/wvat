@@ -114,6 +114,7 @@ USAGE
 * [`wvat help [COMMAND]`](#wvat-help-command)
 * [`wvat inspect URL`](#wvat-inspect-url)
 * [`wvat test`](#wvat-test)
+* [`wvat update-cve-cache`](#wvat-update-cve-cache)
 
 ## `wvat crawl DOMAIN`
 
@@ -237,4 +238,15 @@ OPTIONS
 ```
 
 _See code: [src/commands/test.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/test.js)_
+
+## `wvat update-cve-cache`
+
+Updates local CVE cache file
+
+```
+USAGE
+  $ wvat update-cve-cache
+```
+
+_See code: [src/commands/update-cve-cache.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/update-cve-cache.js)_
 <!-- commandsstop -->

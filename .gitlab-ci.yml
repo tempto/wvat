@@ -116,5 +116,6 @@ deploy_production:
   script:
     - ./build.sh unix
     - ./build.sh windows
+    - ./bundle.sh
     - ./upload_dropbox.sh $DROPBOX_ACCESS_TOKEN ./dist/ prod/
   dependencies: []

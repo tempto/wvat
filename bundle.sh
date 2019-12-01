@@ -17,7 +17,7 @@ bundleAux() {
     wvat_tar=wvat-v"$wvat_version"-"$wvat_arch".tar.gz
     downloadAmass
     amass_folder=amass_"$amass_version"_"$spruce_type"
-    cp tmp/"$amass_folder"/amass tmp/"$wvat_arch"/wvat/bin
+    cp tmp/"$amass_folder"/amass"$win_exe" tmp/"$wvat_arch"/wvat/bin
     rm -r tmp/"$amass_folder"/
     tar -zcvf tmp/"$wvat_tar" -C tmp/"$wvat_arch"/ wvat
     cp tmp/"$wvat_tar" dist/wvat-v"$wvat_version"/
@@ -39,6 +39,7 @@ bundleArm() {
 bundleWinx64() {
     wvat_arch=win32-x64
     spruce_type=windows_amd64
+    win_exe=.exe
     bundleAux
 }
 
@@ -48,7 +49,18 @@ bundleDarwinx64() {
     bundleAux
 }
 
+bundleWinx64Exe() {
+    wvat_arch=win32-x64
+    spruce_type=windows_amd64
+    downloadAmass
+    amass_folder=amass_"$amass_version"_"$spruce_type"
+    cp tmp/"$amass_folder"/amass.exe dist/win/
+    rm -r tmp/"$amass_folder"/
+    rm dist/win/wvat-v"$wvat_version"-x86.exe
+}
+
 bundlex64
 bundleArm
 bundleWinx64
 bundleDarwinx64
+bundleWinx64Exe
