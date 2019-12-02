@@ -4,6 +4,9 @@ const Logger = require("./Logger");
 const Errors = require("./errors");
 const IpLocation = require("iplocation").default;
 
+/**
+ * Mapping node-xwhois results to meaningfull names
+ */
 const WHOIS_MAP = Object.freeze({
     ipv4: "A",
     ipv6: "AAAA",
@@ -15,6 +18,10 @@ const WHOIS_MAP = Object.freeze({
     soa_records: "SOA",
 });
 
+/**
+ * Updates network data object's keys to meaningfull names
+ * @param {Object} network_data Network data object
+ */
 const mapWhoIsInfo = (network_data) => Object.keys(WHOIS_MAP).forEach(((entry) => {
     if (network_data[WHOIS_MAP[entry]]) {
         network_data[entry] = network_data[WHOIS_MAP[entry]];
@@ -22,6 +29,11 @@ const mapWhoIsInfo = (network_data) => Object.keys(WHOIS_MAP).forEach(((entry) =
     }
 }));
 
+/**
+ * Gets the network data for a given domain
+ * @param {string} domain Domain to obtain network info
+ * @returns {Object} Network data for a given domain
+ */
 const getNetworkInfo = async (domain) => {
     try {
         Logger.print(`Searching for ${domain} network information ...`, true);
@@ -61,4 +73,5 @@ const getNetworkInfo = async (domain) => {
 
 module.exports = {
     getNetworkInfo,
+    mapWhoIsInfo,
 };

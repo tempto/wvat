@@ -1,6 +1,5 @@
 const Logger = require("../src/Logger.js");
 const chai = require("chai"),
-    // expect = chai.expect,
     should = chai.should(); // eslint-disable-line
 
 describe("Logger tests", () => {

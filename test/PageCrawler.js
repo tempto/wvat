@@ -11,7 +11,7 @@ describe("Domain Crawler tests", () => {
         it("should fail when the depth level is not a positive integer number", () => {
             expect.assertions(1);
             getPagesList("domain", -1).catch((e) => {
-                expect(e).toEqual(new Error("Depth Level must be a number"));
+                expect(e).toEqual(new Error("Depth Level must be a positive number"));
             });
         });
     });
