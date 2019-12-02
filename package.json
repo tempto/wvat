@@ -23,6 +23,7 @@
     "js-crawler": "^0.3.21",
     "node-persist": "^3.0.5",
     "node-xwhois": "^2.0.9",
+    "dotenv-flow": "^3.1.0",
     "wappalyzer": "^5.8.4"
   },
   "devDependencies": {
