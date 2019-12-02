@@ -19,7 +19,7 @@ describe("Webtech tests", () => {
         it("should properly parse the technologies", () => {
             const tech = "Target URL: https://gitlab.com/\nDetected technologies:\n\t -Varnish \n\n";
 
-            expect(Webtech.parseAnalysisResults("https://www.gitlab.com", tech)).toEqual([{
+            expect(Webtech.parseAnalysisResults(tech)).toEqual([{
                 name: "Varnish",
                 version: null,
             }]);
