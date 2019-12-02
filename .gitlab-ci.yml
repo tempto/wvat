@@ -91,6 +91,15 @@ security:
   dependencies:
     - build
 
+acceptance_tests:
+  stage: test
+  only:
+    - merge_requests
+  script: 
+    - npm run acceptance-test
+  dependencies:
+    - build
+
 deploy_staging:
   stage: deploy
   before_script:
