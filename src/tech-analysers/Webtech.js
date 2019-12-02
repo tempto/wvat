@@ -2,7 +2,7 @@ const TechAnalyser = require("../TechAnalyser");
 const spawn = require("await-spawn");
 const { isValidURL, addURLEndSlash } = require("../utils");
 
-class Wappalyser extends TechAnalyser {
+class Webtech extends TechAnalyser {
     /**
      * Analyses webpage technologies using Webtech
      * @param {string} url Webpage url
@@ -10,7 +10,7 @@ class Wappalyser extends TechAnalyser {
      * @returns {Array} Webtech analysis results
      */
     static async analyseWebPage(url) {
-        const tech = await spawn("./bin/webtech/webtech-macOS", ["--urls", url]);
+        const tech = await spawn(`./bin/webtech/${Webtech.getBinaryFile()}`, ["--urls", url]);
         return tech.toString();
     }
 
@@ -53,6 +53,19 @@ class Wappalyser extends TechAnalyser {
         const tech = await this.analyseWebPage(fixed_url);
         return this.parseAnalysisResults(fixed_url, tech);
     }
+
+    static getBinaryFile() {
+        switch (process.platform) {
+            case "win32":
+                return "webtech-windows.exe";
+            case "linux":
+                return "webtech-linux";
+            case "darwin":
+                return "webtech-macos";
+            default:
+                throw Error("Unsopported OS");
+        }
+    }
 }
 
-module.exports = Wappalyser;
+module.exports = Webtech;
