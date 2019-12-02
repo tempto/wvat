@@ -32,6 +32,7 @@
     "@stryker-mutator/javascript-mutator": "^2.1.0",
     "@stryker-mutator/jest-runner": "^2.1.0",
     "chai": "^4.2.0",
+    "cucumber": "^6.0.5",
     "eslint": "^5.16.0",
     "eslint-config-oclif": "^3.1.0",
     "eslint-plugin-jest": "^22.19.0",
@@ -80,6 +81,7 @@
     "test-coverage": "jest --coverage",
     "test-mutation": "stryker run",
     "code-quality": "jshint src --reporter=checkstyle > reports/code_quality.xml",
-    "security-scan": "retire --js --outputpath reports/retire_security_report.json --outputformat json"
+    "security-scan": "retire --js --outputpath reports/retire_security_report.json --outputformat json",
+    "acceptance-test": "cucumber-js"
   }
 }
