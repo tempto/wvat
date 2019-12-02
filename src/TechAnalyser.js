@@ -45,14 +45,40 @@ class TechAnalyser {
         if (!url) throw new Error("Missing Webpage url");
         if (!isValidURL(url)) throw new Error("Invalid url");
 
-        const tech_finders = [require("./tech-analysers/Wappalyser")];
-        let tech = [];
+        const tech_finders = [require("./tech-analysers/Wappalyser"), require("./tech-analysers/Webtech")];
+        const tech = [];
 
         await Promise.all(tech_finders.map(async (tech_finder) => {
-            tech = tech.concat(await tech_finder.getWebpageTechnologies(url));
+            tech.push(await tech_finder.getWebpageTechnologies(url));
         }));
 
-        return tech;
+        return TechAnalyser.concat_tech_finders_result(tech);
+    }
+
+    static concat_tech_finders_result(tech_results) {
+        const final_result = [];
+
+        tech_results.forEach((tech_result) => {
+            tech_result.forEach((tech) => {
+                let exists = false;
+
+                final_result.forEach((existing_tech) => {
+                    if (tech.name === existing_tech.name) {
+                        exists = true;
+
+                        if (existing_tech.version === null) {
+                            existing_tech.version = tech.version;
+                        }
+                    }
+                });
+
+                if (!exists) {
+                    final_result.push(tech);
+                }
+            });
+        });
+
+        return final_result;
     }
 }
 
