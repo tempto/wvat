@@ -10,7 +10,7 @@ class Webtech extends TechAnalyser {
      * @returns {Array} Webtech analysis results
      */
     static async analyseWebPage(url) {
-        const tech = await spawn(`./bin/webtech/${Webtech.getBinaryFile()}`, ["--urls", url]);
+        const tech = await spawn(Webtech.getBinaryFile(), ["--urls", url]);
         return tech.toString();
     }
 
@@ -55,13 +55,16 @@ class Webtech extends TechAnalyser {
     }
 
     static getBinaryFile() {
+        let slash = "/";
+        const path = `.${slash}bin${slash}webtech${slash}`;
         switch (process.platform) {
             case "win32":
-                return "webtech-windows.exe";
+                slash = "\\";
+                return `${path}webtech-windows.exe`;
             case "linux":
-                return "webtech-linux";
+                return `${path}webtech-linux`;
             case "darwin":
-                return "webtech-macos";
+                return `${path}webtech-macos`;
             default:
                 throw Error("Unsopported OS");
         }
