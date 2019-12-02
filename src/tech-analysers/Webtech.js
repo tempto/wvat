@@ -15,12 +15,11 @@ class Webtech extends TechAnalyser {
     }
 
     /**
-     * Parses webpage url technologies analysis results
-     * @param {string} url Webpage url
-     * @param {Array} tech Technology array from analyseWebPage array following this format
+     * Parses Webtech results output
+     * @param {string} tech Webtech command output
      * @returns {Array} Array with found technologies
      */
-    static parseAnalysisResults(url, tech) {
+    static parseAnalysisResults(tech) {
         const str = tech.toString(), lines = str.split(/(\r?\n)/g);
         const techs = [];
         for (let i = 4; i < lines.length; i += 2) {
@@ -54,6 +53,10 @@ class Webtech extends TechAnalyser {
         return this.parseAnalysisResults(fixed_url, tech);
     }
 
+    /**
+     * Gets the adequate binary file to the current OS
+     * @returns {string} Path to adequate binary file
+     */
     static getBinaryFile() {
         let slash = "/";
         const path = `.${slash}bin${slash}webtech${slash}`;

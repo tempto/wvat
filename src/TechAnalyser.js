@@ -55,6 +55,12 @@ class TechAnalyser {
         return TechAnalyser.concat_tech_finders_result(tech);
     }
 
+    /**
+     * Concatenates all the result arrays from each tech finder into a single array without repeats
+     * Preserves the detected versions
+     * @param {Array.<Array.<string>>} tech_results Array of lists of results from each tech finder
+     * @returns {Array} Single list of all technologies detected
+     */
     static concat_tech_finders_result(tech_results) {
         const final_result = [];
 
