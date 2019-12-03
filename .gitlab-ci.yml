@@ -111,6 +111,7 @@ deploy_staging:
   script: 
     - ./build.sh unix
     - ./build.sh windows
+    - ./bundle.sh
     - ./upload_dropbox.sh $DROPBOX_ACCESS_TOKEN ./dist/ dev/
   dependencies: []
 
