@@ -107,6 +107,7 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`wvat about`](#wvat-about)
 * [`wvat crawl DOMAIN`](#wvat-crawl-domain)
 * [`wvat cves TECHNOLOGY`](#wvat-cves-technology)
 * [`wvat error-codes`](#wvat-error-codes)
@@ -116,6 +117,17 @@ USAGE
 * [`wvat test`](#wvat-test)
 * [`wvat update-cve-cache`](#wvat-update-cve-cache)
 * [`wvat whois DOMAIN`](#wvat-whois-domain)
+
+## `wvat about`
+
+Describes WVAT and its functionalities
+
+```
+USAGE
+  $ wvat about
+```
+
+_See code: [src/commands/about.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/about.js)_
 
 ## `wvat crawl DOMAIN`
 
