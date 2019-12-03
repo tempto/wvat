@@ -58,19 +58,9 @@ class Webtech extends TechAnalyser {
      * @returns {string} Path to adequate binary file
      */
     static getBinaryFile() {
-        let slash = "/";
-        const path = `.${slash}bin${slash}webtech${slash}`;
-        switch (process.platform) {
-            case "win32":
-                slash = "\\";
-                return `${path}webtech-windows.exe`;
-            case "linux":
-                return `${path}webtech-linux`;
-            case "darwin":
-                return `${path}webtech-macos`;
-            default:
-                throw Error("Unsopported OS");
-        }
+        const slash = (process.platform === "win32") ? "\\" : "/";
+        const extension = (process.platform === "win32") ? ".exe" : "";
+        return `.${slash}bin${slash}webtech${extension}`;
     }
 }
 
