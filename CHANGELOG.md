@@ -1,5 +1,48 @@
 # Changelog
 
+## Release 4 - December 2019 Week 1 (version 1.3)
+
+Downloads: [Windows](https://www.dropbox.com/sh/z7cwhf3y0v3cwjl/AADHcpxdUunlB0hM_f1u9sVxa/dist/win?dl=0&subfolder_nav_tracking=1) | [Unix-based Systems](https://www.dropbox.com/sh/z7cwhf3y0v3cwjl/AAACbWlNnoyyJ848SFA6F79Xa/dist?dl=0&subfolder_nav_tracking=1)
+
+Welcome to the December 2019 Week 1 release of *WVAT - Web Vulnerability Assessment Tool*. This patch's key highlights include:
+
+- ...
+- ...
+- ...
+
+### Closed Issues
+
+#### Feature-related Issues
+
+- [JSON Report](#33)
+    - [Implement saving analysis results (from all the tool's steps) in a JSON file](#60)
+    - [Implement JSON file generation Unit Tests](#61)
+- [JSON Report creation data](#35)
+    - [Perform file saving with a `security_analysis_<timestamp>.json` title format](#62)
+    - [Store the analysis timestamp in a field of the JSON content](#63)
+    - [Implement report timestamp Unit Tests](#64)
+- [CVE cache manual update](#26)
+    - [Create a command to manually update the local CVE cache](#113)
+- [Domain Network Information](#123)
+    - [Investigate node modules that perform network analysis tasks](#125)
+    - [Create command to get network information from Domain](#126)
+- [HTML Report](#51)
+    - [Research way to populate an HTML template with JS variables](#87)
+    - [Stylize HTML report](#88)
+    - [Create HTML report structure](#89)
+
+#### Technical Issues
+
+- [...](...)
+- [...](...)
+- [...](...)
+
+### Commit History
+
+- [...](...)
+- [...](...)
+- [...](...)
+
 ## Release 3 - November 2019 Week 4 (version 1.2)
 
 Downloads: [Windows](https://www.dropbox.com/sh/z7cwhf3y0v3cwjl/AADHcpxdUunlB0hM_f1u9sVxa/dist/win?dl=0&subfolder_nav_tracking=1) | [Unix-based Systems](https://www.dropbox.com/sh/z7cwhf3y0v3cwjl/AAACbWlNnoyyJ848SFA6F79Xa/dist?dl=0&subfolder_nav_tracking=1)
