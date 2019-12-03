@@ -98,7 +98,7 @@ $ npm install -g wvat
 $ wvat COMMAND
 running command...
 $ wvat (-v|--version|version)
-wvat/1.2.0 linux-x64 node-v10.16.0
+wvat/1.3.0 linux-x64 node-v10.16.3
 $ wvat --help [COMMAND]
 USAGE
   $ wvat COMMAND
@@ -115,6 +115,7 @@ USAGE
 * [`wvat inspect URL`](#wvat-inspect-url)
 * [`wvat test`](#wvat-test)
 * [`wvat update-cve-cache`](#wvat-update-cve-cache)
+* [`wvat whois DOMAIN`](#wvat-whois-domain)
 
 ## `wvat crawl DOMAIN`
 
@@ -249,4 +250,30 @@ USAGE
 ```
 
 _See code: [src/commands/update-cve-cache.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/update-cve-cache.js)_
+
+## `wvat whois DOMAIN`
+
+Searches for network information for a given domain
+
+```
+USAGE
+  $ wvat whois DOMAIN
+
+ARGUMENTS
+  DOMAIN  domain to obtain network information
+
+OPTIONS
+  -d, --depth=depth      [default: 2] crawling depth
+  -j, --noCveCache       Search without using local CVE cache
+  -n, --noCrawlingCache  crawl with no cache
+  -t, --timeout=timeout  Maximum application execution time (in seconds)
+  -u, --updateCveCache   Force update the local CVE cache
+  -v, --verbose          Verbose Mode (outputs all messages to screen)
+
+EXAMPLES
+  whois google.com
+  whois youtube.com --verbose
+```
+
+_See code: [src/commands/whois.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/whois.js)_
 <!-- commandsstop -->
