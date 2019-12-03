@@ -1,6 +1,9 @@
 const TechAnalyser = require("../TechAnalyser");
 const spawn = require("await-spawn");
 const { isValidURL, addURLEndSlash } = require("../utils");
+const Config = require("../Config");
+const fs = require("fs");
+const Errors = require("../errors");
 
 class Webtech extends TechAnalyser {
     /**
@@ -28,11 +31,9 @@ class Webtech extends TechAnalyser {
             }
         }
 
-        const version = null;
-
         return techs.map((name) => ({
             name,
-            version,
+            version: null,
         }));
     }
 
@@ -58,9 +59,18 @@ class Webtech extends TechAnalyser {
      * @returns {string} Path to adequate binary file
      */
     static getBinaryFile() {
-        const slash = (process.platform === "win32") ? "\\" : "/";
-        const extension = (process.platform === "win32") ? ".exe" : "";
-        return `.${slash}bin${slash}webtech${extension}`;
+        let path = Config.tool_config.webtech_path;
+
+        if (process.platform === "win32") {
+            path = path.replace(new RegExp("/", "g"), "\\");
+            path = `${path}.exe`;
+        }
+
+        if (!fs.existsSync(path)) {
+            throw new Error(`${Errors.BINARY_FILE_NOT_FOUND.description} (${path})`);
+        }
+
+        return path;
     }
 }
 

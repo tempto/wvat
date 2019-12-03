@@ -9,6 +9,7 @@ const TOOL_CONFIG_FILE_NAME = "wvat-config.json";
 const DEFAULT_TOOL_CONFIG_FILE_SCHEMA = {
     allow_data_reporting: false,
     amass_path: path.join(path.dirname(fs.realpathSync(__filename)), "../bin/amass"),
+    webtech_path: path.join(path.dirname(fs.realpathSync(__filename)), "../bin/webtech"),
 };
 
 /**
@@ -28,6 +29,7 @@ const readToolConfigFile = () => {
     try {
         const tool_config = JSON.parse(file_content);
         if (!tool_config.amass_path) tool_config.amass_path = DEFAULT_TOOL_CONFIG_FILE_SCHEMA.amass_path;
+        if (!tool_config.webtech_path) tool_config.webtech_path = DEFAULT_TOOL_CONFIG_FILE_SCHEMA.webtech_path;
         return tool_config;
     } catch (e) {
         throw new Error("Failed to read tool configuration file");
