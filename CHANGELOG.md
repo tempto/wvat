@@ -33,9 +33,18 @@ Welcome to the December 2019 Week 1 release of *WVAT - Web Vulnerability Assessm
 
 #### Technical Issues
 
-- [...](...)
-- [...](...)
-- [...](...)
+- [Create a standardized return for tech analysis sub-modules](#109)
+- [Improve tech analysis module test suite](#110)
+- [Make sentry logs opt-in](#114)
+- [Research about Automated Acceptance Tests tools / modules](#127)
+- [Setup automated Acceptance Tests](#128)
+- [Add Acceptance Tests automation to CI pipeline](#129)
+- [Add 'What Is New' wiki page for Sprint 4](#115)
+- [Add 'Product Owner Meeting' page for Sprint 4](#116)
+- [Update Changelog for Sprint 4](#117)
+- [Add 'Burndown chart and End of project estimate' page for Sprint 4](#118)
+- [Add 'Velocity Analysis and Burndown Chart' page for Sprint 4](#119)
+- [Tool version bump for the end of Sprint 4](#122)
 
 ### Commit History
 
