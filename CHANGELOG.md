@@ -6,9 +6,14 @@ Downloads: [Windows](https://www.dropbox.com/sh/z7cwhf3y0v3cwjl/AADHcpxdUunlB0hM
 
 Welcome to the December 2019 Week 1 release of *WVAT - Web Vulnerability Assessment Tool*. This patch's key highlights include:
 
-- ...
-- ...
-- ...
+- Application structural refactor
+- Test suites enhancement
+- Automated acceptance tests
+- JSON report artefact presentation
+- Manual updating of local cache files options
+- Data Reporting is now optional
+- Domain Network Information extracting
+- Tool configuration JSON file
 
 ### Closed Issues
 
