@@ -37,10 +37,10 @@ lint:
 
 coverage:
   stage: test
-  only:
-    - merge_requests
   script: 
     - npm run test-coverage
+  only:
+    - merge_requests
   artifacts:
     paths:
     - reports/coverage
@@ -102,12 +102,14 @@ acceptance_tests:
 
 deploy_staging:
   stage: deploy
+  only:
+    refs: 
+      - develop
   before_script:
+    - apt-get update
+    - apt-get install -y jq
     - npm install
   image: $CI_REGISTRY/feup-tbs/ldso1920/t2g1:latest
-  only:
-    refs:
-      - develop
   script: 
     - ./build.sh unix
     - ./build.sh windows
@@ -118,6 +120,8 @@ deploy_staging:
 deploy_production:
   stage: deploy
   before_script:
+    - apt-get update
+    - apt-get install -y jq
     - npm install
   image: $CI_REGISTRY/feup-tbs/ldso1920/t2g1:latest 
   only:
