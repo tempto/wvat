@@ -26,6 +26,7 @@
     "mustache": "^3.1.0",
     "node-persist": "^3.0.5",
     "node-xwhois": "^2.0.9",
+    "puppeteer": "^2.0.0",
     "wappalyzer": "^5.8.4"
   },
   "devDependencies": {
