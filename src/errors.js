@@ -34,10 +34,6 @@ const errors = Object.freeze({
         code: 21,
         description: "Failed to read tool config JSON file",
     },
-    BINARY_FILE_NOT_FOUND: {
-        code: 22,
-        description: "Binary file not found",
-    },
 });
 
 module.exports = errors;

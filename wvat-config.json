@@ -1,5 +1,5 @@
 {
   "allow_data_reporting": true,
-  "webtech_path": null,
+  "webtech_command": null,
   "amass_path": null
 }

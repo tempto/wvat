@@ -35,6 +35,7 @@
     "@stryker-mutator/jest-runner": "^2.4.0",
     "await-spawn": "^3.0.0",
     "chai": "^4.2.0",
+    "command-exists": "^1.2.8",
     "cucumber": "^6.0.5",
     "eslint": "^5.16.0",
     "eslint-config-oclif": "^3.1.0",

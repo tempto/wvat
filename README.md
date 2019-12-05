@@ -277,3 +277,26 @@ EXAMPLES
 
 _See code: [src/commands/whois.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/whois.js)_
 <!-- commandsstop -->
+# Optional Technologies
+<!-- optionaltechnologies -->
+
+## Webtech
+
+In order to analyse the technologies of a webpage using Webtech, it's required to install it's python package. 
+
+Firstly ensure that both [Python 3](https://www.python.org/downloads/) and [pip](https://pip.pypa.io/en/stable/installing/) are already installed.
+
+Then just use pip to install it:
+````
+pip install webtech
+````
+
+Alternatively, download and install from the [source code](https://github.com/ShielderSec/webtech).
+
+Then change the [configuration file](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/wvat-config.json) to enable Webtech usage:
+```
+"webtech_command": "webtech"
+```
+* The `webtech_command` is the Webtech's console command. The default value from the pip installation is `webtech`.
+
+<!-- optionaltechnologiesstop -->

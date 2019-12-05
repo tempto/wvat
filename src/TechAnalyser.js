@@ -1,4 +1,5 @@
 const { isValidURL } = require("./utils");
+const Logger = require("./Logger");
 
 class TechAnalyser {
     /**
@@ -39,6 +40,9 @@ class TechAnalyser {
     /**
      * Calls all tech finders and merges the results
      * @param {string} url Webpage url
+     * @throws {Error} Missing Webpage url
+     * @throws {Error} Invalid url
+     * @throws {Error} None of the technology analysers could be used
      * @returns {Array} Webpage technologies
      */
     static async findWebPageTechnologies(url) {
@@ -46,13 +50,19 @@ class TechAnalyser {
         if (!isValidURL(url)) throw new Error("Invalid url");
 
         const tech_finders = [require("./tech-analysers/Wappalyser"), require("./tech-analysers/Webtech")];
-        const tech = [];
+        const techs = [];
 
         await Promise.all(tech_finders.map(async (tech_finder) => {
-            tech.push(await tech_finder.getWebpageTechnologies(url));
+            try {
+                techs.push(await tech_finder.getWebpageTechnologies(url));
+            } catch (e) {
+                Logger.warning(`Not using ${new tech_finder().constructor.name} on webpage technology analysis`);
+            }
         }));
 
-        return TechAnalyser.concat_tech_finders_result(tech);
+        if (techs.length === 0) throw new Error("None of the technology analysers could be used");
+
+        return TechAnalyser.concat_tech_finders_result(techs);
     }
 
     /**
@@ -72,7 +82,7 @@ class TechAnalyser {
                     if (tech.name === existing_tech.name) {
                         exists = true;
 
-                        if (existing_tech.version === null) {
+                        if (!existing_tech.version) {
                             existing_tech.version = tech.version;
                         }
                     }
