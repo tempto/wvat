@@ -76,21 +76,11 @@ class TechAnalyser {
 
         tech_results.forEach((tech_result) => {
             tech_result.forEach((tech) => {
-                let exists = false;
+                const existing_tech = final_result.filter((tech_obj) => tech_obj.name === tech.name)[0];
 
-                final_result.forEach((existing_tech) => {
-                    if (tech.name === existing_tech.name) {
-                        exists = true;
+                if (existing_tech && tech.version) existing_tech.version = tech.version;
 
-                        if (!existing_tech.version) {
-                            existing_tech.version = tech.version;
-                        }
-                    }
-                });
-
-                if (!exists) {
-                    final_result.push(tech);
-                }
+                if (!existing_tech) final_result.push(tech);
             });
         });
 

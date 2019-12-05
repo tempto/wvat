@@ -113,4 +113,106 @@ describe("Tech Analyser tests", () => {
             }]);
         });
     });
+    describe("Merge results from all technology finders", () => {
+        it("should merge two different result lists together", () => {
+            const tech_results = [
+                [
+                    { name: "technology 1",
+                        version: "1.0" },
+                    { name: "technology 2",
+                        version: "1.1" },
+                    { name: "technology 3",
+                        version: "1.2" },
+                ],
+                [
+                    { name: "technology 4",
+                        version: "1.0" },
+                    { name: "technology 5",
+                        version: "1.4" },
+                    { name: "technology 6",
+                        version: "1.3" },
+                ],
+            ];
+            const final_result = [
+                { name: "technology 1",
+                    version: "1.0" },
+                { name: "technology 2",
+                    version: "1.1" },
+                { name: "technology 3",
+                    version: "1.2" },
+                { name: "technology 4",
+                    version: "1.0" },
+                { name: "technology 5",
+                    version: "1.4" },
+                { name: "technology 6",
+                    version: "1.3" },
+            ];
+
+            expect(TechAnalyser.concat_tech_finders_result(tech_results)).toEqual(final_result);
+        });
+        it("should merge two result lists together avoiding repetitions", () => {
+            const tech_results = [
+                [
+                    { name: "technology 1",
+                        version: "1.0" },
+                    { name: "technology 2",
+                        version: "1.1" },
+                    { name: "technology 3",
+                        version: "1.2" },
+                ],
+                [
+                    { name: "technology 1",
+                        version: "1.0" },
+                    { name: "technology 2",
+                        version: "1.1" },
+                    { name: "technology 4",
+                        version: "1.3" },
+                ],
+            ];
+            const final_result = [
+                { name: "technology 1",
+                    version: "1.0" },
+                { name: "technology 2",
+                    version: "1.1" },
+                { name: "technology 3",
+                    version: "1.2" },
+                { name: "technology 4",
+                    version: "1.3" },
+            ];
+
+            expect(TechAnalyser.concat_tech_finders_result(tech_results)).toEqual(final_result);
+        });
+        it("should merge two result lists together giving preference to the non-null version", () => {
+            const tech_results = [
+                [
+                    { name: "technology 1",
+                        version: "1.0" },
+                    { name: "technology 2",
+                        version: null },
+                    { name: "technology 3",
+                        version: "1.4" },
+                ],
+                [
+                    { name: "technology 2",
+                        version: "1.1" },
+                    { name: "technology 3",
+                        version: null },
+                    { name: "technology 4",
+                        version: "1.3" },
+                ],
+            ];
+            const final_result = [
+                { name: "technology 1",
+                    version: "1.0" },
+                { name: "technology 2",
+                    version: "1.1" },
+                { name: "technology 3",
+                    version: "1.4" },
+                { name: "technology 4",
+                    version: "1.3" },
+            ];
+
+            expect(TechAnalyser.concat_tech_finders_result(tech_results)).toEqual(final_result);
+        });
+    });
 });
