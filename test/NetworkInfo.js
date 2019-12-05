@@ -4,7 +4,7 @@ const chai = require("chai"),
     should = chai.should(); // eslint-disable-line
 
 describe("Network Info tests", () => {
-    const network_info = {
+    const whois_info = {
         A: [
             "153.71.82.119",
         ],
@@ -19,17 +19,19 @@ describe("Network Info tests", () => {
         SOA: ["..."],
     };
 
-    it("Should map whois results to readable keys", () => {
-        mapWhoIsInfo(network_info);
+    const network_info = {};
 
-        expect(network_info.A).to.be.undefined;
-        expect(network_info.AAAA).to.be.undefined;
-        expect(network_info.MX).to.be.undefined;
-        expect(network_info.TXT).to.be.undefined;
-        expect(network_info.SRV).to.be.undefined;
-        expect(network_info.NS).to.be.undefined;
-        expect(network_info.CNAME).to.be.undefined;
-        expect(network_info.SOA).to.be.undefined;
+    it("Should map whois results to readable keys", () => {
+        mapWhoIsInfo(network_info, whois_info);
+
+        expect(whois_info.A).to.be.undefined;
+        expect(whois_info.AAAA).to.be.undefined;
+        expect(whois_info.MX).to.be.undefined;
+        expect(whois_info.TXT).to.be.undefined;
+        expect(whois_info.SRV).to.be.undefined;
+        expect(whois_info.NS).to.be.undefined;
+        expect(whois_info.CNAME).to.be.undefined;
+        expect(whois_info.SOA).to.be.undefined;
 
         network_info.ipv4.should.not.be.undefined;
         network_info.ipv6.should.not.be.undefined;
