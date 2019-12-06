@@ -1,5 +1,5 @@
 const {
-    isValidCVE, isValidURL, parseDateFromCVEEntry, buildRegexFromSearchQuery, isNumOnlyCVE, isCompleteCVE, addURLEndSlash,
+    isValidCVE, isValidURL, parseDateFromCVEEntry, buildRegexFromSearchQuery, isNumOnlyCVE, isCompleteCVE, addURLEndSlash, now,
 } = require("../src/utils");
 
 const chai = require("chai"),
@@ -123,5 +123,15 @@ describe("Regex builder from search queries", () => {
 
         expect(buildRegexFromSearchQuery("node express js")).to.deep.equal(/node[:_.-\s]+express[:_.-\s]+js/);
         expect(buildRegexFromSearchQuery("node express.js")).to.deep.equal(/node[:_.-\s]+express[:_.-\s]+js/);
+    });
+});
+
+describe("Getting current time", () => {
+    it("should return a valid time format", () => {
+        const valid_time_url = /^\d{2}-\d{2}-\d{4}_\d{2}:\d{2}:\d{2}$/;
+        const time = now();
+
+        valid_time_url.test(time).should.be.true;
+        time.length.should.equal(19);
     });
 });
