@@ -93,6 +93,18 @@ const isHttpStatusCode = (candidate) => (
  */
 const addURLEndSlash = (url) => url + (url.endsWith("/") ? "" : "/");
 
+const now = () => {
+    const date = new Date();
+    const day = date.getDay().toString().padStart(2, 0);
+    const mon = date.getMonth().toString().padStart(2, 0);
+    const year = date.getFullYear().toString().padStart(4, 0);
+    const hour = date.getHours().toString().padStart(2, 0);
+    const min = date.getMinutes().toString().padStart(2, 0);
+    const sec = date.getSeconds().toString().padStart(2, 0);
+
+    return `${day}-${mon}-${year}_${hour}:${min}:${sec}`;
+};
+
 module.exports = {
     URL_REGEX,
     HTTPS_REGEX,
@@ -106,4 +118,5 @@ module.exports = {
     isUrlFromDomain,
     isHttpStatusCode,
     addURLEndSlash,
+    now,
 };
