@@ -1,7 +1,8 @@
 const fs = require("fs");
 const { exec } = require("child_process");
 
-const { isValidURL, extractDomainFromUrl } = require("./utils");
+const { isValidURL, extractDomainFromUrl, isUrlFromDomain } = require("./utils");
+
 const Logger = require("./Logger");
 const Config = require("./Config");
 
@@ -58,6 +59,19 @@ const getSubdomainsFromFile = () => {
     return subdomains;
 };
 
+const getCompatibleWhitelistedSubdomains = (whitelist_file, domain) => {
+
+    try {
+        fs.statSync(whitelist_file);
+        const subdomains = fs.readFileSync(whitelist_file, "utf-8").split("\n");
+        return subdomains.filter((e) => isUrlFromDomain(e, domain));
+    } catch (e) {
+        throw new Error(`File ${whitelist_file} not found.`);
+    }
+
+};
+
 module.exports = {
     getSubdomainsList,
+    getCompatibleWhitelistedSubdomains,
 };

@@ -55,6 +55,10 @@ Imports a json file with the following fields:
         default: false,
     }),
 
+    whitelist: flags.string({
+        char: "w",
+        description: "Text file with subdomains to analyze",
+    }),
 });
 
 module.exports = Flags;

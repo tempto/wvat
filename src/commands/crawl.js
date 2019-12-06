@@ -2,18 +2,24 @@ const Flags = require("../flags");
 const Logger = require("../Logger");
 const Command = require("../BaseCommand");
 const Errors = require("../errors");
-const { getSubdomainsList } = require("../SubdomainCrawler");
-const {  generateSubdomainsGraph } = require("../SubdomainsGraph");
+const { generateSubdomainsGraph } = require("../SubdomainsGraph");
 const { getCrawlTree } = require("../PageCrawler");
+const { getSubdomainsList, getCompatibleWhitelistedSubdomains } = require("../SubdomainCrawler");
+const { stripDomain } = require("../utils");
 
 class CrawlerCommand extends Command {
     async run() {
         const { args, flags } = await this.parse(CrawlerCommand);
 
-        const { depth, noCrawlingCache, graph, crawlingTimeout } = flags;
+        const { depth, noCrawlingCache, graph, whitelist, crawlingTimeout } = flags;
         const { domain } = args;
 
-        const subdomains_list = await getSubdomainsList(domain, { timeout: crawlingTimeout });
+        let subdomains_list;
+        if (whitelist) {
+            subdomains_list = getCompatibleWhitelistedSubdomains(whitelist, stripDomain(domain));
+        } else {
+            subdomains_list = await getSubdomainsList(domain, { timeout: crawlingTimeout });
+        }
 
         if (subdomains_list.length === 0) {
             Logger.print(`No subdomains found for ${domain}.`);
@@ -54,6 +60,10 @@ CrawlerCommand.flags = {
     noCrawlingCache: Flags.noCrawlingCache,
     graph: Flags.graph,
     crawlingTimeout: Flags.crawlingTimeout,
+    whitelist: Flags.whitelist,
 };
 
-module.exports = CrawlerCommand;
+module.exports = {
+    CrawlerCommand,
+    getCompatibleWhitelistedSubdomains,
+};
