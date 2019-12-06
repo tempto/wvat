@@ -47,5 +47,5 @@ const exportHTMLReport = (html_data) => {
 };
 
 module.exports = {
-    buildHTMLReport, exportHTMLReport,
+    buildHTMLReport, exportHTMLReport, countCVEsPerPage,
 };

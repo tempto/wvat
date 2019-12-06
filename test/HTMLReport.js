@@ -1,37 +1,148 @@
-const { buildHTMLReport, exportHTMLReport } = require("../src/HTMLReport");
+const { buildHTMLReport, exportHTMLReport, countCVEsPerPage } = require("../src/html-report/HTMLReport");
+const chai = require("chai"),
+    expect = chai.expect,
+    should = chai.should(); // eslint-disable-line
 
 const report_data = {
-    "domain": "randomdomain.com",
-    "date": "2019-11-23",
-    "details": {
-        "whois": "bla",
-        "other": "...",
+    "domain": "https://up.pt",
+    "date": "10-06-2017",
+    "network": {
+        "ipv4": [
+            "172.217.17.14",
+            "156.218.16.15",
+        ],
+        "ipv6": [
+            "2a00:1450:4003:802::200e",
+        ],
+        "mx_records": [
+            {
+                "exchange": "alt4.aspmx.l.google.com",
+                "priority": 50,
+            },
+            {
+                "exchange": "alt3.aspmx.l.google.com",
+                "priority": 40,
+            },
+            {
+                "exchange": "alt2.aspmx.l.google.com",
+                "priority": 30,
+            },
+            {
+                "exchange": "alt1.aspmx.l.google.com",
+                "priority": 20,
+            },
+            {
+                "exchange": "aspmx.l.google.com",
+                "priority": 10,
+            },
+        ],
+        "txt_records": [
+            "facebook-domain-verification=22rm551cu4k0ab0bxsw536tlds4h95",
+            "v=spf1 include:_spf.google.com ~all",
+            "globalsign-smime-dv=CDYX+XFHUw2wml6/Gb8+59BsH31KzUr6c1l2BPvqKX8=",
+            "docusign=05958488-4752-4ef2-95eb-aa7ba8a3bd0e",
+            "docusign=1b0a6754-49b1-4db5-8540-d2c12664b289",
+        ],
+        "ns_records": [
+            "ns3.google.com",
+            "ns2.google.com",
+            "ns4.google.com",
+            "ns1.google.com",
+        ],
+        "soa_records": {
+            "nsname": "ns1.google.com",
+            "hostmaster": "dns-admin.google.com",
+            "serial": 283937355,
+            "refresh": 900,
+            "retry": 900,
+            "expire": 1800,
+            "minttl": 60,
+        },
+        "location": {
+            "country": "US",
+            "countryCode": "US",
+            "region": "New York",
+            "regionCode": "",
+            "city": "New York City",
+            "postal": "10004",
+            "latitude": 40.7143,
+            "longitude": -74.006,
+            "timezone": "America/New_York",
+        },
     },
     "subdomains": [
         {
-            "path": "randomdomain.com",
-            "endpoints": [
+            "name": "up.pt",
+            "pages": [
                 {
-                    "endpoint": "randomdomain.com/page1",
-                    "links": [
-                        "randomdomain.com/page2",
-                    ],
+                    "name": "up.pt/about",
                     "technologies": [
                         {
-                            "name": "Windows",
-                            "version": "10.0.0.1",
+                            "name": "React Native",
                             "cves": [
                                 {
-                                    "cve": "CVE-2019-0001",
-                                    "title": "Example cve",
-                                    "date": "2019-01-01",
-                                    "url": "example-cvedb.com/cve-2019-0001",
+                                    "id": "CVE-2018-2020",
+                                    "date": "10-02-2018",
+                                    "status": "Candidate",
+                                    "description": "Lorem",
                                     "exploits": [
-                                        {
-                                            "title": "Example exploit",
-                                            "date": "2019-01-02",
-                                            "url": "example-exploitdb.com/exploit-1",
-                                        },
+                                        "https://google.com",
+                                        "https://youtube.com",
+                                    ],
+                                },
+                                {
+                                    "id": "CVE-2018-2020",
+                                    "date": "10-02-2018",
+                                    "status": "Candidate",
+                                    "description": "Lorem",
+                                    "exploits": [
+                                        "https://google.com",
+                                        "https://youtube.com",
+                                    ],
+                                },
+                            ],
+                        },
+                        {
+                            "name": "Bootstrap",
+                            "cves": [
+                                {
+                                    "id": "CVE-2017-2020",
+                                    "description": "Lorem",
+                                    "exploits": [
+                                        "https://google.com",
+                                        "https://youtube.com",
+                                    ],
+                                },
+                                {
+                                    "id": "CVE-2017-2020",
+                                    "description": "Lorem",
+                                    "exploits": [
+                                        "https://google.com",
+                                        "https://youtube.com",
+                                    ],
+                                },
+                                {
+                                    "id": "CVE-2017-2020",
+                                    "description": "Lorem",
+                                    "exploits": [
+                                        "https://google.com",
+                                        "https://youtube.com",
+                                    ],
+                                },
+                                {
+                                    "id": "CVE-2017-2020",
+                                    "description": "Lorem",
+                                    "exploits": [
+                                        "https://google.com",
+                                        "https://youtube.com",
+                                    ],
+                                },
+                                {
+                                    "id": "CVE-2017-2020",
+                                    "description": "Lorem",
+                                    "exploits": [
+                                        "https://google.com",
+                                        "https://youtube.com",
                                     ],
                                 },
                             ],
@@ -39,43 +150,34 @@ const report_data = {
                     ],
                 },
                 {
-                    "endpoint": "randomdomain.com/page2",
-                    "links": [],
+                    "name": "up.pt/login",
                     "technologies": [
                         {
-                            "name": "Windows",
-                            "version": "10.0.0.1",
+                            "name": "React Native",
                             "cves": [
                                 {
-                                    "cve": "CVE-2019-0001",
-                                    "title": "Example cve",
-                                    "date": "2019-01-01",
-                                    "url": "example-cvedb.com/cve-2019-0001",
+                                    "id": "CVE-2018-2020",
+                                    "date": "10-02-2018",
+                                    "status": "Candidate",
+                                    "description": "Lorem",
                                     "exploits": [
-                                        {
-                                            "title": "Example exploit",
-                                            "date": "2019-01-02",
-                                            "url": "example-exploitdb.com/exploit-1",
-                                        },
+                                        "https://google.com",
+                                        "https://youtube.com",
                                     ],
                                 },
                             ],
                         },
                         {
-                            "name": "RandomTech",
-                            "version": "1.1",
+                            "name": "Bootstrap",
                             "cves": [
                                 {
-                                    "cve": "CVE-2019-0002",
-                                    "title": "Another cve",
-                                    "date": "2019-10-01",
-                                    "url": "example-cvedb.com/cve-2019-0002",
+                                    "id": "CVE-2018-2020",
+                                    "date": "10-02-2018",
+                                    "status": "Candidate",
+                                    "description": "Lorem",
                                     "exploits": [
-                                        {
-                                            "title": "Another exploit",
-                                            "date": "2019-10-02",
-                                            "url": "example-exploitdb.com/exploit-2",
-                                        },
+                                        "https://google.com",
+                                        "https://youtube.com",
                                     ],
                                 },
                             ],
@@ -85,394 +187,118 @@ const report_data = {
             ],
         },
         {
-            "path": "sub1.randomdomain.com",
-            "endpoints": [],
+            "name": "med.up.pt",
+            "pages": [
+                {
+                    "name": "med.up.pt/about",
+                    "technologies": [
+                        {
+                            "name": "React Native",
+                            "cves": [
+                                {
+                                    "id": "CVE-2018-2020",
+                                    "date": "10-02-2018",
+                                    "status": "Candidate",
+                                    "description": "Lorem",
+                                    "exploits": [
+                                        "https://google.com",
+                                        "https://youtube.com",
+                                    ],
+                                },
+                            ],
+                        },
+                        {
+                            "name": "Bootstrap",
+                            "cves": [
+                                {
+                                    "id": "CVE-2018-2020",
+                                    "description": "Lorem",
+                                    "exploits": [
+                                        "https://google.com",
+                                        "https://youtube.com",
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    "name": "med.up.pt/login",
+                    "technologies": [
+                        {
+                            "name": "React Native",
+                            "cves": [
+                                {
+                                    "id": "CVE-2018-2020",
+                                    "date": "10-02-2018",
+                                    "status": "Candidate",
+                                    "description": "Lorem",
+                                    "exploits": [
+                                        "https://google.com",
+                                        "https://youtube.com",
+                                    ],
+                                },
+                            ],
+                        },
+                        {
+                            "name": "Bootstrap",
+                            "cves": [
+                                {
+                                    "id": "CVE-2018-2020",
+                                    "date": "10-02-2018",
+                                    "status": "Candidate",
+                                    "description": "Lorem",
+                                    "exploits": [
+                                        "https://google.com",
+                                        "https://youtube.com",
+                                    ],
+                                },
+                                {
+                                    "id": "CVE-2017-2020",
+                                    "description": "Lorem",
+                                    "exploits": [
+                                        "https://google.com",
+                                        "https://youtube.com",
+                                    ],
+                                },
+                                {
+                                    "id": "CVE-2017-2020",
+                                    "description": "Lorem",
+                                    "exploits": [
+                                        "https://google.com",
+                                        "https://youtube.com",
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
         },
     ],
 };
-
-const html_data =
-`<!DOCTYPE html>
-<html>
-
-<head>
-  <style>
-    :root {
-      --orange: #f9812a;
-      --red: #ff0800;
-      --yellow: #ffc30b;
-      --green: #33d96d;
-      --pink: #fc4dac;
-      --blue: #4286f4;
-    }
-
-    body {
-      width: 100%;
-      margin: 0;
-    }
-
-    div {
-      font-family: sans-serif;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    header {
-      background: var(--blue);
-      padding: 1em;
-    }
-
-    header div {
-      text-align: center;
-      color: white;
-    }
-
-    header .title {
-      font-size: x-large;
-    }
-
-    header .description {
-      font-size: larger;
-    }
-
-    .report {
-      padding: 2em;
-    }
-
-    .title {
-      font-size: 75%
-    }
-
-    #details {
-      color: white;
-    }
-
-    .detail {
-      display: inline-block;
-      padding: 0.33em;
-      border-radius: 0.25em;
-      background-color: rgba(1, 1, 1, 0.25);
-      margin-top: 0.5em;
-    }
-
-    .dot {
-      display: inline-block;
-      margin-right: 5px;
-    }
-
-    .dot.orange {
-      color: var(--orange);
-    }
-
-    .dot.red {
-      color: var(--red);
-    }
-
-    .dot.yellow {
-      color: var(--yellow);
-    }
-
-    .dot.green {
-      color: var(--green);
-    }
-
-    .dot.pink {
-      color: var(--pink);
-    }
-
-    .dot.blue {
-      color: var(--blue);
-    }
-
-    .endpoints,
-    .technologies,
-    .cves,
-    .links,
-    .exploits {
-      margin-left: 1em;
-    }
-
-    .subdomains .title {
-      font-size: 1.175em;
-      font-weight: bold;
-      margin-top: 0.25em;
-    }
-
-    .subdomains .subtitle {
-      font-size: 1em;
-      margin-top: 0.25em;
-    }
-
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      margin: 1em 0em;
-    }
-
-    th, td {
-      padding: 8px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
-
-    tr.table-content:hover {
-      background-color:#f5f5f5;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    @media print {
-      header {
-        background: #c9c9c9;
-      }
-
-      header .description, header .title,  header .detail {
-        color: black;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <header>
-    <div class="title"><b>Security analysis of randomdomain.com</b><a href="randomdomain.com"> &#128279;</a></div>
-    <div class="description"><b>Report created on 2019-11-23</b></div>
-    <div id="details">
-        <div class="detail"><b>whois:</b> bla</div>
-        <div class="detail"><b>other:</b> ...</div>
-    </div>
-  </header>
-  <div class="report">
-    <div class="subdomains">
-      <div class="title"><b>&#x2013;</b> Subdomains:</div>
-      <div class="content">
-        <div class="subdomain" id="randomdomain.com">
-          <div class="subdomain-url">
-            <div class="dot orange">&#9679;</div><b>randomdomain.com</b><a href="randomdomain.com"> &#128279;</a>
-          </div>
-          <div class="endpoints">
-            <div class="title"><b>&#x2013;</b> Endpoints:</div>
-            <div class="content">
-              <div class="endpoint">
-                <div class="endpoint-url">
-                  <div class="dot red">&#9679;</div><b>randomdomain.com/page1</b><a href="randomdomain.com/page1"> &#128279;</a>
-                </div>
-                <div class="links">
-                  <div class="title"><b>+</b> Links:</div>
-                  <div class="content hidden">
-                    <div class="link">
-                      <div class="dot yellow">&#9679;</div><b>randomdomain.com/page2</b><a href="randomdomain.com/page2"> &#128279;</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="technologies">
-                  <div class="title"><b>+</b> Technologies:</div>
-                  <div class="content hidden">
-                    <table>
-                      <tr>
-                        <th>Name</th>
-                        <th>Version</th>
-                        <th>CVE</th>
-                      </tr>
-                      <tr class="table-content">
-                        <td>Windows</td>
-                        <td>10.0.0.1</td>
-                        <td>
-                          <div>CVE-2019-0001</div>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-                <div class="cves">
-                  <div class="title"><b>+</b> CVE:</div>
-                  <div class="content hidden">
-                    <table>
-                      <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Date</th>
-                        <th>URL</th>
-                        <th>Exploits</th>
-                      </tr>
-                      <tr class="table-content">
-                        <td>CVE-2019-0001</td>
-                        <td>Example cve</td>
-                        <td>2019-01-01</td>
-                        <td><a href="example-cvedb.com/cve-2019-0001"> &#128279;</a></td>
-                        <td>
-                          <div>Example exploit</div>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-                <div class="exploits">
-                  <div class="title"><b>+</b> Exploits:</div>
-                  <div class="content hidden">
-                    <table>
-                      <tr>
-                        <th>Title</th>
-                        <th>Date</th>
-                        <th>URL</th>
-                      </tr>
-                      <tr class="table-content">
-                        <td>Example exploit</td>
-                        <td>2019-01-02</td>
-                        <td><a href="example-exploitdb.com/exploit-1"> &#128279;</a></td>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <div class="endpoint">
-                <div class="endpoint-url">
-                  <div class="dot red">&#9679;</div><b>randomdomain.com/page2</b><a href="randomdomain.com/page2"> &#128279;</a>
-                </div>
-                <div class="links">
-                  <div class="title"><b>+</b> Links:</div>
-                  <div class="content hidden">
-                  </div>
-                </div>
-                <div class="technologies">
-                  <div class="title"><b>+</b> Technologies:</div>
-                  <div class="content hidden">
-                    <table>
-                      <tr>
-                        <th>Name</th>
-                        <th>Version</th>
-                        <th>CVE</th>
-                      </tr>
-                      <tr class="table-content">
-                        <td>Windows</td>
-                        <td>10.0.0.1</td>
-                        <td>
-                          <div>CVE-2019-0001</div>
-                        </td>
-                      </tr>
-                      <tr class="table-content">
-                        <td>RandomTech</td>
-                        <td>1.1</td>
-                        <td>
-                          <div>CVE-2019-0002</div>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-                <div class="cves">
-                  <div class="title"><b>+</b> CVE:</div>
-                  <div class="content hidden">
-                    <table>
-                      <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Date</th>
-                        <th>URL</th>
-                        <th>Exploits</th>
-                      </tr>
-                      <tr class="table-content">
-                        <td>CVE-2019-0001</td>
-                        <td>Example cve</td>
-                        <td>2019-01-01</td>
-                        <td><a href="example-cvedb.com/cve-2019-0001"> &#128279;</a></td>
-                        <td>
-                          <div>Example exploit</div>
-                        </td>
-                      </tr>
-                      <tr class="table-content">
-                        <td>CVE-2019-0002</td>
-                        <td>Another cve</td>
-                        <td>2019-10-01</td>
-                        <td><a href="example-cvedb.com/cve-2019-0002"> &#128279;</a></td>
-                        <td>
-                          <div>Another exploit</div>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-                <div class="exploits">
-                  <div class="title"><b>+</b> Exploits:</div>
-                  <div class="content hidden">
-                    <table>
-                      <tr>
-                        <th>Title</th>
-                        <th>Date</th>
-                        <th>URL</th>
-                      </tr>
-                      <tr class="table-content">
-                        <td>Example exploit</td>
-                        <td>2019-01-02</td>
-                        <td><a href="example-exploitdb.com/exploit-1"> &#128279;</a></td>
-                      </tr>
-                      <tr class="table-content">
-                        <td>Another exploit</td>
-                        <td>2019-10-02</td>
-                        <td><a href="example-exploitdb.com/exploit-2"> &#128279;</a></td>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="subdomain" id="sub1.randomdomain.com">
-          <div class="subdomain-url">
-            <div class="dot orange">&#9679;</div><b>sub1.randomdomain.com</b><a href="sub1.randomdomain.com"> &#128279;</a>
-          </div>
-          <div class="endpoints">
-            <div class="title"><b>&#x2013;</b> Endpoints:</div>
-            <div class="content">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</body>
-
-<script defer>
-const titles = document.querySelectorAll(".report .title b");
-const content = document.querySelectorAll(".report .content");
-
-for(let i = 0; i < titles.length; i++)
-  titles[i].addEventListener('click', (event) => {
-    let icon = event.target.parentElement.parentElement.querySelector('.content').classList.toggle('hidden')? "+" : "&#x2013;";
-    event.target.parentElement.querySelector('b').innerHTML = icon;
-  });
-
-for(let i = 0; i < content.length; i++)
-  if(content[i].childNodes.length == 1)
-    content[i].innerHTML = '<div class="subtitle">Nothing to show here</div>';
-</script>
-
-</html>`;
 
 describe("HTML Report tests", () => {
     describe("Create and save the HTML report given the fetched data", () => {
 
         it("should build the HTML report", () => {
-            expect(buildHTMLReport(report_data)).toEqual(html_data);
+            buildHTMLReport(report_data).should.not.be.undefined;
         });
 
-        it("should fail when the report data is missing", () => {
-            expect(() => buildHTMLReport()).toThrowError(new Error("Missing report data"));
+        it("should fail when the search query is empty", () => {
+            expect(buildHTMLReport).to.throw("Missing report data");
         });
 
-        it("should fail when the HTML data is missing", () => {
-            expect(() => exportHTMLReport()).toThrowError(new Error("Missing HTML data"));
+        it("should fail when the search query is empty", () => {
+            expect(exportHTMLReport).to.throw("Missing HTML data");
         });
 
-        it("should fail when the date is missing", () => {
-            expect(() => exportHTMLReport(buildHTMLReport(report_data))).toThrowError(new Error("Missing date"));
+        it("should count the CVES per page", () => {
+            countCVEsPerPage(report_data);
+            report_data.subdomains[0].pages[0].num_cves.should.equal(7);
+            report_data.subdomains[0].pages[1].num_cves.should.equal(2);
+            report_data.subdomains[1].pages[0].num_cves.should.equal(2);
+            report_data.subdomains[1].pages[1].num_cves.should.equal(4);
         });
-
     });
 });
