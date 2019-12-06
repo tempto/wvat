@@ -159,6 +159,184 @@ module.exports =
             <div class="date">Report date: <strong>{{date}}</strong></div>
         </header>
         <div class="page-content">
+            {{#network}}
+                <h2>Network Information</h2>
+                <div class="network-info-item ipv4">
+                    <div class="collapser">
+                        <span class="toggler">+</span>
+                        <strong>IPv4</strong>:
+                    </div>
+                    {{^ipv4}}<span class="not-availabe">Not Available</span>{{/ipv4}}
+                    <ul class="pll collapsable hidden">
+                    {{#ipv4}}
+                        <li>{{.}}</li>
+                    {{/ipv4}}
+                    </ul>
+                </div>
+                <div class="network-info-item ipv6">
+                    <div class="collapser">
+                        <span class="toggler">+</span>
+                        <strong>IPv6</strong>:
+                    </div>
+                    {{^ipv6}}<span class="not-availabe">Not Available</span>{{/ipv6}}
+                    <ul class="pll collapsable hidden">
+                    {{#ipv6}}
+                        <li>{{.}}</li>
+                    {{/ipv6}}
+                    </ul>
+                </div>
+                <div class="network-info-item location">
+                    <div class="collapser">
+                        <span class="toggler">+</span>
+                        <strong>Location</strong>:
+                    </div>
+                    {{^location}}<span class="not-availabe">Not Available</span>{{/location}}
+                    {{#location}}
+                        <div class="pl collapsable hidden">
+                            <div>
+                                <strong>Country</strong>:
+                                {{^country}}<span class="not-availabe">Not Available</span>{{/country}}
+                                {{#country}}{{country}}{{/country}}
+                            </div>
+
+                            <div>
+                                <strong>Country Code</strong>:
+                                {{^countryCode}}<span class="not-availabe">Not Available</span>{{/countryCode}}
+                                {{#countryCode}}{{countryCode}}{{/countryCode}}
+                            </div>
+
+                            <div>
+                                <strong>Region</strong>:
+                                {{^region}}<span class="not-availabe">Not Available</span>{{/region}}
+                                {{#region}}{{region}}{{/region}}
+                            </div>
+
+                            <div>
+                                <strong>Region Code</strong>:
+                                {{^regionCode}}<span class="not-availabe">Not Available</span>{{/regionCode}}
+                                {{#regionCode}}{{regionCode}}{{/regionCode}}
+                            </div>
+
+                            <div>
+                                <strong>City</strong>:
+                                {{^city}}<span class="not-availabe">Not Available</span>{{/city}}
+                                {{#city}}{{city}}{{/city}}
+                            </div>
+
+                            <div>
+                                <strong>Postal Code</strong>:
+                                {{^postal}}<span class="not-availabe">Not Available</span>{{/postal}}
+                                {{#postal}}{{postal}}{{/postal}}
+                            </div>
+
+                            <div>
+                                <strong>Latitude</strong>:
+                                {{^latitude}}<span class="not-availabe">Not Available</span>{{/latitude}}
+                                {{#latitude}}{{latitude}}{{/latitude}}
+                            </div>
+
+                            <div>
+                                <strong>Longitude</strong>:
+                                {{^longitude}}<span class="not-availabe">Not Available</span>{{/longitude}}
+                                {{#longitude}}{{longitude}}{{/longitude}}
+
+                            <div>
+                                <strong>Timezone</strong>:
+                                {{^timezone}}<span class="not-availabe">Not Available</span>{{/timezone}}
+                                {{#timezone}}{{timezone}}{{/timezone}}
+                            </div>
+                        </div>
+                    {{/location}}
+                </div>
+                <div class="network-info-item ns-records">
+                    <div class="collapser">
+                        <span class="toggler">+</span>
+                        <strong>NS Records</strong>:
+                    </div>
+                    {{^ns_records}}<span class="not-availabe">Not Available</span>{{/ns_records}}
+                    <ul class="pll collapsable hidden">
+                    {{#ns_records}}
+                        <li>{{.}}</li>
+                    {{/ns_records}}
+                    </ul>
+                </div>
+                <div class="network-info-item txt-records">
+                    <div class="collapser">
+                        <span class="toggler">+</span>
+                        <strong>Text Records</strong>:
+                    </div>
+                    {{^txt_records}}<span class="not-availabe">Not Available</span>{{/txt_records}}
+                    <ul class="pll collapsable hidden">
+                    {{#txt_records}}
+                        <li>{{.}}</li>
+                    {{/txt_records}}
+                    </ul>
+                </div>
+                <div class="network-info-item soa-records">
+                    <div class="collapser">
+                        <span class="toggler">+</span>
+                        <strong>SOA Records</strong>:
+                    </div>
+                    {{^soa_records}}<span class="not-availabe">Not Available</span>{{/soa_records}}
+                    {{#soa_records}}
+                        <div class="pl collapsable hidden">
+                            <div>
+                                <strong>NS Name</strong>:
+                                {{^nsname}}<span class="not-availabe">Not Available</span>{{/nsname}}
+                                {{#nsname}}{{nsname}}{{/nsname}}
+                            </div>
+
+                            <div>
+                                <strong>Host Master</strong>:
+                                {{^hostmaster}}<span class="not-availabe">Not Available</span>{{/hostmaster}}
+                                {{#hostmaster}}{{hostmaster}}{{/hostmaster}}
+                            </div>
+
+                            <div>
+                                <strong>Serial</strong>:
+                                {{^serial}}<span class="not-availabe">Not Available</span>{{/serial}}
+                                {{#serial}}{{serial}}{{/serial}}
+                            </div>
+
+                            <div>
+                                <strong>Refresh</strong>:
+                                {{^refresh}}<span class="not-availabe">Not Available</span>{{/refresh}}
+                                {{#refresh}}{{refresh}}{{/refresh}}
+                            </div>
+
+                            <div>
+                                <strong>Retry</strong>:
+                                {{^retry}}<span class="not-availabe">Not Available</span>{{/retry}}
+                                {{#retry}}{{retry}}{{/retry}}
+                            </div>
+
+                            <div>
+                                <strong>Expire</strong>:
+                                {{^expire}}<span class="not-availabe">Not Available</span>{{/expire}}
+                                {{#expire}}{{expire}}{{/expire}}
+                            </div>
+
+                            <div>
+                                <strong>Mint TL</strong>:
+                                {{^minttl}}<span class="not-availabe">Not Available</span>{{/minttl}}
+                                {{#minttl}}{{minttl}}{{/minttl}}
+                            </div>
+                        </div>
+                    {{/soa_records}}
+                </div>
+                <div class="network-info-item mx-records">
+                    <div class="collapser">
+                        <span class="toggler">+</span>
+                        <strong>MX Records</strong>:
+                    </div>
+                    {{^mx_records}}<span class="not-availabe">Not Available</span>{{/mx_records}}
+                    <ul class="pll collapsable hidden">
+                    {{#mx_records}}
+                        <li>{{exchange}} (priority=<strong>{{priority}}</strong>)</li>
+                    {{/mx_records}}
+                    </ul>
+                </div>
+            {{/network}}
             <div class="subdomains">
                 <h2>Analysis Results</h2>
                 {{#subdomains}}
