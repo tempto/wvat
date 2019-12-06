@@ -33,6 +33,11 @@ const Flags = Object.freeze({
         description: "Force update the local CVE cache",
         default: false,
     }),
+    graph: flags.boolean({
+        char: "g",
+        description: "Generate a graph of subdomains",
+        default: false,
+    }),
 });
 
 module.exports = Flags;

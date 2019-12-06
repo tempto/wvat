@@ -4,16 +4,19 @@ const Command = require("../BaseCommand");
 const Errors = require("../errors");
 const { getSubdomainsList, stripDomain } = require("../SubdomainCrawler");
 const { getPagesList } = require("../PageCrawler");
+const { generateSubdomainsGraph } = require("../SubdomainsGraph");
 const { addURLEndSlash } = require("../utils");
 
 class CrawlerCommand extends Command {
     async run() {
         const { args, flags } = this.parse(CrawlerCommand);
 
-        const { depth, noCrawlingCache } = flags;
+        const { depth, noCrawlingCache, graph } = flags;
         const { domain } = args;
 
         const subdomains_list = await getSubdomainsList(domain);
+
+        if (graph) generateSubdomainsGraph(domain);
 
         const crawl_tree = {};
 
@@ -50,6 +53,7 @@ CrawlerCommand.flags = {
     verbose: Flags.verbose,
     depth: Flags.depth,
     noCrawlingCache: Flags.noCrawlingCache,
+    graph: Flags.graph,
 };
 
 module.exports = CrawlerCommand;

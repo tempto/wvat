@@ -8,6 +8,7 @@ node_modules
 .DS_Store
 security_analysis_report*.json
 security_analysis_report*.html
+*_graph.html
 
 # Test reports
 /reports
@@ -18,3 +19,6 @@ security_analysis_report*.html
 
 # Config
 wvat-config.json
+
+# Amass temporary files
+amass*
