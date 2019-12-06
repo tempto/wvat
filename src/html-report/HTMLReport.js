@@ -1,7 +1,7 @@
 const fs = require("fs");
 const Mustache = require("mustache");
 const Logger = require("../Logger");
-const template = "";
+const template = require("./report_template");
 const { now } = require("../utils");
 
 /**
