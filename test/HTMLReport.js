@@ -285,11 +285,11 @@ describe("HTML Report tests", () => {
             buildHTMLReport(report_data).should.not.be.undefined;
         });
 
-        it("should fail when the search query is empty", () => {
+        it("should fail when the report data is missing", () => {
             expect(buildHTMLReport).to.throw("Missing report data");
         });
 
-        it("should fail when the search query is empty", () => {
+        it("should fail when the html data is missing", () => {
             expect(exportHTMLReport).to.throw("Missing HTML data");
         });
 
