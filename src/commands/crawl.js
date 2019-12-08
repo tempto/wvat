@@ -2,10 +2,10 @@ const Flags = require("../flags");
 const Logger = require("../Logger");
 const Command = require("../BaseCommand");
 const Errors = require("../errors");
-const { getSubdomainsList, stripDomain } = require("../SubdomainCrawler");
+const { getSubdomainsList } = require("../SubdomainCrawler");
 const { getPagesList } = require("../PageCrawler");
 const { generateSubdomainsGraph } = require("../SubdomainsGraph");
-const { addURLEndSlash } = require("../utils");
+const { addURLEndSlash, extractDomainFromUrl } = require("../utils");
 
 class CrawlerCommand extends Command {
     async run() {
@@ -22,7 +22,7 @@ class CrawlerCommand extends Command {
 
         await Promise.all(subdomains_list.map(async (subdomain) => {
             // Logger.print(`Fetching pages for subdomain ${subdomain}`);
-            const pages_list = await getPagesList(`https://${addURLEndSlash(stripDomain(subdomain))}`, depth, noCrawlingCache);
+            const pages_list = await getPagesList(`https://${addURLEndSlash(extractDomainFromUrl(subdomain))}`, depth, noCrawlingCache);
             crawl_tree[subdomain] = pages_list || [];
         }));
 

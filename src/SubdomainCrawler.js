@@ -7,8 +7,6 @@ const Config = require("./Config");
 
 const DEFAULT_TIMEOUT_MINS = 1;
 
-const stripDomain = (domain) => extractDomainFromUrl(domain);
-
 /**
  * @typedef {Object} OptionsObject
  * @property {number} timeout - Max crawling time, in minutes
@@ -25,7 +23,7 @@ const getSubdomainsList = (domain, options) => new Promise((resolve, reject) => 
         reject(new Error("Amass not found"));
     }
 
-    let cmd = `${Config.tool_config.amass_path} enum -d ${stripDomain(domain)} -o ./amass-output `;
+    let cmd = `${Config.tool_config.amass_path} enum -d ${extractDomainFromUrl(domain)} -o ./amass-output `;
 
     const timeout = (!options || !options.timeout) ? DEFAULT_TIMEOUT_MINS : options.timeout;
 
@@ -57,5 +55,4 @@ const getSubdomainsList = (domain, options) => new Promise((resolve, reject) => 
 
 module.exports = {
     getSubdomainsList,
-    stripDomain,
 };

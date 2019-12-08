@@ -2,6 +2,7 @@ const WhoIs = require("node-xwhois");
 const DomainPing = require("domain-ping");
 const Logger = require("./Logger");
 const IpLocation = require("iplocation").default;
+const { extractDomainFromUrl } = require("./utils");
 
 /**
  * Mapping node-xwhois results to meaningfull names
@@ -34,12 +35,14 @@ const mapWhoIsInfo = (network_data, whois_data) => Object.keys(WHOIS_MAP).forEac
  * @returns {Object} Network data for a given domain
  */
 const getNetworkInfo = async (domain) => {
-    Logger.print(`Searching for ${domain} network information ...`, true);
+    const striped_domain = extractDomainFromUrl(domain);
+
+    Logger.print(`Searching for ${striped_domain} network information ...`, true);
     Logger.print("Running 'whois' the command to find domain network information", true);
     const network_data = {};
 
     try {
-        const whois_data = await WhoIs.nslookup(domain);
+        const whois_data = await WhoIs.nslookup(striped_domain);
 
         mapWhoIsInfo(network_data, whois_data);
     } catch (e) {
@@ -50,7 +53,7 @@ const getNetworkInfo = async (domain) => {
         if (!network_data || !network_data.ipv4) {
             Logger.print("The 'whois' command failed to find domain network information", true);
             const network_data = {};
-            const domain_ping_info = await DomainPing(domain);
+            const domain_ping_info = await DomainPing(striped_domain);
             if (!domain_ping_info.error && domain_ping_info.success) {
                 Logger.print("Command 'ping' was successful", true);
                 network_data.ipv4 = domain_ping_info.ip;
