@@ -125,6 +125,13 @@ Describes WVAT and its functionalities
 ```
 USAGE
   $ wvat about
+
+ARGUMENTS
+  COMMAND  name of the command to obtain its description, args, flags and examples
+
+EXAMPLES
+  about
+  about whois
 ```
 
 _See code: [src/commands/about.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/about.js)_

@@ -21,7 +21,7 @@ AboutCommand.args = [
     {
         name: "command",
         required: false,
-        description: "command to get its description, args, flags and examples",
+        description: "name of the command to obtain its description, args, flags and examples",
         hidden: false,
     },
 ];
