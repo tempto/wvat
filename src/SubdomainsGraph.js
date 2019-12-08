@@ -1,7 +1,7 @@
 const fs = require("fs");
 const { exec } = require("child_process");
 
-const { extractDomainFromUrl } = require("./utils");
+const { extractDomainFromUrl, now } = require("./utils");
 const Logger = require("./Logger");
 const Config = require("./Config");
 
@@ -10,7 +10,7 @@ const Config = require("./Config");
  * @param {*} domain target domain
  */
 const renameGraphFile = (domain) => {
-    fs.rename("./amass_d3.html", `./${domain}_graph.html`, (err) => {
+    fs.rename("./amass_d3.html", `./${domain}_${now()}_graph.html`, (err) => {
         if (err) throw err;
     });
 };
