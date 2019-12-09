@@ -3,9 +3,8 @@ const Logger = require("../Logger");
 const Command = require("../BaseCommand");
 const Errors = require("../errors");
 const { getSubdomainsList } = require("../SubdomainCrawler");
-const { getPagesList } = require("../PageCrawler");
-const { generateSubdomainsGraph } = require("../SubdomainsGraph");
-const { addURLEndSlash, extractDomainFromUrl } = require("../utils");
+const {  generateSubdomainsGraph } = require("../SubdomainsGraph");
+const { getCrawlTree } = require("../PageCrawler");
 
 class CrawlerCommand extends Command {
     async run() {
@@ -16,15 +15,16 @@ class CrawlerCommand extends Command {
 
         const subdomains_list = await getSubdomainsList(domain);
 
+        if (subdomains_list.length === 0) {
+            Logger.print(`No subdomains found for ${domain}.`);
+            subdomains_list.push(domain);
+        } else {
+            Logger.print(`Found ${subdomains_list.length} subdomains.`);
+        }
+
         if (graph) generateSubdomainsGraph(domain);
 
-        const crawl_tree = {};
-
-        await Promise.all(subdomains_list.map(async (subdomain) => {
-            // Logger.print(`Fetching pages for subdomain ${subdomain}`);
-            const pages_list = await getPagesList(`https://${addURLEndSlash(extractDomainFromUrl(subdomain))}`, depth, noCrawlingCache);
-            crawl_tree[subdomain] = pages_list || [];
-        }));
+        const crawl_tree = await getCrawlTree(subdomains_list, depth, noCrawlingCache);
 
         if (subdomains_list.length) {
             Logger.print(crawl_tree, true);
