@@ -3,7 +3,7 @@ const Flags = require("../flags");
 const Logger = require("../Logger");
 const Errors = require("../errors");
 const {
-    getCVEList, updateLocalCVECache, searchCVEsInLocalCache, parseLocalCacheCVEEntries, localCVECacheExists,
+    findCVEsWithoutCache, updateLocalCVECache, findCVEsWithCache, localCVECacheExists,
 } = require("../CVEs");
 
 class CVECommand extends Command {
@@ -13,7 +13,7 @@ class CVECommand extends Command {
         const technology = args.technology;
 
         if (flags.noCveCache) {
-            const cve_list = await getCVEList(technology);
+            const cve_list = await findCVEsWithoutCache(technology);
 
             if (!cve_list) {
                 Logger.print(Errors.CVE_SCRAPING.description);
@@ -38,9 +38,9 @@ class CVECommand extends Command {
             Logger.print("Searching in local cache...", true);
 
             try {
-                const results = await searchCVEsInLocalCache(technology);
+                const results = await findCVEsWithCache(technology);
                 Logger.print(
-                    JSON.stringify(parseLocalCacheCVEEntries(results), null, 2),
+                    JSON.stringify(results, null, 2),
                 );
             } catch (e) {
                 Logger.error(Errors.CVE_LOCAL_CACHE.description);

@@ -66,16 +66,6 @@ const scrapePage = (page_data) => {
 };
 
 /**
- * Returns all the CVEs found for a given search query
- * @param {string} search_query Word(s) to search for CVEs
- * @returns {Array} List of CVE codes
- */
-const getCVEList = async (search_query) => {
-    const res = await fetchCVEListPage(search_query);
-    return scrapePage(res.data);
-};
-
-/**
  * Downloads a CVE list file
  * @returns {Promise} Axios get promise
  */
@@ -192,10 +182,31 @@ const updateLocalCVECache = async () => {
  */
 const localCVECacheExists = () => fs.existsSync(LOCAL_CVE_FILE_NAME);
 
+/**
+ * Returns all the CVEs found for a given search query (without using cache)
+ * @param {string} search_query Word(s) to search for CVEs
+ * @returns {Array} List of CVE codes
+ */
+const findCVEsWithoutCache = async (search_query) => {
+    const res = await fetchCVEListPage(search_query);
+    return scrapePage(res.data);
+};
+
+/**
+ * Returns all the CVEs found for a given search query (using cache)
+ * @param {string} search_query Word(s) to search for CVEs
+ * @returns {Array} List of CVE codes
+ */
+const findCVEsWithCache = async (search_query) => {
+    const results = await searchCVEsInLocalCache(search_query);
+    return parseLocalCacheCVEEntries(results);
+};
+
 module.exports = {
     getCVEListPageUrl,
     fetchCVEListPage,
-    getCVEList,
+    findCVEsWithoutCache,
+    findCVEsWithCache,
     scrapePage,
     parseRawCVE,
     downloadCVEsFile,
