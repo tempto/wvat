@@ -166,8 +166,8 @@ module.exports =
                         <span class="toggler">+</span>
                         <strong>IPv4</strong>:
                     </div>
-                    {{^ipv4}}<span class="not-availabe">Not Available</span>{{/ipv4}}
                     <ul class="pll collapsable hidden">
+                    {{^ipv4}}<span class="not-availabe">Not Available</span>{{/ipv4}}
                     {{#ipv4}}
                         <li>{{.}}</li>
                     {{/ipv4}}
@@ -178,8 +178,8 @@ module.exports =
                         <span class="toggler">+</span>
                         <strong>IPv6</strong>:
                     </div>
-                    {{^ipv6}}<span class="not-availabe">Not Available</span>{{/ipv6}}
                     <ul class="pll collapsable hidden">
+                    {{^ipv6}}<span class="not-availabe">Not Available</span>{{/ipv6}}
                     {{#ipv6}}
                         <li>{{.}}</li>
                     {{/ipv6}}
@@ -253,8 +253,8 @@ module.exports =
                         <span class="toggler">+</span>
                         <strong>NS Records</strong>:
                     </div>
-                    {{^ns_records}}<span class="not-availabe">Not Available</span>{{/ns_records}}
                     <ul class="pll collapsable hidden">
+                    {{^ns_records}}<span class="not-availabe">Not Available</span>{{/ns_records}}
                     {{#ns_records}}
                         <li>{{.}}</li>
                     {{/ns_records}}
@@ -265,8 +265,8 @@ module.exports =
                         <span class="toggler">+</span>
                         <strong>Text Records</strong>:
                     </div>
-                    {{^txt_records}}<span class="not-availabe">Not Available</span>{{/txt_records}}
                     <ul class="pll collapsable hidden">
+                    {{^txt_records}}<span class="not-availabe">Not Available</span>{{/txt_records}}
                     {{#txt_records}}
                         <li>{{.}}</li>
                     {{/txt_records}}
@@ -329,8 +329,8 @@ module.exports =
                         <span class="toggler">+</span>
                         <strong>MX Records</strong>:
                     </div>
-                    {{^mx_records}}<span class="not-availabe">Not Available</span>{{/mx_records}}
                     <ul class="pll collapsable hidden">
+                    {{^mx_records}}<span class="not-availabe">Not Available</span>{{/mx_records}}
                     {{#mx_records}}
                         <li>{{exchange}} (priority=<strong>{{priority}}</strong>)</li>
                     {{/mx_records}}
