@@ -46,6 +46,18 @@ const exportHTMLReport = (html_data) => {
     }
 };
 
+/**
+ * Renders the report data into and HTML file and stores it in the filesystem
+ * @param  {Object} report_data Final JSON report
+ */
+const saveHTMLReport = (report_data) => {
+    const report_html = buildHTMLReport(report_data);
+    exportHTMLReport(report_html);
+};
+
 module.exports = {
-    buildHTMLReport, exportHTMLReport, countCVEsPerPage,
+    buildHTMLReport,
+    exportHTMLReport,
+    countCVEsPerPage,
+    saveHTMLReport,
 };
