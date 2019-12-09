@@ -24,7 +24,6 @@ const generateSubdomainsGraph = (domain) => {
 
     const cmd = `${Config.tool_config.amass_path} viz -d3 -d ${domain_name}`;
 
-    Logger.print(`Generate subdomains graph from domain ${domain}`);
     const amass = exec(cmd);
 
     amass.stdout.on("data", (data) => {

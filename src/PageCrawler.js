@@ -1,6 +1,6 @@
 const Crawler = require("js-crawler");
 const storage = require("node-persist");
-const { HTTPS_REGEX, isUrlFromDomain } = require("./utils");
+const { HTTPS_REGEX, isUrlFromDomain, addURLEndSlash, stripDomain } = require("./utils");
 const Logger = require("./Logger");
 
 const initStorage = () => (
@@ -71,6 +71,25 @@ const getPagesList = async (domain_name, depth_level = 2, no_cache = false) => {
     return cached_list;
 };
 
+/**
+ * Returns the crawl tree for a given list of subdomains
+ * @param {Array} subdomains_list List of subdomains
+ * @param {int} depth Target crawling max depth
+ * @param {boolean} noCrawlingCache Flag indicating that no crawling cache should be used
+ */
+const getCrawlTree = async (subdomains_list, depth, noCrawlingCache) => {
+    const crawl_tree = {};
+
+    await Promise.all(subdomains_list.map(async (subdomain) => {
+        // Logger.print(`Fetching pages for subdomain ${subdomain}`);
+        const pages_list = await getPagesList(`https://${addURLEndSlash(stripDomain(subdomain))}`, depth, noCrawlingCache);
+        crawl_tree[subdomain] = pages_list || [];
+    }));
+
+    return crawl_tree;
+};
+
 module.exports = {
     getPagesList,
+    getCrawlTree,
 };

@@ -105,6 +105,8 @@ const now = () => {
     return `${day}-${mon}-${year}_${hour}:${min}:${sec}`;
 };
 
+const stripDomain = (domain) => extractDomainFromUrl(domain);
+
 module.exports = {
     URL_REGEX,
     HTTPS_REGEX,
@@ -119,4 +121,5 @@ module.exports = {
     isHttpStatusCode,
     addURLEndSlash,
     now,
+    stripDomain,
 };
