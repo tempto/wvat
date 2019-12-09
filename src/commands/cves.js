@@ -37,16 +37,15 @@ class CVECommand extends Command {
 
             Logger.print("Searching in local cache...", true);
 
-            searchCVEsInLocalCache(technology, (err, results) => {
-                if (err) {
-                    Logger.print(Errors.CVE_LOCAL_CACHE.description);
-                    process.exit(Errors.CVE_LOCAL_CACHE.code);
-                }
-
+            try {
+                const results = await searchCVEsInLocalCache(technology);
                 Logger.print(
                     JSON.stringify(parseLocalCacheCVEEntries(results), null, 2),
                 );
-            });
+            } catch (e) {
+                Logger.error(Errors.CVE_LOCAL_CACHE.description);
+                process.exit(Errors.CVE_LOCAL_CACHE.code);
+            }
         }
     }
 }

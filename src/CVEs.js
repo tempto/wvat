@@ -5,6 +5,7 @@ const egrep = require("@apexearth/egrep");
 const parse = require("csv-parse/lib/sync");
 const { parseDateFromCVEEntry, buildRegexFromSearchQuery } = require("./utils");
 const { getExploitDatabasesUrls } = require("./Exploits");
+const Logger = require("./Logger");
 
 const CVE_LIST_CVE_URL = "https://cve.mitre.org/data/downloads/allitems.csv";
 const LOCAL_CVE_FILE_NAME = ".cvescache";
@@ -126,16 +127,28 @@ const storeCVEsFile = (entries, date, version) => {
 /**
  * Searches for CVE entries in the CVEs local file
  * @param {string} search_query Query to search for CVEs
- * @param {Function} callback Called after searching is done
  */
-const searchCVEsInLocalCache = (search_query, callback) => egrep({
-    pattern: buildRegexFromSearchQuery(search_query),
-    files: [
-        LOCAL_CVE_FILE_NAME,
-    ],
-    recursive: false,
-    ignoreCase: true,
-}, callback);
+const searchCVEsInLocalCache = (search_query) => new Promise((resolve, reject) => {
+    const stream = egrep({
+        pattern: buildRegexFromSearchQuery(search_query),
+        files: [
+            LOCAL_CVE_FILE_NAME,
+        ],
+        recursive: false,
+        ignoreCase: true,
+    });
+
+    const results = [];
+    stream.on("data", (data) => {
+        results.push(data);
+    });
+    stream.on("error", (err) => {
+        reject(err);
+    });
+    stream.on("close", () => {
+        resolve(results);
+    });
+});
 
 /**
  * Parses CVE entries from the local cache
@@ -157,14 +170,20 @@ const parseLocalCacheCVEEntries = (entries) => entries.map((entry) => {
  * Updates local CVE cache, downloading, parsing and storing the file
  */
 const updateLocalCVECache = async () => {
+    Logger.print("Starting CVEs Download...", true);
     const { status, data } = await downloadCVEsFile();
+    Logger.print("CVEs Download done.", true);
+    Logger.print("Starting downloaded CVEs parsing...", true);
     const { date, version, entries } = parseCVEsFile(data);
+    Logger.print("Downloaded CVEs parsing done.", true);
 
     if (status !== 200) {
         throw new Error("Bad response");
     }
 
+    Logger.print("Storing CVE cache...", true);
     storeCVEsFile(entries, date, version);
+    Logger.print("CVE cache storing done.", true);
 };
 
 /**
