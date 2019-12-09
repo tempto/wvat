@@ -125,7 +125,7 @@ class AnalyseCommand extends Command {
         };
         for (const subdomain of analysis_data.subdomains) {
             await Promise.all(subdomain.pages.map(async (page) => {
-                Logger.print(`Searching technologies for subdomain ${subdomain.name}...`, true);
+                Logger.print(`Searching technologies for page ${page.name}...`, true);
                 const technologies = await findWebPageTechnologies(page.name);
                 page.no_version_technologies = noVersionCount(technologies);
                 page.technologies = technologies.map((tech) => ({
@@ -133,7 +133,7 @@ class AnalyseCommand extends Command {
                     version: tech.version,
                     cves: [],
                 }));
-                Logger.print(`Found ${technologies.length} for subdomain ${subdomain.name}.`, true);
+                Logger.print(`Found ${technologies.length} technologies for page ${page.name}.`, true);
             }));
 
             /* Get CVEs for the subdomain*/

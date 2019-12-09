@@ -20,6 +20,9 @@ class BaseCommand extends Command {
             Logger.setVerboseMode();
         }
 
+        // Remove listeners limit
+        process.setMaxListeners(0);
+
         return { args, flags };
     }
 

@@ -42,11 +42,11 @@ const getSubdomainsList = (domain, options) => new Promise((resolve, reject) => 
     });
 
     amass.on("close", () => {
-        retrieveSubdomainsFromFile(resolve);
+        resolve(getSubdomainsFromFile());
     });
 });
 
-const retrieveSubdomainsFromFile = (resolve) => {
+const getSubdomainsFromFile = () => {
     const fileDataTxt = fs.readFileSync("./amass-output", "utf-8");
     // Using slice because the last element is an empty string
     const subdomains = fileDataTxt.split("\n").slice(0, -1);
@@ -55,7 +55,7 @@ const retrieveSubdomainsFromFile = (resolve) => {
         Logger.warning("No subdomains were found.");
     }
 
-    resolve(subdomains);
+    return subdomains;
 };
 
 module.exports = {
