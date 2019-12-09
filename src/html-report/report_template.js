@@ -157,6 +157,7 @@ module.exports =
             <h1 class="wvat">WVAT - Web Vulnerability Assessment Tool</h1>
             <div class="title">Analysis of <a href="{{domain}}">{{domain}}</a></div>
             <div class="date">Report date: <strong>{{date}}</strong></div>
+            <div class="date">Number of technologies without version: <strong>{{num_techs_no_version}}</strong></div>
         </header>
         <div class="page-content">
             {{#network}}

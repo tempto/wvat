@@ -119,11 +119,15 @@ class AnalyseCommand extends Command {
         /* Get technologies */
         Logger.print("Searching technologies for the found pages...");
 
+        const techs_version_info = {
+            num_techs: 0,
+            num_techs_no_version: 0,
+        };
         for (const subdomain of analysis_data.subdomains) {
             await Promise.all(subdomain.pages.map(async (page) => {
                 Logger.print(`Searching technologies for subdomain ${subdomain.name}...`, true);
                 const technologies = await findWebPageTechnologies(page.name);
-                page.no_version_technologies = `${noVersionCount(technologies)}/${technologies.length}`;
+                page.no_version_technologies = noVersionCount(technologies);
                 page.technologies = technologies.map((tech) => ({
                     name: tech.name,
                     version: tech.version,
@@ -135,6 +139,8 @@ class AnalyseCommand extends Command {
             /* Get CVEs for the subdomain*/
             const tech_cves = {}; // Hashmap to store technology cves (to avoid searching same technology more than once)
             for (const page of subdomain.pages) {
+                techs_version_info.num_techs += page.technologies.length;
+                techs_version_info.num_techs_no_version += page.no_version_technologies;
                 await Promise.all(page.technologies.map(async (tech) => {
                     Logger.print(`Searching CVEs for technology ${tech.name}...`, true);
                     if (!tech_cves[tech.name]) {
@@ -145,6 +151,8 @@ class AnalyseCommand extends Command {
                 }));
             }
         }
+
+        analysis_data.num_techs_no_version = `${techs_version_info.num_techs_no_version}/${techs_version_info.num_techs}`;
 
         saveHTMLReport(analysis_data);
 
