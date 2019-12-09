@@ -14,6 +14,10 @@ const errors = Object.freeze({
         code: 3,
         description: "The crawler found no subdomains",
     },
+    TIMEOUT: {
+        code: 4,
+        description: "Tool timeout reached.",
+    },
     CVE_SCRAPING: {
         code: 10,
         description: "CVE Scrapping failure",
