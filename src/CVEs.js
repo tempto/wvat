@@ -3,6 +3,7 @@ const cheerio = require("cheerio");
 const fs = require("fs");
 const egrep = require("@apexearth/egrep");
 const parse = require("csv-parse/lib/sync");
+const Logger = require("./Logger");
 const { parseDateFromCVEEntry, buildRegexFromSearchQuery } = require("./utils");
 const { getExploitDatabasesUrls } = require("./Exploits");
 const Logger = require("./Logger");
@@ -21,6 +22,7 @@ const getCVEListPageUrl = (search_query) => {
 
     return `https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=${encodeURI(search_query)}`;
 };
+
 /**
  * Parses a CVE from an input format to a numeric-type format
  * @param {string} raw_cve CVE in raw input format (e.g. CVE-2018-1234)
@@ -49,20 +51,24 @@ const fetchCVEListPage = (search_query) => {
 };
 
 /**
- * Scrapes a CVE list page to obtain all CVE codes present in the list
+ * Scrapes a CVE list page to obtain all CVE ids and description
  * @param {string} page_data Page raw HTML
  * @throws {Error} Missing page data
- * @returns {Array} List of CVE codes
+ * @returns {Array} List of parsed CVEs
  */
 const scrapePage = (page_data) => {
     if (!page_data) throw new Error("Missing page data");
 
     const $ = cheerio.load(page_data);
-    const cve_entries = $("#TableWithRules table tbody tr td:first-child a");
+    const cve_lines = $("#TableWithRules table tbody tr");
+    Logger.print(`Found ${cve_lines.length} CVE nodes`, true);
 
-    return cve_entries.toArray().map((entry) => (
-        parseRawCVE(entry.children[0].data)
-    ));
+    const results = cve_lines.toArray().map((line) => ([
+        line.firstChild.next.firstChild.firstChild.data, // id
+        line.firstChild.next.next.next.firstChild.data, // description
+    ]));
+
+    return parseNoCacheCVEEntries(results);
 };
 
 /**
@@ -141,6 +147,17 @@ const searchCVEsInLocalCache = (search_query) => new Promise((resolve, reject) =
 });
 
 /**
+ * Parses CVE entries using no cache
+ * @param {Array} entries No cache entries
+ * @returns {Array} Parsed no cache entries
+ */
+const parseNoCacheCVEEntries = (entries) => entries.map((entry) => ({
+    id: entry[0],
+    description: entry[1].trim(),
+    exploits: getExploitDatabasesUrls(entry[0].substring(4)),
+}));
+
+/**
  * Parses CVE entries from the local cache
  * @param {Array} entries Local cache entries
  * @returns {Array} Parsed local cache entries
@@ -213,6 +230,7 @@ module.exports = {
     parseCVEsFile,
     storeCVEsFile,
     searchCVEsInLocalCache,
+    parseNoCacheCVEEntries,
     parseLocalCacheCVEEntries,
     updateLocalCVECache,
     localCVECacheExists,
