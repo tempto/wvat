@@ -6,7 +6,6 @@ const parse = require("csv-parse/lib/sync");
 const Logger = require("./Logger");
 const { parseDateFromCVEEntry, buildRegexFromSearchQuery } = require("./utils");
 const { getExploitDatabasesUrls } = require("./Exploits");
-const Logger = require("./Logger");
 
 const CVE_LIST_CVE_URL = "https://cve.mitre.org/data/downloads/allitems.csv";
 const LOCAL_CVE_FILE_NAME = ".cvescache";
