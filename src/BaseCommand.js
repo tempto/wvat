@@ -11,7 +11,7 @@ class BaseCommand extends Command {
      * Base command setup, performed by all oclif commands
      * @param {Object} flags Flags passed to the tool
      */
-    parse(command) {
+    async parse(command) {
         const { args, flags } = super.parse(command);
 
         Config.addFlags(flags);
@@ -22,6 +22,8 @@ class BaseCommand extends Command {
 
         // Remove listeners limit
         process.setMaxListeners(0);
+
+        await this.config.runHook("tool-config", { path: flags.config });
 
         return { args, flags };
     }

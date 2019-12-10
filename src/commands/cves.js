@@ -8,7 +8,7 @@ const {
 
 class CVECommand extends Command {
     async run() {
-        const { args, flags } = this.parse(CVECommand);
+        const { args, flags } = await this.parse(CVECommand);
 
         const technology = args.technology;
 
@@ -61,8 +61,10 @@ CVECommand.args = [
     },
 ];
 
+const { global, ...flags } = Flags;
 CVECommand.flags = {
-    ...Flags,
+    ...global,
+    ...flags,
 };
 
 CVECommand.examples  = [

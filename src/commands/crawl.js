@@ -8,7 +8,7 @@ const { getCrawlTree } = require("../PageCrawler");
 
 class CrawlerCommand extends Command {
     async run() {
-        const { args, flags } = this.parse(CrawlerCommand);
+        const { args, flags } = await this.parse(CrawlerCommand);
 
         const { depth, noCrawlingCache, graph } = flags;
         const { domain } = args;
@@ -49,8 +49,7 @@ CrawlerCommand.args = [
 ];
 
 CrawlerCommand.flags = {
-    timeout: Flags.timeout,
-    verbose: Flags.verbose,
+    ...Flags.global,
     depth: Flags.depth,
     noCrawlingCache: Flags.noCrawlingCache,
     graph: Flags.graph,

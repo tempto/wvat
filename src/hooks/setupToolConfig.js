@@ -1,26 +1,18 @@
 const Config = require("../Config");
 const Logger = require("../Logger");
 const Errors = require("../errors");
-const { toolConfigFileExists, createToolConfigFile, readToolConfigFile } = require("../toolConfig");
+const { initToolConfig } = require("../toolConfig");
 
 Logger.level = "all";
 
-if (!toolConfigFileExists()) {
+const setupToolConfig = ({ path }) => {
     try {
-        createToolConfigFile();
-    } catch (e) {
-        Logger.print(Errors.TOOL_CONFIG_WRITING_FAILED.description);
-        process.exit(Errors.TOOL_CONFIG_WRITING_FAILED.code);
-
-    }
-} else {
-    try {
-        const tool_config = readToolConfigFile();
+        const tool_config = initToolConfig(path);
         Config.setToolConfiguration(tool_config);
     } catch (e) {
         Logger.print(Errors.TOOL_CONFIG_READING_FAILED.description);
         process.exit(Errors.TOOL_CONFIG_READING_FAILED.code);
     }
-}
+};
 
-module.exports = () => {};
+module.exports = setupToolConfig;

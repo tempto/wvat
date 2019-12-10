@@ -5,7 +5,7 @@ const TechAnalyser = require("../TechAnalyser");
 
 class InspectCommand extends Command {
     async run() {
-        const { args } = this.parse(InspectCommand);
+        const { args } = await this.parse(InspectCommand);
 
         try {
             const tech = await TechAnalyser.findWebPageTechnologies(args.url);
@@ -30,11 +30,8 @@ InspectCommand.args = [
     },
 ];
 
-InspectCommand.flags = {};
-
 InspectCommand.flags = {
-    timeout: Flags.timeout,
-    verbose: Flags.verbose,
+    ...Flags.global,
 };
 
 module.exports = InspectCommand;

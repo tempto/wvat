@@ -15,7 +15,7 @@ const { saveHTMLReport } = require("../html-report/HTMLReport");
 
 class AnalyseCommand extends Command {
     async run() {
-        const { args, flags } = this.parse(AnalyseCommand);
+        const { args, flags } = await this.parse(AnalyseCommand);
 
         const { domain } = args;
         const {
@@ -171,8 +171,10 @@ AnalyseCommand.args = [
 
 AnalyseCommand.description = "Test commmand description";
 
+const { global, ...flags } = Flags;
 AnalyseCommand.flags = {
-    ...Flags,
+    ...global,
+    ...flags,
 };
 
 AnalyseCommand.examples  = [

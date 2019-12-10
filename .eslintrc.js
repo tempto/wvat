@@ -104,5 +104,6 @@ module.exports = {
     "prefer-const": ["error", { "destructuring": "all" }],
     "prefer-template": "error",
     "template-curly-spacing": "error",
+    "require-atomic-updates": "off"
   },
 };

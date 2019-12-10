@@ -6,7 +6,7 @@ const { getNetworkInfo } = require("../NetworkInfo");
 
 class WhoisCommand extends Command {
     async run() {
-        const { args } = this.parse(WhoisCommand);
+        const { args } = await this.parse(WhoisCommand);
         const { domain } = args;
 
         try {
@@ -31,7 +31,7 @@ WhoisCommand.args = [
 ];
 
 WhoisCommand.flags = {
-    ...Flags,
+    ...Flags.global,
 };
 
 WhoisCommand.examples  = [
