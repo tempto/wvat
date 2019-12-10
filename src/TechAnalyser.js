@@ -49,7 +49,11 @@ class TechAnalyser {
         if (!url) throw new Error("Missing Webpage url");
         if (!isValidURL(url)) throw new Error("Invalid url");
 
-        const tech_finders = [require("./tech-analysers/Wappalyser"), require("./tech-analysers/Webtech")];
+        const tech_finders = [
+            require("./tech-analysers/Wappalyser"),
+            require("./tech-analysers/Webtech"),
+            require("./tech-analysers/ToolbarNetcraft"),
+        ];
         const techs = [];
 
         await Promise.all(tech_finders.map(async (tech_finder) => {
