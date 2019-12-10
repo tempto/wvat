@@ -1,6 +1,5 @@
 const Command = require("../BaseCommand");
-const Logger = require("../Logger");
-const { aboutWVAT, aboutCommand, commands } = require("../about");
+const { aboutWVAT, aboutCommand, aboutError, commands } = require("../about");
 
 class AboutCommand extends Command {
     run() {
@@ -11,7 +10,7 @@ class AboutCommand extends Command {
         else if (commands.hasOwnProperty(args.command))
             aboutCommand(args.command);
         else
-            Logger.error("Error: Invalid command, please use a wvat command (crawl, whois,...).");
+            aboutError();
     }
 }
 

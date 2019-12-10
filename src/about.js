@@ -7,7 +7,6 @@ const commands = {
     "error-codes": require("./commands/error-codes"),
     "exploits": require("./commands/exploits"),
     "inspect": require("./commands/inspect"),
-    "test": require("./commands/test"),
     "update-cve-cache": require("./commands/update-cve-cache"),
     "whois": require("./commands/whois"),
 };
@@ -65,52 +64,60 @@ const aboutCommand = (commandKey) => {
         asciiResult
             .emptyLine()
             .emptyLine()
-            .left("Description")
+            .left("Description:")
             .emptyLine()
-            .right(commands[commandKey].description)
+            .left(commands[commandKey].description)
             .emptyLine();
 
     if (commands[commandKey].args) {
         asciiResult
             .emptyLine()
-            .left("Arguments")
+            .left("Arguments:")
             .emptyLine();
 
         for (let i = 0; i < commands[commandKey].args.length; i++)
             asciiResult
-                .right(`${commands[commandKey].args[i].name}: ${commands[commandKey].args[i].description}`)
+                .left(`${commands[commandKey].args[i].name}: ${commands[commandKey].args[i].description}`)
                 .emptyLine();
     }
 
     if (commands[commandKey].flags) {
         asciiResult
             .emptyLine()
-            .left("Flags")
+            .left("Flags:")
             .emptyLine();
 
         for (const flag of Object.keys(commands[commandKey].flags))
             asciiResult
-                .right(`${flag} (--${commands[commandKey].flags[flag].char}): ${commands[commandKey].flags[flag].description}`)
+                .left(`${flag} (--${commands[commandKey].flags[flag].char}): ${commands[commandKey].flags[flag].description}`)
                 .emptyLine();
     }
 
     if (commands[commandKey].examples) {
         asciiResult
             .emptyLine()
-            .left("Examples")
+            .left("Examples:")
             .emptyLine();
 
         for (let i = 0; i < commands[commandKey].examples.length; i++)
             asciiResult
-                .right(commands[commandKey].examples[i])
+                .left(commands[commandKey].examples[i])
                 .emptyLine();
     }
 
     Logger.print(asciiResult.render());
 };
 
+const aboutError = () => {
+    Logger.error("Error: Invalid command, please use a wvat command");
+
+    for (const key of Object.keys(commands))
+        Logger.print(`${key.padEnd(16)}  ${commands[key].description}`);
+};
+
 module.exports = {
     aboutWVAT,
     aboutCommand,
+    aboutError,
     commands,
 };
