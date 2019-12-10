@@ -44,7 +44,7 @@ class ToolbarNetcraft extends TechAnalyser {
      * @returns {Array} Array with found technologies
      */
     static parseAnalysisResults(page) {
-        if (!page) throw new Error("Missing page data");
+        if (!page) throw new Error("Missing page");
 
         const $ = cheerio.load(page);
         const tech = [];
