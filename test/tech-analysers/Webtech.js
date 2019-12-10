@@ -1,5 +1,21 @@
 const Webtech = require("../../src/tech-analysers/Webtech");
 
+describe("Webtech exists", () => {
+    const Config = require("../../src/Config");
+
+    beforeEach(() => {
+        Config.resetToolConfiguration();
+    });
+
+    it("should fail when Webtech is missing", () => {
+        expect.assertions(1);
+        Webtech.getWebpageTechnologies().catch((e) => {
+            expect(e).toEqual(new Error("Webtech disabled"));
+        });
+    });
+
+});
+
 describe("Webtech tests", () => {
     describe("Validate getWebpageTechnologies arguments", () => {
         it("should fail when the url is missing", () => {
