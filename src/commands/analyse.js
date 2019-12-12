@@ -20,7 +20,7 @@ class AnalyseCommand extends Command {
 
         const { domain } = args;
         const {
-            timeout, depth, noCrawlingCache, noCveCache, updateCveCache, graph,
+            timeout, depth, noCrawlingCache, noCveCache, updateCveCache, graph, crawlingTimeout,
         } = flags;
 
         const analysis_data = {
@@ -67,7 +67,7 @@ class AnalyseCommand extends Command {
         /* Get Subdomains */
         Logger.print("Searching for subdomains...");
 
-        const subdomains_list = await getSubdomainsList(domain);
+        const subdomains_list = await getSubdomainsList(domain, { timeout: crawlingTimeout });
 
         if (subdomains_list.length === 0) {
             Logger.print(`No subdomains found for ${domain}.`);

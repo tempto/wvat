@@ -10,10 +10,10 @@ class CrawlerCommand extends Command {
     async run() {
         const { args, flags } = await this.parse(CrawlerCommand);
 
-        const { depth, noCrawlingCache, graph } = flags;
+        const { depth, noCrawlingCache, graph, crawlingTimeout } = flags;
         const { domain } = args;
 
-        const subdomains_list = await getSubdomainsList(domain);
+        const subdomains_list = await getSubdomainsList(domain, { timeout: crawlingTimeout });
 
         if (subdomains_list.length === 0) {
             Logger.print(`No subdomains found for ${domain}.`);
@@ -53,6 +53,7 @@ CrawlerCommand.flags = {
     depth: Flags.depth,
     noCrawlingCache: Flags.noCrawlingCache,
     graph: Flags.graph,
+    crawlingTimeout: Flags.crawlingTimeout,
 };
 
 module.exports = CrawlerCommand;

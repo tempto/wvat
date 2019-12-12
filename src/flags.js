@@ -25,14 +25,18 @@ Imports a json file with the following fields:
             default: null,
         }),
     },
+    crawlingTimeout: flags.string({
+        char: "k",
+        description: "Subdomains crawling timeout",
+    }),
     depth: flags.string({
         char: "d",
-        description: "crawling depth",
+        description: "Maximum page crawling depth",
         default: 2,
     }),
     noCrawlingCache: flags.boolean({
         char: "n",
-        description: "crawl with no cache",
+        description: "Perform page crawling without using cache",
         default: false,
     }),
     noCveCache: flags.boolean({
