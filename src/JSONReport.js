@@ -7,7 +7,7 @@ const { now } = require("./utils");
  * @param {Object} report_data Final report
  * @throws {Error} Missing report data
  */
-const exportJSONReport = (report_data) => {
+const saveJSONReport = (report_data) => {
     if (!report_data) throw new Error("Missing report data");
     const date = now();
 
@@ -19,5 +19,5 @@ const exportJSONReport = (report_data) => {
 };
 
 module.exports = {
-    exportJSONReport,
+    saveJSONReport,
 };

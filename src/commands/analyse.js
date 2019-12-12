@@ -12,6 +12,7 @@ const {
 } = require("../CVEs");
 const Errors = require("../errors");
 const { saveHTMLReport } = require("../html-report/HTMLReport");
+const { saveJSONReport } = require("../JSONReport");
 
 class AnalyseCommand extends Command {
     async run() {
@@ -155,6 +156,9 @@ class AnalyseCommand extends Command {
         analysis_data.num_techs_no_version = `${techs_version_info.num_techs_no_version}/${techs_version_info.num_techs}`;
 
         saveHTMLReport(analysis_data);
+        saveJSONReport(analysis_data);
+
+        Logger.print("Done.");
 
         process.exit(0);
     }
