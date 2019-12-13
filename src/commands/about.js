@@ -2,12 +2,12 @@ const Command = require("../BaseCommand");
 const { aboutWVAT, aboutCommand, aboutError, commands } = require("../about");
 
 class AboutCommand extends Command {
-    run() {
-        const { args } = this.parse(AboutCommand);
+    async run() {
+        const { args } = await this.parse(AboutCommand);
 
         if (!args.command)
             aboutWVAT();
-        else if (commands.hasOwnProperty(args.command))
+        else if (commands.includes(args.command))
             aboutCommand(args.command);
         else
             aboutError();
@@ -31,3 +31,4 @@ AboutCommand.examples  = [
 ];
 
 module.exports = AboutCommand;
+

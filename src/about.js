@@ -1,15 +1,7 @@
 const Logger = require("./Logger");
 const ascii = require("asciiart-logo");
 const { name, version } = require("../package.json");
-const commands = {
-    "crawl": require("./commands/crawl"),
-    "cves": require("./commands/cves"),
-    "error-codes": require("./commands/error-codes"),
-    "exploits": require("./commands/exploits"),
-    "inspect": require("./commands/inspect"),
-    "update-cve-cache": require("./commands/update-cve-cache"),
-    "whois": require("./commands/whois"),
-};
+const commands = ["crawl", "cves", "error-codes", "exploits", "inspect", "update-cve-cache", "whois"];
 
 /**
  * String literals used to print to the terminal on the about command
@@ -54,54 +46,56 @@ const aboutWVAT = () => {
 const aboutCommand = (commandKey) => {
     if (!commandKey) throw new Error("Missing command key");
 
+    const command = require(`./commands/${commandKey}`);
+
     const asciiResult = { ...header };
 
     asciiResult
         .emptyLine()
         .center(commandKey);
 
-    if (commands[commandKey].description)
+    if (command.description)
         asciiResult
             .emptyLine()
             .emptyLine()
             .left("Description:")
             .emptyLine()
-            .left(commands[commandKey].description)
+            .left(command.description)
             .emptyLine();
 
-    if (commands[commandKey].args) {
+    if (command.args) {
         asciiResult
             .emptyLine()
             .left("Arguments:")
             .emptyLine();
 
-        for (let i = 0; i < commands[commandKey].args.length; i++)
+        for (let i = 0; i < command.args.length; i++)
             asciiResult
-                .left(`${commands[commandKey].args[i].name}: ${commands[commandKey].args[i].description}`)
+                .left(`${command.args[i].name}: ${command.args[i].description}`)
                 .emptyLine();
     }
 
-    if (commands[commandKey].flags) {
+    if (command.flags) {
         asciiResult
             .emptyLine()
             .left("Flags:")
             .emptyLine();
 
-        for (const flag of Object.keys(commands[commandKey].flags))
+        for (const flag of Object.keys(command.flags))
             asciiResult
-                .left(`${flag} (--${commands[commandKey].flags[flag].char}): ${commands[commandKey].flags[flag].description}`)
+                .left(`${flag} (--${command.flags[flag].char}): ${command.flags[flag].description}`)
                 .emptyLine();
     }
 
-    if (commands[commandKey].examples) {
+    if (command.examples) {
         asciiResult
             .emptyLine()
             .left("Examples:")
             .emptyLine();
 
-        for (let i = 0; i < commands[commandKey].examples.length; i++)
+        for (let i = 0; i < command.examples.length; i++)
             asciiResult
-                .left(commands[commandKey].examples[i])
+                .left(command.examples[i])
                 .emptyLine();
     }
 
@@ -111,8 +105,10 @@ const aboutCommand = (commandKey) => {
 const aboutError = () => {
     Logger.error("Error: Invalid command, please use a wvat command");
 
-    for (const key of Object.keys(commands))
-        Logger.print(`${key.padEnd(16)}  ${commands[key].description}`);
+    for (let i = 0; i < commands.length; i++){
+        const command = require(`./commands/${commands[i]}`);
+        Logger.print(`${commands[i].padEnd(16)}  ${command.description}`);
+    }
 };
 
 module.exports = {
@@ -121,3 +117,4 @@ module.exports = {
     aboutError,
     commands,
 };
+
