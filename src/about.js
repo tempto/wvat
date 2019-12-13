@@ -46,7 +46,7 @@ const aboutWVAT = () => {
 const aboutCommand = (commandKey) => {
     if (!commandKey) throw new Error("Missing command key");
 
-    const command = require(`./commands/${commandKey}`);
+    const { description, args, flags, examples } = require(`./commands/${commandKey}`);
 
     const asciiResult = { ...header };
 
@@ -54,48 +54,48 @@ const aboutCommand = (commandKey) => {
         .emptyLine()
         .center(commandKey);
 
-    if (command.description)
+    if (description)
         asciiResult
             .emptyLine()
             .emptyLine()
             .left("Description:")
             .emptyLine()
-            .left(command.description)
+            .left(description)
             .emptyLine();
 
-    if (command.args) {
+    if (args) {
         asciiResult
             .emptyLine()
             .left("Arguments:")
             .emptyLine();
 
-        for (let i = 0; i < command.args.length; i++)
+        for (let i = 0; i < args.length; i++)
             asciiResult
-                .left(`${command.args[i].name}: ${command.args[i].description}`)
+                .left(`${args[i].name}: ${args[i].description}`)
                 .emptyLine();
     }
 
-    if (command.flags) {
+    if (flags) {
         asciiResult
             .emptyLine()
             .left("Flags:")
             .emptyLine();
 
-        for (const flag of Object.keys(command.flags))
+        for (const flag of Object.keys(flags))
             asciiResult
-                .left(`${flag} (--${command.flags[flag].char}): ${command.flags[flag].description}`)
+                .left(`${flag} (--${flags[flag].char}): ${flags[flag].description}`)
                 .emptyLine();
     }
 
-    if (command.examples) {
+    if (examples) {
         asciiResult
             .emptyLine()
             .left("Examples:")
             .emptyLine();
 
-        for (let i = 0; i < command.examples.length; i++)
+        for (let i = 0; i < examples.length; i++)
             asciiResult
-                .left(command.examples[i])
+                .left(examples[i])
                 .emptyLine();
     }
 
@@ -105,9 +105,9 @@ const aboutCommand = (commandKey) => {
 const aboutError = () => {
     Logger.error("Error: Invalid command, please use a wvat command");
 
-    for (let i = 0; i < commands.length; i++){
-        const command = require(`./commands/${commands[i]}`);
-        Logger.print(`${commands[i].padEnd(16)}  ${command.description}`);
+    for (let i = 0; i < commands.length; i++) {
+        const { description } = require(`./commands/${commands[i]}`);
+        Logger.print(`${commands[i].padEnd(16)}  ${description}`);
     }
 };
 
@@ -117,4 +117,3 @@ module.exports = {
     aboutError,
     commands,
 };
-

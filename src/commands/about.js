@@ -31,4 +31,3 @@ AboutCommand.examples  = [
 ];
 
 module.exports = AboutCommand;
-
