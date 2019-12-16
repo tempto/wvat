@@ -10,6 +10,10 @@ const { getExploitDatabasesUrls } = require("./Exploits");
 const CVE_LIST_CVE_URL = "https://cve.mitre.org/data/downloads/allitems.csv";
 const LOCAL_CVE_FILE_NAME = ".cvescache";
 
+const mitre_cve_url = (cve) => `https://cve.mitre.org/cgi-bin/cvename.cgi?name=${cve}`;
+
+const nist_cve_url = (cve) => `https://nvd.nist.gov/vuln/detail/${cve}`;
+
 /**
  * Gets the hyperlink of the CVEs list page for a given search query
  * @param {string} search_query Word(s) to search for CVEs
@@ -152,6 +156,8 @@ const searchCVEsInLocalCache = (search_query) => new Promise((resolve, reject) =
  */
 const parseNoCacheCVEEntries = (entries) => entries.map((entry) => ({
     id: entry[0],
+    cve_mitre_url: mitre_cve_url(entry[0]),
+    nvd_nist_url: nist_cve_url(entry[0]),
     description: entry[1].trim(),
     exploits: getExploitDatabasesUrls(entry[0].substring(4)),
 }));
@@ -165,6 +171,8 @@ const parseLocalCacheCVEEntries = (entries) => entries.map((entry) => {
     const parsed_entry = parse(entry.line)[0];
     return {
         id: parsed_entry[0],
+        cve_mitre_url: mitre_cve_url(parsed_entry[0]),
+        nvd_nist_url: nist_cve_url(parsed_entry[0]),
         status: parsed_entry[1],
         description: parsed_entry[2],
         date: parseDateFromCVEEntry(parsed_entry),
