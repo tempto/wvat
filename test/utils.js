@@ -1,5 +1,6 @@
 const {
-    isValidCVE, isValidURL, parseDateFromCVEEntry, buildRegexFromSearchQuery, isNumOnlyCVE, isCompleteCVE, addURLEndSlash, now,
+    isValidCVE, isValidURL, parseDateFromCVEEntry, filterOldCVEs,
+    buildRegexFromSearchQuery, isNumOnlyCVE, isCompleteCVE, addURLEndSlash, now,
 } = require("../src/utils");
 
 const chai = require("chai"),
@@ -133,5 +134,29 @@ describe("Getting current time", () => {
 
         valid_time_url.test(time).should.be.true;
         time.length.should.equal(19);
+    });
+});
+
+describe("Filtering old CVEs", () => {
+    const current_year = new Date().getFullYear();
+    const cves = [
+        { id: `CVE-${current_year}-0001` },
+        { id: `CVE-${current_year}-0002` },
+        { id: `CVE-${current_year}-0003` },
+        { id: `CVE-${current_year - 1}-0004` },
+        { id: `CVE-${current_year - 2}-0005` },
+        { id: `CVE-${current_year + 1}-0006` },
+        { id: `CVE-${current_year + 2}-0007` },
+        { id: `CVE-${current_year + 3}-0008` },
+    ];
+
+    it("should remove old CVE entries", () => {
+        const recent_cves = filterOldCVEs(cves);
+
+        recent_cves.should.not.be.empty;
+        recent_cves.length.should.equal(5);
+
+        const num_filtered_cves = cves.length - recent_cves.length;
+        num_filtered_cves.should.equal(3);
     });
 });
