@@ -1,5 +1,50 @@
 # Changelog
 
+## Release 5 - December 2019 Week 3 (version 1.4)
+
+Downloads: [Windows](https://www.dropbox.com/sh/z7cwhf3y0v3cwjl/AADHcpxdUunlB0hM_f1u9sVxa/dist/win?dl=0&subfolder_nav_tracking=1) | [Unix-based Systems](https://www.dropbox.com/sh/z7cwhf3y0v3cwjl/AAACbWlNnoyyJ848SFA6F79Xa/dist?dl=0&subfolder_nav_tracking=1)
+
+Welcome to the December 2019 Week 3 release of *WVAT - Web Vulnerability Assessment Tool*. This patch's key highlights include:
+
+- Adding an HTML security analysis report for easy human visualization
+- Adding a JSON security analysis report for easy machine parsing
+- Integrating support for *Webtech* technologies analysis in the application
+- Adding subdomains graph generating to analysis pipeline 
+- Introducing the *analyse* command to execute the full analysis pipeline
+- Adding several multi-threading optimizations to improve application performance
+- Introducing the *about* command with application presentation
+- Addressed minor bugs in pages crawling and CVE searching
+- Adding support to subdomains crawling whitelist specification
+
+### Closed Issues
+
+#### Feature-related Issues
+
+- [Subdomains crawling Graph](#143)
+- [Full analysis pipeline integration command](#136)
+- [No-Cache CVE searching standardization](#120)
+    - [Standardize CVEs results with and without caching](#120)
+    - [Enhance test suite for CVE scraping results](#121)
+- [Tool About Command](#146)
+- [Subdomain Crawling Whitelist](#14)
+    - [Implement function/module to read subdomains whitelist from a file](#138)
+    - [Use the subdomains whitelist (from file) to crawl pages (instead of amass)](#139)
+    - [Implement tests for subdomains whitelist](#140)
+
+#### Technical Issues
+
+- [Fix parsing error in Webtech output](#151)
+- [Fix broken regex exceptions in CVE local cache search](#152)
+- [Add CVE links to CVE-MITRE and NIST to both JSON and HTML reports](#153)
+- [Fix parsing error in Webtech output](#151)
+
+### Commit History
+
+- ...
+
+------------
+------------
+
 ## Release 4 - December 2019 Week 1 (version 1.3)
 
 Downloads: [Windows](https://www.dropbox.com/sh/z7cwhf3y0v3cwjl/AADHcpxdUunlB0hM_f1u9sVxa/dist/win?dl=0&subfolder_nav_tracking=1) | [Unix-based Systems](https://www.dropbox.com/sh/z7cwhf3y0v3cwjl/AAACbWlNnoyyJ848SFA6F79Xa/dist?dl=0&subfolder_nav_tracking=1)
@@ -106,6 +151,9 @@ Welcome to the December 2019 Week 1 release of *WVAT - Web Vulnerability Assessm
 - [refactor: Updated Logger test suite](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/dcbe05f5)
 - [refactor: Updated Logger singleton class](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/9da439f6)
 - [refactor: Removed initCommand](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/4595878c)
+
+------------
+------------
 
 ## Release 3 - November 2019 Week 4 (version 1.2)
 
@@ -218,6 +266,9 @@ Welcome to the November 2019 Week 4 release of *WVAT - Web Vulnerability Assessm
 - [devops: Bumped tool's version to v1.1.0](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/89245f9c)
 - [doc: Added Commit History section to CHANGELOG](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/86c68eef)
 
+------------
+------------
+
 ## Release 2 - November 2019 Week 2 (version 1.1)
 
 Downloads: [Windows](https://www.dropbox.com/sh/z7cwhf3y0v3cwjl/AADHcpxdUunlB0hM_f1u9sVxa/dist/win?dl=0&subfolder_nav_tracking=1) | [Unix-based Systems](https://www.dropbox.com/sh/z7cwhf3y0v3cwjl/AACfMq8gbIbMzufO4Jo1AfZ9a/dist/wvat-v1.1.0?dl=0&subfolder_nav_tracking=1)
@@ -284,6 +335,9 @@ Welcome to the November 2019 Week 2 release of *WVAT - Web Vulnerability Assessm
 - [Added errors centralized file](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/145697fd)
 - [Updated test suites with chai BDD syntax](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/2da5e5e0)
 - [Added Chai module for BDD testing](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/a9fde9ab)
+
+------------
+------------
 
 ## Release 1 - October 2019 Week 4 (version 1.0)
 
