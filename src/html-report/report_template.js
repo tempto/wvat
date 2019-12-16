@@ -368,6 +368,9 @@ module.exports =
                                         <div class="collapser">
                                             <span class="toggler">+</span>
                                             <span>{{name}}</span>
+                                            {{#version}}
+                                                <span> (v{{version}})</span>
+                                            {{/version}}
                                         </div>
                                         {{#cves}}
                                             <div class="cve pl collapsable hidden" id="cve_{{id}}">
