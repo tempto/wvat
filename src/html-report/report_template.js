@@ -381,6 +381,24 @@ module.exports =
                                                             <strong>Date</strong>: {{date}}
                                                         </div>
                                                     {{/date}}
+                                                    {{#cve_mitre_url}}
+                                                        <div class="cve-info-mitre-url exploit">
+                                                            <strong>cve-mitre URL</strong>:
+                                                            <a class="url" href="{{cve_mitre_url}}" target="_blank">{{cve_mitre_url}}</a>
+                                                            <a class="link" href="{{cve_mitre_url}}" target="_blank">
+                                                                &#x1f517;
+                                                            </a>
+                                                        </div>
+                                                    {{/cve_mitre_url}}
+                                                    {{#nvd_nist_url}}
+                                                        <div class="cve-info-nist-url exploit">
+                                                            <strong>nvd-nist URL</strong>:
+                                                            <a class="url" href="{{nvd_nist_url}}" target="_blank">{{nvd_nist_url}}</a>
+                                                            <a class="link" href="{{nvd_nist_url}}" target="_blank">
+                                                                &#x1f517;
+                                                            </a>
+                                                        </div>
+                                                    {{/nvd_nist_url}}
                                                     {{#status}}
                                                         <div class="cve-info-status">
                                                             <strong>Status</strong>: {{status}}
