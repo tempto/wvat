@@ -38,12 +38,21 @@ const isNumOnlyCVE = (cve_candidate) => NUM_ONLY_CVE_REGEX.test(cve_candidate);
 const isValidCVE = (cve_candidate) => CVE_REGEX.test(cve_candidate);
 
 /**
+ * Prepares a string for being injected into a regex query (by escaping regex special characters)
+ * @param {String} string String to prepare for regex injection
+ * @returns {String} String with characters escaped for regex injection
+ */
+const escapeRegExp = (string) => (
+    string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+);
+
+/**
  *
  * @param {String} search_query Search query string
  * @returns {RegExp} Regex to match various word separators
  */
 const buildRegexFromSearchQuery = (search_query) => {
-    const tokens = search_query.split(PARSE_SEARCH_QUERY_REGEX);
+    const tokens = search_query.split(PARSE_SEARCH_QUERY_REGEX).map(escapeRegExp);
     return new RegExp(tokens.join(WORD_SEPARATOR));
 };
 
