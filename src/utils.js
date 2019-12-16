@@ -28,8 +28,18 @@ const CVE_AGE_THRESHOLD = 2;
  */
 const isValidURL = (url_candidate) => URL_REGEX.test(url_candidate);
 
+/**
+ * Verifies if CVE candidate is in CVE-XXXX-YYYYYYY format
+ * @param {String} cve_candidate CVE candidate
+ * @returns Returns true if CVE is in CVE-XXXX-YYYYYYY, false otherwise
+ */
 const isCompleteCVE = (cve_candidate) => COMPLETE_CVE_REGEX.test(cve_candidate);
 
+/**
+ * Verifies if CVE candidate is in XXXX-YYYYYYY format
+ * @param {String} cve_candidate CVE candidate
+ * @returns Returns true if CVE is in XXXX-YYYYYYY, false otherwise
+ */
 const isNumOnlyCVE = (cve_candidate) => NUM_ONLY_CVE_REGEX.test(cve_candidate);
 
 /**
@@ -93,6 +103,11 @@ const isUrlFromDomain = (url, domain) => (
     url.indexOf(extractDomainFromUrl(domain)) >= 0
 );
 
+/**
+ * Verifies if a string corresponds to an HTTP status code
+ * @param {String} candidate HTTP status code candidate
+ * @returns {String} Returns true if the String is an HTTP status, false otherwise
+ */
 const isHttpStatusCode = (candidate) => (
     HTTP_STATUS_CODE_REGEX.test(candidate)
 );
@@ -104,6 +119,10 @@ const isHttpStatusCode = (candidate) => (
  */
 const addURLEndSlash = (url) => url + (url.endsWith("/") ? "" : "/");
 
+/**
+ * Get current date (DD-MM-YYYY_hh:mm:ss format)
+ * @returns {String} Current date in the DD-MM-YYYY_hh:mm:ss format
+ */
 const now = () => {
     const date = new Date();
     const day = date.getDay().toString().padStart(2, 0);
@@ -118,6 +137,11 @@ const now = () => {
 
 const stripDomain = (domain) => extractDomainFromUrl(domain);
 
+/**
+ * Filters old CVEs from a CVEs list
+ * @param {Array} cves CVEs list
+ * @returns {Array} Recent CVEs list
+ */
 const filterOldCVEs = (cves) => {
     const current_year = new Date().getFullYear();
 
