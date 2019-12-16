@@ -3,6 +3,10 @@ const spawn = require("await-spawn");
 const { isValidURL, addURLEndSlash } = require("../utils");
 const Config = require("../Config");
 
+const isCustomHeadersEntry = (line) => (
+    line.indexOf("Detected the following interesting custom header") >= 0
+);
+
 class Webtech extends TechAnalyser {
     /**
      * Analyses webpage technologies using Webtech
@@ -23,10 +27,12 @@ class Webtech extends TechAnalyser {
     static parseAnalysisResults(tech) {
         const lines = tech.split(/(\r?\n)/g);
         const techs = [];
-        for (let i = 4; i < lines.length; i += 2) {
-            if (lines[i] !== "") {
-                techs.push(lines[i].slice(3, -1));
-            }
+
+        for (let i = 4; i < lines.length; i++) {
+            if (lines[i].length < 4) continue;
+            if (isCustomHeadersEntry(lines[i])) break;
+
+            techs.push(lines[i].slice(3, -1));
         }
 
         return techs.map((name) => ({
