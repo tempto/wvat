@@ -19,6 +19,8 @@ const WORD_SEPARATOR = "[:_.-\\s]+";
 
 const HTTP_STATUS_CODE_REGEX = /^\d{3}$/;
 
+const CVE_AGE_THRESHOLD = 2;
+
 /**
  * Verifies if a given url candidate is valid
  * @param {string} url_candidate Url to verify validity
@@ -116,6 +118,15 @@ const now = () => {
 
 const stripDomain = (domain) => extractDomainFromUrl(domain);
 
+const filterOldCVEs = (cves) => {
+    const current_year = new Date().getFullYear();
+
+    return cves.filter((cve) => {
+        const cve_year = parseInt(cve.id.substr(4, 4), 10);
+        return Math.abs(current_year - cve_year) < CVE_AGE_THRESHOLD;
+    });
+};
+
 module.exports = {
     URL_REGEX,
     HTTPS_REGEX,
@@ -131,4 +142,5 @@ module.exports = {
     addURLEndSlash,
     now,
     stripDomain,
+    filterOldCVEs,
 };

@@ -13,6 +13,7 @@ const {
 const Errors = require("../errors");
 const { saveHTMLReport } = require("../html-report/HTMLReport");
 const { saveJSONReport } = require("../JSONReport");
+const { filterOldCVEs } = require("../utils");
 
 class AnalyseCommand extends Command {
     async run() {
@@ -146,6 +147,10 @@ class AnalyseCommand extends Command {
                     Logger.print(`Searching CVEs for technology ${tech.name}...`, true);
                     if (!tech_cves[tech.name]) {
                         tech_cves[tech.name] = await findCVEs(tech.name);
+
+                        if (!tech.version) {
+                            tech_cves[tech.name] = filterOldCVEs(tech_cves[tech.name]);
+                        }
                     }
                     tech.cves = tech_cves[tech.name];
                     Logger.print(`Found ${tech_cves[tech.name].length} CVEs for technology ${tech.name}.`, true);
