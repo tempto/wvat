@@ -90,6 +90,7 @@ Web Vulnerability Assessment Tool
 * [T2G1 - Web Vulnerability Assessment Tool](#t2g1---web-vulnerability-assessment-tool)
 * [Usage](#usage)
 * [Commands](#commands)
+* [Optional Technologies](#optional-technologies)
 <!-- tocstop -->
 # Usage
 <!-- usage -->
@@ -98,7 +99,7 @@ $ npm install -g wvat
 $ wvat COMMAND
 running command...
 $ wvat (-v|--version|version)
-wvat/1.3.0 linux-x64 node-v10.16.3
+wvat/1.4.0 linux-x64 node-v10.16.3
 $ wvat --help [COMMAND]
 USAGE
   $ wvat COMMAND
@@ -107,24 +108,24 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`wvat about`](#wvat-about)
+* [`wvat about [COMMAND]`](#wvat-about-command)
+* [`wvat analyse DOMAIN`](#wvat-analyse-domain)
 * [`wvat crawl DOMAIN`](#wvat-crawl-domain)
 * [`wvat cves TECHNOLOGY`](#wvat-cves-technology)
 * [`wvat error-codes`](#wvat-error-codes)
 * [`wvat exploits CVE`](#wvat-exploits-cve)
 * [`wvat help [COMMAND]`](#wvat-help-command)
 * [`wvat inspect URL`](#wvat-inspect-url)
-* [`wvat test`](#wvat-test)
 * [`wvat update-cve-cache`](#wvat-update-cve-cache)
 * [`wvat whois DOMAIN`](#wvat-whois-domain)
 
-## `wvat about`
+## `wvat about [COMMAND]`
 
 Describes WVAT and its functionalities
 
 ```
 USAGE
-  $ wvat about
+  $ wvat about [COMMAND]
 
 ARGUMENTS
   COMMAND  name of the command to obtain its description, args, flags and examples
@@ -135,6 +136,60 @@ EXAMPLES
 ```
 
 _See code: [src/commands/about.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/about.js)_
+
+## `wvat analyse DOMAIN`
+
+Test commmand description
+
+```
+USAGE
+  $ wvat analyse DOMAIN
+
+ARGUMENTS
+  DOMAIN  domain to search subdomains
+
+OPTIONS
+  -c, --config=config
+      Wvat config json file path
+      Imports a json file with the following fields:
+           "allow_data_reporting"[default: false] - Allows us to collect information on error
+           "webtech_command"[default: null] - How to call webtech
+           "amass_path"[default: "bin/amass"] - path to amass executable
+
+  -d, --depth=depth
+      [default: 2] Maximum page crawling depth
+
+  -g, --graph
+      Generate a graph of subdomains
+
+  -j, --noCveCache
+      Search without using local CVE cache
+
+  -k, --crawlingTimeout=crawlingTimeout
+      Subdomains crawling timeout
+
+  -n, --noCrawlingCache
+      Perform page crawling without using cache
+
+  -t, --timeout=timeout
+      Maximum application execution time (in seconds)
+
+  -u, --updateCveCache
+      Force update the local CVE cache
+
+  -v, --verbose
+      Verbose Mode (outputs all messages to screen)
+
+  -w, --whitelist=whitelist
+      Text file with subdomains to analyze
+
+EXAMPLES
+  analyse https://www.google.com
+  analyse https://www.youtube.com -d 2 --verbose
+  analyse https://www.github.com -t 10 --noCveCache --noCrawlingCache
+```
+
+_See code: [src/commands/analyse.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/analyse.js)_
 
 ## `wvat crawl DOMAIN`
 
@@ -148,10 +203,33 @@ ARGUMENTS
   DOMAIN  domain to search subdomains
 
 OPTIONS
-  -d, --depth=depth      [default: 2] crawling depth
-  -n, --noCrawlingCache  crawl with no cache
-  -t, --timeout=timeout  Maximum application execution time (in seconds)
-  -v, --verbose          Verbose Mode (outputs all messages to screen)
+  -c, --config=config
+      Wvat config json file path
+      Imports a json file with the following fields:
+           "allow_data_reporting"[default: false] - Allows us to collect information on error
+           "webtech_command"[default: null] - How to call webtech
+           "amass_path"[default: "bin/amass"] - path to amass executable
+
+  -d, --depth=depth
+      [default: 2] Maximum page crawling depth
+
+  -g, --graph
+      Generate a graph of subdomains
+
+  -k, --crawlingTimeout=crawlingTimeout
+      Subdomains crawling timeout
+
+  -n, --noCrawlingCache
+      Perform page crawling without using cache
+
+  -t, --timeout=timeout
+      Maximum application execution time (in seconds)
+
+  -v, --verbose
+      Verbose Mode (outputs all messages to screen)
+
+  -w, --whitelist=whitelist
+      Text file with subdomains to analyze
 ```
 
 _See code: [src/commands/crawl.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/crawl.js)_
@@ -168,12 +246,39 @@ ARGUMENTS
   TECHNOLOGY  technology to search CVEs
 
 OPTIONS
-  -d, --depth=depth      [default: 2] crawling depth
-  -j, --noCveCache       Search without using local CVE cache
-  -n, --noCrawlingCache  crawl with no cache
-  -t, --timeout=timeout  Maximum application execution time (in seconds)
-  -u, --updateCveCache   Force update the local CVE cache
-  -v, --verbose          Verbose Mode (outputs all messages to screen)
+  -c, --config=config
+      Wvat config json file path
+      Imports a json file with the following fields:
+           "allow_data_reporting"[default: false] - Allows us to collect information on error
+           "webtech_command"[default: null] - How to call webtech
+           "amass_path"[default: "bin/amass"] - path to amass executable
+
+  -d, --depth=depth
+      [default: 2] Maximum page crawling depth
+
+  -g, --graph
+      Generate a graph of subdomains
+
+  -j, --noCveCache
+      Search without using local CVE cache
+
+  -k, --crawlingTimeout=crawlingTimeout
+      Subdomains crawling timeout
+
+  -n, --noCrawlingCache
+      Perform page crawling without using cache
+
+  -t, --timeout=timeout
+      Maximum application execution time (in seconds)
+
+  -u, --updateCveCache
+      Force update the local CVE cache
+
+  -v, --verbose
+      Verbose Mode (outputs all messages to screen)
+
+  -w, --whitelist=whitelist
+      Text file with subdomains to analyze
 
 EXAMPLES
   cves "React Native" --noCveCache
@@ -236,28 +341,18 @@ ARGUMENTS
   URL  Webpage URL
 
 OPTIONS
+  -c, --config=config    Wvat config json file path
+                         Imports a json file with the following fields:
+                         "allow_data_reporting"[default: false] - Allows us to collect information on error
+                         "webtech_command"[default: null] - How to call webtech
+                         "amass_path"[default: "bin/amass"] - path to amass executable
+
   -t, --timeout=timeout  Maximum application execution time (in seconds)
+
   -v, --verbose          Verbose Mode (outputs all messages to screen)
 ```
 
 _See code: [src/commands/inspect.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/inspect.js)_
-
-## `wvat test`
-
-Test commmand description
-
-```
-USAGE
-  $ wvat test
-
-OPTIONS
-  -n, --test1=test1      test flag 1
-  -r, --test2=test2      test flag 2
-  -t, --timeout=timeout  Maximum application execution time (in seconds)
-  -v, --verbose          Verbose Mode (outputs all messages to screen)
-```
-
-_See code: [src/commands/test.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/test.js)_
 
 ## `wvat update-cve-cache`
 
@@ -282,11 +377,14 @@ ARGUMENTS
   DOMAIN  domain to obtain network information
 
 OPTIONS
-  -d, --depth=depth      [default: 2] crawling depth
-  -j, --noCveCache       Search without using local CVE cache
-  -n, --noCrawlingCache  crawl with no cache
+  -c, --config=config    Wvat config json file path
+                         Imports a json file with the following fields:
+                         "allow_data_reporting"[default: false] - Allows us to collect information on error
+                         "webtech_command"[default: null] - How to call webtech
+                         "amass_path"[default: "bin/amass"] - path to amass executable
+
   -t, --timeout=timeout  Maximum application execution time (in seconds)
-  -u, --updateCveCache   Force update the local CVE cache
+
   -v, --verbose          Verbose Mode (outputs all messages to screen)
 
 EXAMPLES
