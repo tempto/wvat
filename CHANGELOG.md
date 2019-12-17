@@ -9,12 +9,14 @@ Welcome to the December 2019 Week 3 release of *WVAT - Web Vulnerability Assessm
 - Adding an HTML security analysis report for easy human visualization
 - Adding a JSON security analysis report for easy machine parsing
 - Integrating support for *Webtech* technologies analysis in the application
+- Integrating support for *Toolbar.Netcraft* technologies analysis in the application
 - Adding subdomains graph generating to analysis pipeline 
 - Introducing the *analyse* command to execute the full analysis pipeline
 - Adding several multi-threading optimizations to improve application performance
 - Introducing the *about* command with application presentation
 - Addressed minor bugs in pages crawling and CVE searching
 - Adding support to subdomains crawling whitelist specification
+- Improving application test suites
 
 ### Closed Issues
 
@@ -30,6 +32,8 @@ Welcome to the December 2019 Week 3 release of *WVAT - Web Vulnerability Assessm
     - [Implement function/module to read subdomains whitelist from a file](#138)
     - [Use the subdomains whitelist (from file) to crawl pages (instead of amass)](#139)
     - [Implement tests for subdomains whitelist](#140)
+- [Filtering old CVEs in Technologies without version](#154)
+- [Toolbar.netcraft technology analysis](#108)
 
 #### Technical Issues
 
@@ -37,10 +41,83 @@ Welcome to the December 2019 Week 3 release of *WVAT - Web Vulnerability Assessm
 - [Fix broken regex exceptions in CVE local cache search](#152)
 - [Add CVE links to CVE-MITRE and NIST to both JSON and HTML reports](#153)
 - [Fix parsing error in Webtech output](#151)
+- [Create crawling integration tests](#148)
+- [Improve system test suite / acceptance test suite](#149)
+- [Improve unit test suites](#150)
+- [Add 'What Is New' wiki page for Sprint 5](#130)
+- [Add 'Product Owner Meeting' page for Sprint 5](#131)
+- [Update Changelog for Sprint 5](#132)
+- [Add 'Burndown chart and End of project estimate' page for Sprint 5](#133)
+- [Tool version bump for the end of Sprint 5](#134)
+- [Add 'Velocity Analysis and Burndown Chart' page for Sprint 5](#135)
 
 ### Commit History
 
-- ...
+- [feat: Added exploits acceptance test automation](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/6f387025)
+- [feat: Added CVE fetch acceptance test automation](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/3e632212)
+- [feat: Added tech find acceptance test automation](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/d6ef4e81)
+- [enhancement: Improved ToolBarNetCraft results](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/2f3584ed)
+- [feat: Added ToolbarNetcraft tests](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/1495a43e)
+- [feat: Added ToolbarNetcraft to TechAnalyser](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/b01ffb34)
+- [feat: Added toolbar.netcraft report page parse](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/ac49af47)
+- [feat: Added ToolbarNetcraft results fetching](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/3681d9a8)
+- [fix: page crawling now tries both http and https pages](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/385e8d09)
+- [feat: Added unit tests to toolConfig](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/04d55a0d)
+- [feat: Added unit tests do Webtech](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/a82d5bca)
+- [enhancement: added integration test for subdomain crawling](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/90c81491)
+- [feat: Added test suites to CVE year filtering](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/ac102c7b)
+- [enhancement: Added missing documentation to utils functions](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/7b3a30fa)
+- [feat: Added CVEs date filtering to technologies without version](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/54b8d902)
+- [feat: Added version showing to HTML report](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/ab15e5c4)
+- [feat: added -w flag to read whitelist of subdomains to analyze](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/4c1c8779)
+- [fix: Fixed parsing error on webtech results extraction ](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/786c1579)
+- [feat: Added mitre and nist cve links to html report](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/b531fb7a)
+- [feat: Added linking CVE to both mitre and nist CVE databases](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/172e0ca0)
+- [fix: Fixed broken regex exceptions in CVE local cache search](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/4479efe7)
+- [enhancement: Changed the way to access command modules properties](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/9253e3e3)
+- [fix: Patches error while importing command modules](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/2efe70e3)
+- [enhancement: Added help info to about command](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/3f21502b)
+- [feat: Added info on the about command to README](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/26578158)
+- [feat: Added about command](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/1dfbae95)
+- [feat: Updated README with the about command](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/bddfdf72)
+- [feat: Added subdomain crawling timeout flags ](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/51325e12)
+- [feat: Added json report generating to analyse command ](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/69196609)
+- [fix: Deleted double Logger import](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/d8431cd4)
+- [refactor: Updated cve test suite with new format](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/dc3a9c81)
+- [enhancement: Standardized cve results with and without caching](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/317bd141)
+- [refactor: Simplified JSONReport module ](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/d3cc5045)
+- [fix: Changed wvat-config.json load strategy](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/47ba5b6a)
+- [fix: Fixed running out of threads issue](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/545f842c)
+- [enhancement: Added technologies without version count to HTML report](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/54421678)
+- [feat: Added analyse command](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/46b3f484)
+- [feat: Added timeout error code](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/d85941e9)
+- [refactor: Updated amass behaviour to have customizable timeout](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/fa720464)
+- [fix: Fixed Not Available display in toggleables](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/ce9d8db4)
+- [enhancement: Added wrapper to render and store HTML report](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/19fa00b5)
+- [refactor: Added no cache fetching + parsing wrapper](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/6ac459f5)
+- [enhancement: Promisified cve local cache searching ](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/cc421ebf)
+- [fix: Updated getNetworkInfo with domain parsing ](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/0f3714e5)
+- [enhancement: Added date of generation to the subdomains graph](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/df88ebca)
+- [feat: Added subdomain graphs generation](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/d6efa21d)
+- [fix: Removed test command ](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/029fa3b1)
+- [fix: Fixed whois command to not fail between executions](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/0d6dab14)
+- [fix: Improved tech result concatenation efficiency ](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/1d9de4dd)
+- [feat: Removed webtech binary file usage ](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/c7213c9d)
+- [fix: Added webtech path to config file](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/ee0f6ea5)
+- [feat: Added webtech binary from external source](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/504737f8)
+- [fix: Fixed unit test errors](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/ed692119)
+- [fix: Fixed JsDoc comments](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/d562fb49)
+- [fix: Fixed slash issue on windows](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/cdeb11c0)
+- [feat: Added tests](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/e7da1477)
+- [feat: Added multi-os compatibility](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/ea705361)
+- [feat: Added Webtech Tech-analyser](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/0ffaf7ee)
+- [feat: Added merge between techs non-repeated with version](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/9294e9ca)
+- [feat: Added webtech binary files](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/e1d88536)
+- [feat: Added missing current time util function tests](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/d51694a6)
+- [fix: Updated html report test suites according to report changes](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/12488ec5)
+- [enhancement: Created JSON report network information ](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/1e8f6525)
+- [enhancement: Updated html report structure ](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/b101faf0)
+- [feat: Created util function to get current time](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/bfdd34ff)
 
 ------------
 ------------
@@ -132,10 +209,10 @@ Welcome to the December 2019 Week 1 release of *WVAT - Web Vulnerability Assessm
 - [feat: Added utility functions to handle tool config json file](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/2ac12b17)
 - [feat: Updated Config object to allow tool configuration](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/5d7f1f22)
 - [enhancement: Changed Wappalyser return to standard](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/81f59848)
-- [feature: Added TechAnalyser tests](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/461c37b7)
+- [feat: Added TechAnalyser tests](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/461c37b7)
 - [enhancement: Changed Wappalyser tests](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/700e5091)
 - [enhacement: Updated inspect command](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/319efc7b)
-- [feature: TechAnalyser calls multiple tech finders](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/96b9baa4)
+- [feat: TechAnalyser calls multiple tech finders](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/96b9baa4)
 - [enhacement: Refactored Wappalyser code](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/0e349442)
 - [feat: Added TechAnalyser abstract class](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/77b351f8)
 - [feat: Added command to update cve cache](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/2295845e)
@@ -230,7 +307,7 @@ Welcome to the November 2019 Week 4 release of *WVAT - Web Vulnerability Assessm
 - [refactor: Updated CVEListFetcher module name to CVEs](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/44f8ce05)
 - [feat: Added local cache entries parsing after search](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/8331a503)
 - [feat: Installed csv-parse module](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/b1e2850f)
-- [feature: Documented new CVEListFetcher modules documentation](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/3cc5155f)
+- [feat: Documented new CVEListFetcher modules documentation](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/3cc5155f)
 - [enhancement: Updated CVE Search command to search with an enhanced query regex](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/40d8f540)
 - [feat: Added package for CVE searching](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/8e5180d8)
 - [feat: Added test command to download cve](https://gitlab.com/feup-tbs/ldso1920/t2g1/commit/769acaa7)
