@@ -3,6 +3,8 @@ const { isValidURL } = require("../utils");
 const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
 
+const resultsSections = ["Server-Side", "Client-Side"];
+
 class ToolbarNetcraft extends TechAnalyser {
     /**
      * Gets the url of the toolbar.netcraft site report page for a given webpage url
@@ -46,12 +48,19 @@ class ToolbarNetcraft extends TechAnalyser {
     static parseAnalysisResults(page) {
         if (!page) throw new Error("Missing page");
 
-        const $ = cheerio.load(page);
+        let $ = cheerio.load(page);
         const tech = [];
-        $(".technology_label").each((i, elem) => {
-            tech.push({
-                name: elem.firstChild.data.trim(),
-                version: null,
+        $(".technology_list li").each((index, elem) => {
+            $ = cheerio.load(elem);
+
+            if (!resultsSections.includes($(".category_name").get()[0].firstChild.data))
+                return;
+
+            $(".technology_label").each((i, elem) => {
+                tech.push({
+                    name: elem.firstChild.data.trim(),
+                    version: null,
+                });
             });
         });
 

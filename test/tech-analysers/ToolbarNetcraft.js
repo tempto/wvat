@@ -26,27 +26,9 @@ describe("ToolbarNetcraft tests", () => {
             const page = fs.readFileSync(file_path, "utf-8");
 
             expect(ToolbarNetcraft.parseAnalysisResults(page)).toEqual([
-                { name: "Google Compute Engine", version: null },
-                { name: "Varnish", version: null },
                 { name: "XML", version: null },
                 { name: "SSL", version: null },
                 { name: "JavaScript", version: null },
-                { name: "Google Tag Manager", version: null },
-                { name: "jQuery", version: null },
-                { name: "Bootstrap Javascript Library", version: null },
-                { name: "Atom", version: null },
-                { name: "UTF8", version: null },
-                { name: "Gzip Content Encoding", version: null },
-                { name: "Strict Transport Security", version: null },
-                { name: "Content Security Policy", version: null },
-                { name: "Document Compatibility Mode", version: null },
-                { name: "X-Content-Type-Options", version: null },
-                { name: "X-Frame-Options Deny", version: null },
-                { name: "Referrer Policy", version: null },
-                { name: "Stylesheet with SRI", version: null },
-                { name: "X-XSS-Protection Block", version: null },
-                { name: "Verisignseal Image", version: null },
-                { name: "HTML5", version: null },
             ]);
         });
     });
