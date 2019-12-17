@@ -6,7 +6,7 @@ Given("the webpage {string}", (webpage) => {
     this.url = webpage;
 });
 
-When("the user invokes the tool's inspect command", { timeout: 60 * 1000 }, async () => {
+When("the user invokes the tool's inspect command", { timeout: 2 * 60 * 1000 }, async () => {
     this.technologies = await run_tool(`inspect ${this.url}`);
 });
 
