@@ -7,9 +7,9 @@ describe("Webtech exists", () => {
         Config.resetToolConfiguration();
     });
 
-    it("should fail when Webtech is missing", () => {
+    it("should fail when Webtech is disabled", () => {
         expect.assertions(1);
-        Webtech.getWebpageTechnologies().catch((e) => {
+        Webtech.getWebpageTechnologies("https://www.gitlab.com/").catch((e) => {
             expect(e).toEqual(new Error("Webtech disabled"));
         });
     });

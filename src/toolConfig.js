@@ -17,7 +17,6 @@ const DEFAULT_CONFIG = Object.freeze({
  */
 const initToolConfig = (path) => {
     let configs = DEFAULT_CONFIG;
-
     try {
         if (path) configs = {
             ...configs,
