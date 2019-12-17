@@ -18,7 +18,7 @@ class CrawlerCommand extends Command {
         if (whitelist) {
             subdomains_list = getCompatibleWhitelistedSubdomains(whitelist, stripDomain(domain));
         } else {
-            subdomains_list = await getSubdomainsList(domain, { timeout: crawlingTimeout });
+            subdomains_list = await getSubdomainsList(stripDomain(domain), { timeout: crawlingTimeout });
         }
 
         if (subdomains_list.length === 0) {

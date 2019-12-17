@@ -1,6 +1,6 @@
 const Crawler = require("js-crawler");
 const storage = require("node-persist");
-const { HTTPS_REGEX, isUrlFromDomain, addURLEndSlash, stripDomain } = require("./utils");
+const { isUrlFromDomain, addURLEndSlash, stripDomain } = require("./utils");
 const Logger = require("./Logger");
 
 const initStorage = () => (
@@ -49,11 +49,6 @@ const getPagesList = async (domain_name, depth_level = 2, no_cache = false) => {
     if (!domain_name) throw new Error("Missing Domain Name");
     if (depth_level <= 0) throw new Error("Depth Level must be a positive number");
 
-    if (!HTTPS_REGEX.test(domain_name)) {
-        Logger.warning("Domains must have http(s)");
-        return [];
-    }
-
     const domain_key = `${domain_name}-${depth_level}`;
 
     await initStorage();
@@ -82,8 +77,14 @@ const getCrawlTree = async (subdomains_list, depth, noCrawlingCache) => {
 
     await Promise.all(subdomains_list.map(async (subdomain) => {
         // Logger.print(`Fetching pages for subdomain ${subdomain}`);
-        const pages_list = await getPagesList(`https://${addURLEndSlash(stripDomain(subdomain))}`, depth, noCrawlingCache);
-        crawl_tree[subdomain] = pages_list || [];
+
+        const [https_pages, http_pages] = await Promise.all([
+            getPagesList(`https://${addURLEndSlash(stripDomain(subdomain))}`, depth, noCrawlingCache),
+            getPagesList(`http://${addURLEndSlash(stripDomain(subdomain))}`, depth, noCrawlingCache),
+        ]);
+        const results = new Set([...https_pages, ...http_pages]);
+        crawl_tree[subdomain] = Array.from(results);
+
     }));
 
     return crawl_tree;
