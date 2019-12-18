@@ -49,21 +49,26 @@ const getPagesList = async (domain_name, depth_level = 2, no_cache = false) => {
     if (!domain_name) throw new Error("Missing Domain Name");
     if (depth_level <= 0) throw new Error("Depth Level must be a positive number");
 
-    const domain_key = `${domain_name}-${depth_level}`;
+    try {
+        const domain_key = `${domain_name}-${depth_level}`;
 
-    await initStorage();
-    const cached_list = await storage.getItem(domain_key);
+        await initStorage();
+        const cached_list = await storage.getItem(domain_key);
 
-    if (!cached_list || no_cache) {
-        const crawler = getCrawler(domain_name, depth_level);
-        const domain_list = await crawl(crawler, domain_name);
-        storage.setItem(domain_key, domain_list);
-        return domain_list;
-    } else {
-        Logger.print("Cached version found. Using Cached version.", true);
+        if (!cached_list || no_cache) {
+            const crawler = getCrawler(domain_name, depth_level);
+            const domain_list = await crawl(crawler, domain_name);
+            storage.setItem(domain_key, domain_list);
+            return domain_list;
+        } else {
+            Logger.print("Cached version found. Using Cached version.", true);
+        }
+
+        return cached_list;
+    } catch (e) {
+        Logger.warning(`Failed to find page for domain ${domain_name}`);
+        return [];
     }
-
-    return cached_list;
 };
 
 /**

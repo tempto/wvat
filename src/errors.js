@@ -38,6 +38,30 @@ const errors = Object.freeze({
         code: 21,
         description: "Failed to read tool config JSON file",
     },
+    SUBDOMAINS_CRAWLING_FAILED: {
+        code: 31,
+        description: "Failed to perform subdomains crawling",
+    },
+    SUBDOMAINS_GRAPH_FAILED: {
+        code: 32,
+        description: "Failed to generate subdomains crawling graph",
+    },
+    PAGES_CRAWLING_FAILED: {
+        code: 33,
+        description: "Failed to perform pages crawling",
+    },
+    DOMAIN_NETWORK_INFO_FAILED: {
+        code: 34,
+        description: "Failed to obtain domain network information",
+    },
+    HTML_REPORT_FAILURE: {
+        code: 35,
+        description: "Failed to save HTML report",
+    },
+    JSON_REPORT_FAILURE: {
+        code: 36,
+        description: "Failed to save JSON report",
+    },
 });
 
 module.exports = errors;
