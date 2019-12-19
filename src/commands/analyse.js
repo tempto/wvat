@@ -3,7 +3,7 @@ const Command = require("../BaseCommand");
 const Logger = require("../Logger");
 const { getCrawlTree } = require("../PageCrawler");
 const handleTimeout = require("../handleTimeout");
-const { getSubdomainsList } = require("../SubdomainCrawler");
+const { getSubdomainsList, getCompatibleWhitelistedSubdomains } = require("../SubdomainCrawler");
 const { getNetworkInfo } = require("../NetworkInfo");
 const {  generateSubdomainsGraph } = require("../SubdomainsGraph");
 const { findWebPageTechnologies, noVersionCount } = require("../TechAnalyser");
@@ -13,7 +13,7 @@ const {
 const Errors = require("../errors");
 const { saveHTMLReport } = require("../html-report/HTMLReport");
 const { saveJSONReport } = require("../JSONReport");
-const { filterOldCVEs } = require("../utils");
+const { filterOldCVEs, stripDomain } = require("../utils");
 
 class AnalyseCommand extends Command {
     async run() {
@@ -21,7 +21,7 @@ class AnalyseCommand extends Command {
 
         const { domain } = args;
         const {
-            timeout, depth, noCrawlingCache, noCveCache, updateCveCache, graph, crawlingTimeout,
+            timeout, depth, noCrawlingCache, noCveCache, updateCveCache, graph, crawlingTimeout, whitelist,
         } = flags;
 
         const analysis_data = {
@@ -70,7 +70,11 @@ class AnalyseCommand extends Command {
         try {
             Logger.print("Searching for subdomains...");
 
-            subdomains_list = await getSubdomainsList(domain, { timeout: crawlingTimeout });
+            if (whitelist) {
+                subdomains_list = getCompatibleWhitelistedSubdomains(whitelist, stripDomain(domain));
+            } else {
+                subdomains_list = await getSubdomainsList(stripDomain(domain), { timeout: crawlingTimeout });
+            }
 
             if (subdomains_list.length === 0) {
                 Logger.print(`No subdomains found for ${domain}.`);
