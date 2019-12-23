@@ -1,98 +1,10 @@
-# T2G1 - Web Vulnerability Assessment Tool
+# WVAT - Web Vulnerability Assessment Tool
 
-## Team
+*WVAT* is an open-source CLI tool to analyse a domain, its subdomains and respective pages, extracting the used technologies to find their vulnerabilities in order to cross-reference them with known exploits.
 
-- Ângelo Teixeira - up201606516@fe.up.pt, **Surrogate Product Owner (SPO)**
-- Bruno Sousa, up201604145@fe.up.pt
-- Claudio Lemos, up201603542@fe.up.pt
-- João Lemos, up201000660@fe.up.pt
-- João Maduro, up201605219@fe.up.pt
-- Miguel Carvalho, up201605757@fe.up.pt
-- Rui Alves, rui.pedro.alves@fe.up.pt, **Team Leader (TL)**
-- Tiago Ribeiro, up201605619@fe.up.pt
+To contribute, please refer to [Contributing](CONTRIBUTING.md).
 
-## Product Owners
-
-- João Pedro Dias, jpmdias@fe.up.pt
-- Pedro Sousa, pedrodanielsousa1@gmail.com
-- Luís Catarino, luiscatarino@adamantsec.com
-
-## Happiness Meter
-
-The project's happiness meter is available in [this Spreadsheet](https://docs.google.com/spreadsheets/d/1f-j3I1IS-ggwGQmMnuANsPem4z-6J0BrLMBvI6Y8bHI/edit?ts=5d8a3d9d#gid=0).
-
-## Project setup and development
-
-### Installing dependencies
-
-In order to setup the project, install all the project's dependencies:
-
-```
-npm install
-```
-
-### Linting
-
-The project is developed using the `ECMAScript 2018` standards. To lint the developed code, run: 
-
-```
-npm run lint
-```
-
-To fix all the automatically fixable errors, run:
-
-```
-npm run lint-fix
-```
-
-### Testing
-
-For unit test development, the `jest` library is being used. To run all test suites, run:
-
-```
-npm test
-```
-
-In order to perform coverage analysis, building a detailed report, run:
-
-```
-npm run test-coverage
-```
-
-## Staging and Production Bundles
-
-When built, the bundle is uploaded to [Dropbox](https://www.dropbox.com/home/LDSO%20T2G1) using the `upload_dropbox.sh` script (available in the project's root folder). This folder is shared amongst the project's developers and Product owners.
-
-The `staging` bundle is being built and auto-deployed to dropbox's `dev` folder when commits are merged to the `develop` branch.
-
-The `production` bundle is being built and auto-deployed to dropbox's `prod` folder when commits are merged to the `master` branch.
-
-The built bundle features executables for multiple operating systems (Windows and Unix-based) and architectures (x64 and x86).
-
-### Running the Tool from the bundle
-
-#### Windows
-
-To run the tool, simply run the executable file. Executing it will display help on how to run the different available features.
-
-#### Unix-based systems 
-
-The bundle features an executable file (`wvat`) under the `bin` folder. Executing it will display help on how to run the different available features.
-
-## WVAT
-
-wvat
-====
-
-Web Vulnerability Assessment Tool
-
-<!-- toc -->
-* [T2G1 - Web Vulnerability Assessment Tool](#t2g1---web-vulnerability-assessment-tool)
-* [Usage](#usage)
-* [Commands](#commands)
-* [Optional Technologies](#optional-technologies)
-<!-- tocstop -->
-# Usage
+## Usage 
 <!-- usage -->
 ```sh-session
 $ npm install -g wvat
@@ -106,7 +18,8 @@ USAGE
 ...
 ```
 <!-- usagestop -->
-# Commands
+
+## Commands
 <!-- commands -->
 * [`wvat about [COMMAND]`](#wvat-about-command)
 * [`wvat analyse DOMAIN`](#wvat-analyse-domain)
@@ -139,7 +52,7 @@ _See code: [src/commands/about.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blo
 
 ## `wvat analyse DOMAIN`
 
-Test commmand description
+Generate full domain report
 
 ```
 USAGE
@@ -394,26 +307,3 @@ EXAMPLES
 
 _See code: [src/commands/whois.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/whois.js)_
 <!-- commandsstop -->
-# Optional Technologies
-<!-- optionaltechnologies -->
-
-## Webtech
-
-In order to analyse the technologies of a webpage using Webtech, it's required to install it's python package. 
-
-Firstly ensure that both [Python 3](https://www.python.org/downloads/) and [pip](https://pip.pypa.io/en/stable/installing/) are already installed.
-
-Then just use pip to install it:
-````
-pip install webtech
-````
-
-Alternatively, download and install from the [source code](https://github.com/ShielderSec/webtech).
-
-Then change the [configuration file](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/wvat-config.json) to enable Webtech usage:
-```
-"webtech_command": "webtech"
-```
-* The `webtech_command` is the Webtech's console command. The default value from the pip installation is `webtech`.
-
-<!-- optionaltechnologiesstop -->
