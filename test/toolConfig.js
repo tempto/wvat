@@ -10,7 +10,4 @@ describe("toolConfig tests", () => {
             expect(e).toEqual(new Error("Failed to read tool configuration file"));
         }
     });
-    it("should not be empty", () => {
-        expect(initToolConfig("wvat-config.json.test")).not.toBe({});
-    });
 });
