@@ -9,7 +9,7 @@ const { now } = require("./utils");
  */
 const saveJSONReport = (report_data) => {
     if (!report_data) throw new Error("Missing report data");
-    const date = now();
+    const date = now().replace(/:/g, "-");
 
     try {
         fs.writeFileSync(`security_analysis_report_${date}.json`, JSON.stringify(report_data, null, 2));

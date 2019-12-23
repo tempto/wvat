@@ -37,7 +37,7 @@ const buildHTMLReport = (report_data) => {
  */
 const exportHTMLReport = (html_data) => {
     if (!html_data) throw new Error("Missing HTML data");
-    const date = now();
+    const date = now().replace(/:/g, "-");
 
     try {
         fs.writeFileSync(`security_analysis_report_${date}.html`, html_data);

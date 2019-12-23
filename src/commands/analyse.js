@@ -214,7 +214,7 @@ AnalyseCommand.args = [
     },
 ];
 
-AnalyseCommand.description = "Test commmand description";
+AnalyseCommand.description = "Generate full domain report";
 
 const { global, ...flags } = Flags;
 AnalyseCommand.flags = {
