@@ -1,5 +1,4 @@
 const { Command } = require("@oclif/command");
-const Sentry = require("@sentry/node");
 const Config = require("./Config");
 const Logger = require("./Logger");
 
@@ -29,16 +28,10 @@ class BaseCommand extends Command {
     }
 
     /**
-     * Caputers all errors that occur in the commands execution, capturing them in Sentry (Error Middleware)
-     * @param {Error} err Thrown error
-     * @throws {Error} Captured error
+     * Caputers all errors that occur in the commands execution
      */
     catch(err) {
         Logger.error(err);
-        if (Config.tool_config.allow_data_reporting) {
-            const sentry_issue_id = Sentry.captureException(err);
-            Logger.error(`Sentry Issue ID: ${sentry_issue_id}`);
-        }
     }
 }
 

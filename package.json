@@ -14,7 +14,6 @@
     "@oclif/config": "^1.13.3",
     "@oclif/dev-cli": "^1.22.2",
     "@oclif/plugin-help": "^2.2.1",
-    "@sentry/node": "^5.9.0",
     "asciiart-logo": "^0.2.6",
     "await-spawn": "^3.0.0",
     "axios": "^0.19.0",
@@ -68,9 +67,6 @@
   "oclif": {
     "commands": "./src/commands",
     "hooks": {
-      "init": [
-        "./src/hooks/setupSentry"
-      ],
       "tool-config": "./src/hooks/setupToolConfig"
     },
     "bin": "wvat",
