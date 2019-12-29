@@ -1,0 +1,98 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.16.3
+    steps:
+      - checkout
+      - run:
+          name: Update npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: Install npm dependencies
+          command: npm install
+
+      - persist_to_workspace:
+          root: .
+          paths:
+              - .
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+  test:
+    docker:
+        - image: circleci/node:10.16.3
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Test
+          command: npm test
+      - run:
+          name: Generate code coverage
+          command: 'npm test'
+      - store_artifacts:
+          path: test-results.xml
+          prefix: tests
+      - store_artifacts:
+          path: coverage
+          prefix: coverage
+
+  bundle-release:
+    docker:
+        - image: circleci/node:10.16.3
+    steps:
+        - attach_workspace:
+            at: .
+        - run:
+            name: "Create Bundle"
+            command: |
+                sudo apt-get update
+                sudo apt-get install -y p7zip-full
+                sudo apt-get install -y nsis 
+                sudo apt-get install -y jq
+                
+                ./build.sh unix
+                ./build.sh windows
+                ./bundle.sh
+        - persist_to_workspace:
+            root: .
+            paths:
+                - dist/
+  publish-github-release:
+    docker:
+        - image: circleci/golang:1.9
+    steps:
+        - attach_workspace:
+            at: .
+        - run:
+            name: "Publish Release on GitHub"
+            command: |
+                go get github.com/tcnksm/ghr
+                
+                VERSION=$(jq -r ".version" package.json)
+                ghr -t ${ACCESS_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} dist/wvat*
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - bundle-release:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
+      - publish-github-release:
+          requires:
+            - bundle-release
+          filters:
+            branches:
+              only: master
