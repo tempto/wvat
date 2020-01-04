@@ -2,7 +2,7 @@
 
 *WVAT* is an open-source CLI tool to analyse a domain, its subdomains and respective pages, extracting the used technologies to find their vulnerabilities in order to cross-reference them with known exploits.
 
-To contribute, please refer to [Contributing](CONTRIBUTING.md).
+To contribute, please refer to [Contributing](https://github.com/tempto/wvat/blob/master/CONTRIBUTING.md).
 
 ## Usage 
 <!-- usage -->
@@ -48,7 +48,7 @@ EXAMPLES
   about whois
 ```
 
-_See code: [src/commands/about.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/about.js)_
+_See code: [src/commands/about.js](https://github.com/tempto/wvat/tree/master/src/commands/about.js)_
 
 ## `wvat analyse DOMAIN`
 
@@ -102,7 +102,7 @@ EXAMPLES
   analyse https://www.github.com -t 10 --noCveCache --noCrawlingCache
 ```
 
-_See code: [src/commands/analyse.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/analyse.js)_
+_See code: [src/commands/analyse.js](https://github.com/tempto/wvat/tree/master/src/commands/analyse.js)_
 
 ## `wvat crawl DOMAIN`
 
@@ -145,7 +145,7 @@ OPTIONS
       Text file with subdomains to analyze
 ```
 
-_See code: [src/commands/crawl.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/crawl.js)_
+_See code: [src/commands/crawl.js](https://github.com/tempto/wvat/tree/master/src/commands/crawl.js)_
 
 ## `wvat cves TECHNOLOGY`
 
@@ -198,7 +198,7 @@ EXAMPLES
   cves "Windows Server" --updateCveCache
 ```
 
-_See code: [src/commands/cves.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/cves.js)_
+_See code: [src/commands/cves.js](https://github.com/tempto/wvat/tree/master/src/commands/cves.js)_
 
 ## `wvat error-codes`
 
@@ -209,7 +209,7 @@ USAGE
   $ wvat error-codes
 ```
 
-_See code: [src/commands/error-codes.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/error-codes.js)_
+_See code: [src/commands/error-codes.js](https://github.com/tempto/wvat/tree/master/src/commands/error-codes.js)_
 
 ## `wvat exploits CVE`
 
@@ -223,7 +223,7 @@ ARGUMENTS
   CVE  CVE to search know exploits
 ```
 
-_See code: [src/commands/exploits.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/exploits.js)_
+_See code: [src/commands/exploits.js](https://github.com/tempto/wvat/tree/master/src/commands/exploits.js)_
 
 ## `wvat help [COMMAND]`
 
@@ -265,7 +265,7 @@ OPTIONS
   -v, --verbose          Verbose Mode (outputs all messages to screen)
 ```
 
-_See code: [src/commands/inspect.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/inspect.js)_
+_See code: [src/commands/inspect.js](https://github.com/tempto/wvat/tree/master/src/commands/inspect.js)_
 
 ## `wvat update-cve-cache`
 
@@ -276,7 +276,7 @@ USAGE
   $ wvat update-cve-cache
 ```
 
-_See code: [src/commands/update-cve-cache.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/update-cve-cache.js)_
+_See code: [src/commands/update-cve-cache.js](https://github.com/tempto/wvat/tree/master/src/commands/update-cve-cache.js)_
 
 ## `wvat whois DOMAIN`
 
@@ -305,5 +305,5 @@ EXAMPLES
   whois youtube.com --verbose
 ```
 
-_See code: [src/commands/whois.js](https://gitlab.com/feup-tbs/ldso1920/t2g1/blob/master/src/commands/whois.js)_
+_See code: [src/commands/whois.js](https://github.com/tempto/wvat/tree/master/src/commands/whois.js)_
 <!-- commandsstop -->
