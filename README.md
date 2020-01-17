@@ -307,3 +307,37 @@ EXAMPLES
 
 _See code: [src/commands/whois.js](https://github.com/tempto/wvat/tree/master/src/commands/whois.js)_
 <!-- commandsstop -->
+
+## Tool Screencasts
+
+#### About Command
+
+![About Command](https://user-images.githubusercontent.com/25830462/72613022-64266600-3926-11ea-9003-622dbe730971.gif)
+
+#### Crawl Command
+
+![Crawl Command](https://user-images.githubusercontent.com/25830462/72613024-64befc80-3926-11ea-8aae-bd8629d69e4b.gif)
+
+#### Inspect Command
+
+![Inspect Command](https://user-images.githubusercontent.com/25830462/72613030-6688c000-3926-11ea-8fa7-58853e4a3114.gif)
+
+#### CVEs Command
+
+![CVEs Command](https://user-images.githubusercontent.com/25830462/72613025-65579300-3926-11ea-87ab-f78758933c2c.gif)
+
+#### Exploits Command
+
+![Exploits Command](https://user-images.githubusercontent.com/25830462/72613028-65579300-3926-11ea-9b3c-dc945835cced.gif)
+
+#### Analyse Command
+
+![Analyse Command](https://user-images.githubusercontent.com/25830462/72613023-64266600-3926-11ea-9291-5604ff19e410.gif)
+
+#### Who Is Command
+
+![Who Is Command](https://user-images.githubusercontent.com/25830462/72613032-6688c000-3926-11ea-8fbc-ba606e10835e.gif)
+
+#### Update CVEs Cache Command
+
+![Update CVEs Cache Command](https://user-images.githubusercontent.com/25830462/72613031-6688c000-3926-11ea-8d7c-4543cd863d79.gif)
